@@ -1,0 +1,21 @@
+Position40 proliferation IO validation report
+LIF: /data/parasite_task/time-lapse/20211028_Pos36_40.lif
+Selected Position40 series (0-based): 4
+Selected Position40 series name: Position040
+Series selection reason: Series hierarchy: strict metadata-name match (position/pos + 40, allowing zero padding).
+Series fallback mapping (if used): 
+Position40 dimensions X/Y/C/Z/T: 2048/2048/3/1/263
+Source image bounds: x=0, y=0, w=2048, h=2048
+Opened only last timepoint index (0-based): 262
+Resolved green channel index (1-based): 2
+Resolved red channel index (1-based): 3
+Channel resolution reason: Fallback hierarchy: metadata/LUT ambiguous; exactly 3 channels exist; using acquisition description order Brightfield,Green,Red.
+Metadata green candidates: []
+Metadata red candidates: []
+LUT green candidates: []
+LUT red candidates: []
+LastFrame_Overview bounds: x=537, y=849, w=608, h=608
+Control ROIs exact duplicates across all sets: false
+TUNEL unique geometry groups: 8
+Set pairing summary: each set has 9 parasites, 27 backgrounds, globally one-to-one 3-per-parasite assignment.
+No intensity measurement/correction/PI/statistics/plot performed in this step.

@@ -1,0 +1,12 @@
+Variable-background all-position proliferation-index statistics (Stage 1)
+Input raw rows: 2083; parasite rows: 738; mapping rows: 2128
+Validated positions with single parasites: 35
+Primary valid PI counts: TUNEL+=173, TUNEL-=556, total=729
+TUNEL+: n=173, mean=7.5183, sd=2.17241, median=7.921, IQR=1.6487, min=-14.3348, max=9.8242
+TUNEL-: n=556, mean=7.1698, sd=2.16679, median=7.58513, IQR=1.58222, min=-27.8417, max=9.64789
+Primary Mann-Whitney (two-sided, asymptotic tie-corrected): U=56248.0, p=0.0007499282991933167, rank-biserial=-0.16954297833409582, median_diff(TUNEL+ - TUNEL-)=0.3358724087400349
+Sensitivity analyses included in Statistics_Results.csv:
+ - Excluding distance_outlier_flag
+ - Excluding low_denominator_flag
+ - Excluding either distance_outlier_flag or low_denominator_flag
+Caution: parasites are nested within macrophages and positions; parasite-level tests do not model this hierarchy.

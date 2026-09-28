@@ -1,0 +1,11 @@
+Project: leishmania_tunel_position40
+Stage: 1 statistics/classification only (no plotting)
+Input rows used after NaN filtering: 14
+Background ROIs: n=8, average_mean=124.964533, sample_sd=0.273879
+Pipeline A thresholds: raw>125.786169 OR corrected>0.821636 => TUNEL+
+Nuclei: total=6, TUNEL+=6, TUNEL-=0
+IQR outliers (corrected): 0
+Primary two-group test not estimable because Pipeline A produced one group only.
+UNAPPROVED fallback diagnostic computed (sorted corrected intensities + largest adjacent gap candidate split).
+Unapproved candidate threshold=782.045575 from largest gap=99.675863 between 732.207644 and 831.883507.
+Decision needed: user must approve a fallback split policy or keep single-group conclusion.

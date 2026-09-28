@@ -1,0 +1,13 @@
+First position runtime failure diagnostic
+=======================================
+perPositionRuntimeFailures=0
+imageOpenFailures=0
+imageValidationFailures=0
+measuredRows=607
+excludedRows=450
+exclusionHistogram=HOST_INCOMPLETE_OR_UNUSABLE:282; NON_CANONICAL_SOURCE:11; PRELIMINARY_DECISION_EXCLUDE_CLUMP:135; PRELIMINARY_DECISION_REVIEW:22
+
+firstPositionRuntimeFailureSummary:
+NONE_CAPTURED
+firstPositionRuntimeFailureStack:
+NONE_CAPTURED

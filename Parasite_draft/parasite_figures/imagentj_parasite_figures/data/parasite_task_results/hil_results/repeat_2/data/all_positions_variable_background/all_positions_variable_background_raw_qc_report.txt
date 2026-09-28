@@ -1,0 +1,20 @@
+Variable-background RAW measurement QC report
+Input pairing: /app/data/projects/leishmania_tunel_position40/data/all_positions_variable_background/all_positions_variable_background_pairing.csv
+Input assignment summary: /app/data/projects/leishmania_tunel_position40/data/all_positions_variable_background/all_positions_variable_background_assignment_summary.csv
+Input manifest: /app/data/projects/leishmania_tunel_position40/data/all_positions_proliferation_manifest.csv
+Input morphology: /app/data/projects/leishmania_tunel_position40/data/all_positions_proliferation_parasite_morphology.csv
+Input ROI root: /data/parasite_task/3. Data Analysis ROIs/Macrophages
+Expected computable parasites: 738
+Expected mapping rows: 2128
+Observed assignment unique parasites: 738
+Observed computable pairing rows: 2128
+Measured parasite rows: 738
+Measured total rows (parasite + background): 2083
+Measured positions: 35
+Morphology likely_clump true rows seen: 69
+Morphology likely_clump false rows seen: 738
+Unresolved mappings: 0
+Unsafe bounds detections: 0
+Saturation detections: 0
+Per-position errors: 0
+No background correction, PI calculation, statistics, or plotting performed.

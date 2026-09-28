@@ -1,0 +1,22 @@
+Position040 TUNEL statistics summary (exploratory, post-selection)
+---------------------------------------------------------------
+Background mean (8 ROIs): 124.964533
+Background SD/median/min/max/CV%: 0.273879 / 124.980894 / 124.455285 / 125.250407 / 0.219165
+
+Largest-gap classification on corrected nucleus means (n=6):
+Largest gap=99.675863; second-largest gap=57.586777; ratio=1.730881
+Threshold midpoint=782.045575; class counts: TUNEL-=3, TUNEL+=3
+
+Group summaries (corrected_tunel_mean):
+TUNEL-: n=3, mean=678.630968, SD=51.688424, median=674.620867, IQR=51.571625, min=629.064393, max=732.207644
+TUNEL+: n=3, mean=844.367416, SD=11.214765, median=847.628605, IQR=10.853315, min=831.883507, max=853.590137
+|mean diff|=165.736448; |median diff|=173.007738
+
+Exact Mann-Whitney U two-sided: U_neg=0.000000, p=0.1
+Exact permutation (mean difference) two-sided: delta_mean=165.736448, p=0.1, permutations=20
+Rank-biserial r=1.000000
+
+IMPORTANT LIMITATION:
+Groups were defined from the same corrected outcome (largest-gap split).
+Therefore all p-values are exploratory/post-selection and not confirmatory
+evidence of an independent biological group difference.

@@ -1,0 +1,48 @@
+Phase 4b Proliferation Measurement QC Report
+===========================================
+
+Input provenance (required): time-lapse Position040 series 4 (0-based), final frame T=262 (0-based) / frame 263 (1-based), C2=mKikume green, C3=photoconverted mKikume red
+Endpoint reference LIF path (not measured here): /data/parasite_task/20210728_TUNEL_staining.lif
+Time-lapse source LIF path: /data/parasite_task/time-lapse/20211028_Pos36_40.lif
+Measured channels (native TIFF exports):
+ - C2 mKikume green: /app/data/projects/leishmania_tunel_position40/processed_images/proliferation_io/position40_lastframe_native_channel_C2.tif
+ - C3 photoconverted mKikume red: /app/data/projects/leishmania_tunel_position40/processed_images/proliferation_io/position40_lastframe_native_channel_C3.tif
+Image checks passed: both 2048x2048, 16-bit, identical calibration.
+Calibration: pixelWidth=0.32231032037645846 micron, pixelHeight=0.32231032037645846 micron
+Source-preservation rule: measured directly on untouched native 16-bit duplicated images; no conversion, filtering, scaling, LUT-dependent operations, or contrast-dependent measurement.
+
+Mapping source: /app/data/projects/leishmania_tunel_position40/processed_images/proliferation_verification/Proliferation_Background_Mapping_Audit.csv
+CSV parser: RFC4180 quote-aware parser (embedded commas preserved).
+ROI resolver: static RoiDecoder.open(path) + case-insensitive basename lookup.
+Set structure checks: 4 sets, 9 parasites/set, 3 unique backgrounds/parasite, 27 unique backgrounds/set, 108 mapping rows total.
+
+Measured rows:
+ - Raw ROI intensity rows: 144 (expected 144)
+ - Parasite-background link rows: 108 (expected 108)
+ - Per-parasite corrected summary rows: 36 (expected 36)
+
+Formulas:
+ - avg_background_green_unweighted = mean(background1_green_raw_mean, background2_green_raw_mean, background3_green_raw_mean)
+ - avg_background_red_unweighted = mean(background1_red_raw_mean, background2_red_raw_mean, background3_red_raw_mean)
+ - corrected_green = parasite_green_raw_mean - avg_background_green_unweighted
+ - corrected_red = parasite_red_raw_mean - avg_background_red_unweighted
+ - provisional_proliferation_index = 10 - corrected_red/corrected_green
+ - denominator near-zero threshold eps = 1.0E-9
+
+Denominator/NaN QC counts:
+ - corrected_green <= 0 rows: 0
+ - corrected_green near-zero (|value|<=eps, >0) rows: 0
+ - provisional_proliferation_index NaN rows: 0
+
+Stable ID policy:
+ - Repeated controls C1-C7 keep shared stable IDs across sets: CONTROL_C1..CONTROL_C7 (set rows preserved)
+ - Unique TUNEL+ parasites include set in stable ID: SET{n}_TUNELPOS_{name}
+ - Set-specific row IDs are preserved for all parasites: SET{n}__{name}
+
+Outputs:
+ - /app/data/projects/leishmania_tunel_position40/measurements/proliferation_index/Proliferation_Raw_ROI_Intensities.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/proliferation_index/Proliferation_Parasite_Background_Links.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/proliferation_index/Proliferation_Parasite_Corrected_Summary.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/proliferation_index/Measurement_QC_Report.txt
+
+SUCCESS: Phase 4b proliferation measurement-only outputs generated. No classification/statistics/plotting performed.

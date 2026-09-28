@@ -1,0 +1,51 @@
+Variable-background spatial pairing report
+================================================
+Input morphology rows: 807
+likely_clump=true: 69
+likely_clump=false (target set): 738
+Computable parasites: 738
+Uncomputable parasites: 0
+Total selected parasite-background rows: 2128
+Nearest-distance outliers (median+3*scale): 91 (retained)
+
+Selection rule:
+Sort same-position background distances; examine first 6; if max adjacent ratio >= 1.5, keep nearer side (min 1), else nearest min(3, available).
+Background acceptance:
+Prefer explicit include/final-frame status; fallback to numeric prefix max and max-1 when inconsistent.
+
+Per-position accepted backgrounds:
+  Position 1: accepted=27, mode=token_fallback_max_maxminus1, tokens=788
+  Position 2: accepted=26, mode=explicit_status, tokens=789
+  Position 3: accepted=96, mode=explicit_status, tokens=789
+  Position 4: accepted=27, mode=explicit_status, tokens=789
+  Position 5: accepted=21, mode=token_fallback_max_maxminus1, tokens=789
+  Position 6: accepted=30, mode=explicit_status, tokens=788;789
+  Position 7: accepted=69, mode=explicit_status, tokens=788;789
+  Position 8: accepted=123, mode=token_fallback_max_maxminus1, tokens=789
+  Position 9: accepted=78, mode=explicit_status, tokens=789
+  Position 10: accepted=21, mode=token_fallback_max_maxminus1, tokens=789
+  Position 11: accepted=78, mode=explicit_status, tokens=789
+  Position 12: accepted=108, mode=explicit_status, tokens=789
+  Position 13: accepted=27, mode=explicit_status, tokens=789
+  Position 14: accepted=189, mode=explicit_status, tokens=788;789
+  Position 16: accepted=27, mode=explicit_status, tokens=789
+  Position 18: accepted=27, mode=explicit_status, tokens=789
+  Position 20: accepted=129, mode=token_fallback_max_maxminus1, tokens=789
+  Position 21: accepted=27, mode=explicit_status, tokens=789
+  Position 23: accepted=72, mode=token_fallback_max_maxminus1, tokens=789
+  Position 24: accepted=108, mode=token_fallback_max_maxminus1, tokens=789
+  Position 25: accepted=27, mode=explicit_status, tokens=787
+  Position 26: accepted=54, mode=explicit_status, tokens=789
+  Position 27: accepted=108, mode=explicit_status, tokens=789
+  Position 28: accepted=27, mode=explicit_status, tokens=787
+  Position 29: accepted=27, mode=explicit_status, tokens=789
+  Position 30: accepted=81, mode=explicit_status, tokens=789
+  Position 31: accepted=27, mode=explicit_status, tokens=787
+  Position 32: accepted=129, mode=token_fallback_max_maxminus1, tokens=789
+  Position 33: accepted=21, mode=token_fallback_max_maxminus1, tokens=789
+  Position 34: accepted=117, mode=token_fallback_max_maxminus1, tokens=789
+  Position 36: accepted=27, mode=explicit_status, tokens=789
+  Position 37: accepted=27, mode=explicit_status, tokens=787
+  Position 38: accepted=27, mode=explicit_status, tokens=789
+  Position 39: accepted=51, mode=explicit_status, tokens=788;789
+  Position 40: accepted=30, mode=token_fallback_max_maxminus1, tokens=789

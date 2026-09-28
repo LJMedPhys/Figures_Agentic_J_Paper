@@ -1,0 +1,18 @@
+Position040 channel-2 alternative signal analysis (exploratory post-selection).
+Input rows validated: 14 total = 6 nuclei (Cell 1..Cell 6) + 8 backgrounds.
+Background raw_channel2_mean: mean=190.766870, SD=0.666428, median=191.008943, min=189.400813, max=191.352846, CV%=0.349.
+Threshold from unique largest adjacent gap: midpoint=16.340242, largest_gap=9.423590, second_largest_gap=2.747934, gap_ratio=3.429336.
+Group Channel 2 low: n=5, mean=8.114473, SD=2.395814, median=8.095875, IQR=2.209474, min=5.296491, max=11.628447.
+Group Channel 2 high: n=1, mean=21.052037, SD=nan, median=21.052037, IQR=0.000000, min=21.052037, max=21.052037.
+Mean difference (high-low)=12.937564; median difference (high-low)=12.956162.
+Mann-Whitney U exact two-sided: U=0.000000, p=0.333333.
+Exact permutation test (mean diff high-low): p=0.166667 across 6 labelings.
+Rank-biserial effect size: r=1.000000.
+P-values are exploratory/post-selection because classes were derived from the same corrected values.
+Cell classifications:
+  - Cell 1: Channel 2 low (corrected_channel2_mean=6.671039)
+  - Cell 2: Channel 2 low (corrected_channel2_mean=8.095875)
+  - Cell 3: Channel 2 high (corrected_channel2_mean=21.052037)
+  - Cell 4: Channel 2 low (corrected_channel2_mean=5.296491)
+  - Cell 5: Channel 2 low (corrected_channel2_mean=8.880513)
+  - Cell 6: Channel 2 low (corrected_channel2_mean=11.628447)

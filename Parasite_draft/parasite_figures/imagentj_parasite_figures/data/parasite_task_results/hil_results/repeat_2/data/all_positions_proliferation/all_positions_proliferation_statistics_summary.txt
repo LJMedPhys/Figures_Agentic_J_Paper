@@ -1,0 +1,16 @@
+All-position proliferation-index statistics (Stage 1)
+
+Included mapping rows validated: 551 (expected 551)
+Usable positions validated: 25 (expected 25)
+Channel validation: C2=green, C3=red (schema-consistent raw_green/raw_red fields).
+
+Primary parasite-level valid PI summary:
+  TUNEL+: n=115, mean=6.88769, SD=4.51363, median=7.7203, IQR=1.69984, min=-32.8144, max=9.66548
+  TUNEL-: n=433, mean=7.31202, SD=1.52841, median=7.64431, IQR=1.55976, min=-0.0713201, max=9.43256
+
+Primary parasite-level Mann–Whitney (two-sided, asymptotic/tie-corrected): U=26153, p=0.405699, rank-biserial r=0.0504267, median difference (TUNEL+ - TUNEL-)=0.075985
+
+Sensitivity (exclude low-denominator flagged parasites): U=24194, p=0.213291, rank-biserial r=0.0774918, median difference=0.111785
+Sensitivity (host-cell median PI per position+host): U=21740, p=0.214135, rank-biserial r=0.0771708, median difference=0.100561
+
+Nesting caveat: parasites are nested within host cells and positions; parasite-level inference may overstate effective independent N, so host-level sensitivity is provided.

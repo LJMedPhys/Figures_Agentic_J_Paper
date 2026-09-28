@@ -1,0 +1,150 @@
+Phase 4b All-Position Proliferation Measurement-Only QC Report
+===========================================================
+
+Input files:
+ - Decisions CSV: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_verification/All_Position_Parasite_Preliminary_Decisions.csv
+ - Host inventory CSV: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_io/Host_Cell_Inventory.csv
+ - Background assignment CSV: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_io/Background_Assignment_Proposal_AllPositions.csv
+ - Position-to-series map CSV: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_io/Position_to_LIF_Series_Map.csv
+
+Selection gates:
+ - is_from_canonical_source=true
+ - preliminary_decision=INCLUDE_SINGLE_CANDIDATE
+ - host_complete (Host_Cell_Inventory cell_usable)=true
+ - ROI bounds fully within 2048x2048
+ - exact canonical duplicates deduplicated by Position+host+parasite basename+geometry fingerprint+path
+
+Background model:
+ - Corrected host-cell model enforced
+ - Exactly three existing, unique, in-bounds background ROIs required per measured host
+ - Each host background measured once/channel and reused for all host parasites
+
+Image verification:
+ - Native TIFFs read from processed_images/all_positions_native per position
+ - Required dimensions/bit-depth: 2048x2048 16-bit
+ - Required calibration compatibility: C2/C3 pixelWidth and pixelHeight must match within tolerance, pixelDepth must be compatible when present, units compared after normalization (e.g., um vs µm), expected pixel size=0.32231032037645846 um
+ - If one/both TIFF unit fields are missing but C2/C3 dimensions and pixel sizes are compatible and provenance is fixed by position/series/final-frame mapping, ledger calibration 0.32231032037645846 um is used for calibrated area and logged in QC
+
+Formulae:
+ - average_background_green = mean(3 host background green means)
+ - average_background_red = mean(3 host background red means)
+ - corrected_green = parasite_green_raw_mean - average_background_green
+ - corrected_red = parasite_red_raw_mean - average_background_red
+ - proliferation_index = 10 - corrected_red/corrected_green
+ - denominator near-zero threshold: max(1e-12, 1024.0 * ulp(scale)), scale=max(1,|rawGreen|,|avgBgGreen|,|correctedGreen|)
+
+Counts:
+ - Total decision rows: 1057
+ - Canonical candidates: 1046
+ - Canonical INCLUDE_SINGLE_CANDIDATE rows: 889
+ - Canonical+include+host_complete rows: 607
+ - Canonical+include+host_complete+in_bounds rows: 607
+ - Accepted rows before de-dup: 607
+ - Accepted rows after de-dup: 607
+ - Measurable rows after background resolution: 607
+ - Measured unique parasites (output rows): 607
+ - Excluded rows (audit rows): 450
+ - Host background measurement rows: 1725 (expected measured_hosts*3 = 1725)
+ - Invalid denominator/index rows: 24
+ - Position image open failures: 0
+ - Position image validation failures: 0
+ - Position runtime failures: 0
+ - Calibration discrepancies tolerated/logged: 0
+
+Measured parasites by group:
+ - TUNEL+: 124
+ - TUNEL-: 483
+ - UNKNOWN: 0
+
+Measured parasites by position and group:
+ - Position_001: total=9, TUNEL+=2, TUNEL-=7, UNKNOWN=0
+ - Position_002: total=8, TUNEL+=1, TUNEL-=7, UNKNOWN=0
+ - Position_003: total=27, TUNEL+=2, TUNEL-=25, UNKNOWN=0
+ - Position_004: total=8, TUNEL+=1, TUNEL-=7, UNKNOWN=0
+ - Position_005: total=8, TUNEL+=2, TUNEL-=6, UNKNOWN=0
+ - Position_006: total=7, TUNEL+=0, TUNEL-=7, UNKNOWN=0
+ - Position_007: total=21, TUNEL+=1, TUNEL-=20, UNKNOWN=0
+ - Position_008: total=36, TUNEL+=7, TUNEL-=29, UNKNOWN=0
+ - Position_009: total=12, TUNEL+=2, TUNEL-=10, UNKNOWN=0
+ - Position_010: total=8, TUNEL+=1, TUNEL-=7, UNKNOWN=0
+ - Position_011: total=11, TUNEL+=0, TUNEL-=11, UNKNOWN=0
+ - Position_012: total=36, TUNEL+=8, TUNEL-=28, UNKNOWN=0
+ - Position_013: total=7, TUNEL+=0, TUNEL-=7, UNKNOWN=0
+ - Position_014: total=63, TUNEL+=14, TUNEL-=49, UNKNOWN=0
+ - Position_016: total=7, TUNEL+=1, TUNEL-=6, UNKNOWN=0
+ - Position_018: total=8, TUNEL+=1, TUNEL-=7, UNKNOWN=0
+ - Position_020: total=40, TUNEL+=8, TUNEL-=32, UNKNOWN=0
+ - Position_021: total=9, TUNEL+=2, TUNEL-=7, UNKNOWN=0
+ - Position_023: total=23, TUNEL+=2, TUNEL-=21, UNKNOWN=0
+ - Position_024: total=43, TUNEL+=9, TUNEL-=34, UNKNOWN=0
+ - Position_025: total=8, TUNEL+=2, TUNEL-=6, UNKNOWN=0
+ - Position_026: total=8, TUNEL+=1, TUNEL-=7, UNKNOWN=0
+ - Position_027: total=33, TUNEL+=8, TUNEL-=25, UNKNOWN=0
+ - Position_028: total=5, TUNEL+=0, TUNEL-=5, UNKNOWN=0
+ - Position_029: total=7, TUNEL+=2, TUNEL-=5, UNKNOWN=0
+ - Position_030: total=18, TUNEL+=6, TUNEL-=12, UNKNOWN=0
+ - Position_031: total=9, TUNEL+=2, TUNEL-=7, UNKNOWN=0
+ - Position_032: total=24, TUNEL+=10, TUNEL-=14, UNKNOWN=0
+ - Position_033: total=9, TUNEL+=2, TUNEL-=7, UNKNOWN=0
+ - Position_034: total=45, TUNEL+=9, TUNEL-=36, UNKNOWN=0
+ - Position_036: total=9, TUNEL+=2, TUNEL-=7, UNKNOWN=0
+ - Position_037: total=7, TUNEL+=1, TUNEL-=6, UNKNOWN=0
+ - Position_038: total=8, TUNEL+=1, TUNEL-=7, UNKNOWN=0
+ - Position_039: total=13, TUNEL+=9, TUNEL-=4, UNKNOWN=0
+ - Position_040: total=13, TUNEL+=5, TUNEL-=8, UNKNOWN=0
+
+Excluded rows by reason:
+ - HOST_INCOMPLETE_OR_UNUSABLE: 282
+ - NON_CANONICAL_SOURCE: 11
+ - PRELIMINARY_DECISION_EXCLUDE_CLUMP: 135
+ - PRELIMINARY_DECISION_REVIEW: 22
+
+Index range (valid numeric rows only):
+ - min proliferation_index: -5.172982486130071
+ - max proliferation_index: 25.675090252705385
+
+Source provenance summary (C2 green / C3 red / final frame):
+ - Position_001: lif=/data/parasite_task/time-lapse/20211028_Pos1_5.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_001/Position_001_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_001/Position_001_final_native_C3_mkikume_red.tif
+ - Position_002: lif=/data/parasite_task/time-lapse/20211028_Pos1_5.lif, series0=1, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_002/Position_002_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_002/Position_002_final_native_C3_mkikume_red.tif
+ - Position_003: lif=/data/parasite_task/time-lapse/20211028_Pos1_5.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_003/Position_003_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_003/Position_003_final_native_C3_mkikume_red.tif
+ - Position_004: lif=/data/parasite_task/time-lapse/20211028_Pos1_5.lif, series0=3, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_004/Position_004_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_004/Position_004_final_native_C3_mkikume_red.tif
+ - Position_005: lif=/data/parasite_task/time-lapse/20211028_Pos1_5.lif, series0=4, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_005/Position_005_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_005/Position_005_final_native_C3_mkikume_red.tif
+ - Position_006: lif=/data/parasite_task/time-lapse/20211028_Pos6_10.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_006/Position_006_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_006/Position_006_final_native_C3_mkikume_red.tif
+ - Position_007: lif=/data/parasite_task/time-lapse/20211028_Pos6_10.lif, series0=1, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_007/Position_007_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_007/Position_007_final_native_C3_mkikume_red.tif
+ - Position_008: lif=/data/parasite_task/time-lapse/20211028_Pos6_10.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_008/Position_008_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_008/Position_008_final_native_C3_mkikume_red.tif
+ - Position_009: lif=/data/parasite_task/time-lapse/20211028_Pos6_10.lif, series0=3, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_009/Position_009_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_009/Position_009_final_native_C3_mkikume_red.tif
+ - Position_010: lif=/data/parasite_task/time-lapse/20211028_Pos6_10.lif, series0=4, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_010/Position_010_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_010/Position_010_final_native_C3_mkikume_red.tif
+ - Position_011: lif=/data/parasite_task/time-lapse/20211028_Pos11_15.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_011/Position_011_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_011/Position_011_final_native_C3_mkikume_red.tif
+ - Position_012: lif=/data/parasite_task/time-lapse/20211028_Pos11_15.lif, series0=1, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_012/Position_012_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_012/Position_012_final_native_C3_mkikume_red.tif
+ - Position_013: lif=/data/parasite_task/time-lapse/20211028_Pos11_15.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_013/Position_013_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_013/Position_013_final_native_C3_mkikume_red.tif
+ - Position_014: lif=/data/parasite_task/time-lapse/20211028_Pos11_15.lif, series0=3, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_014/Position_014_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_014/Position_014_final_native_C3_mkikume_red.tif
+ - Position_016: lif=/data/parasite_task/time-lapse/20211028_Pos16_20.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_016/Position_016_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_016/Position_016_final_native_C3_mkikume_red.tif
+ - Position_018: lif=/data/parasite_task/time-lapse/20211028_Pos16_20.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_018/Position_018_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_018/Position_018_final_native_C3_mkikume_red.tif
+ - Position_020: lif=/data/parasite_task/time-lapse/20211028_Pos16_20.lif, series0=4, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_020/Position_020_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_020/Position_020_final_native_C3_mkikume_red.tif
+ - Position_021: lif=/data/parasite_task/time-lapse/20211028_Pos21_25.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_021/Position_021_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_021/Position_021_final_native_C3_mkikume_red.tif
+ - Position_023: lif=/data/parasite_task/time-lapse/20211028_Pos21_25.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_023/Position_023_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_023/Position_023_final_native_C3_mkikume_red.tif
+ - Position_024: lif=/data/parasite_task/time-lapse/20211028_Pos21_25.lif, series0=3, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_024/Position_024_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_024/Position_024_final_native_C3_mkikume_red.tif
+ - Position_025: lif=/data/parasite_task/time-lapse/20211028_Pos21_25.lif, series0=4, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_025/Position_025_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_025/Position_025_final_native_C3_mkikume_red.tif
+ - Position_026: lif=/data/parasite_task/time-lapse/20211028_Pos26_30.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_026/Position_026_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_026/Position_026_final_native_C3_mkikume_red.tif
+ - Position_027: lif=/data/parasite_task/time-lapse/20211028_Pos26_30.lif, series0=1, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_027/Position_027_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_027/Position_027_final_native_C3_mkikume_red.tif
+ - Position_028: lif=/data/parasite_task/time-lapse/20211028_Pos26_30.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_028/Position_028_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_028/Position_028_final_native_C3_mkikume_red.tif
+ - Position_029: lif=/data/parasite_task/time-lapse/20211028_Pos26_30.lif, series0=3, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_029/Position_029_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_029/Position_029_final_native_C3_mkikume_red.tif
+ - Position_030: lif=/data/parasite_task/time-lapse/20211028_Pos26_30.lif, series0=4, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_030/Position_030_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_030/Position_030_final_native_C3_mkikume_red.tif
+ - Position_031: lif=/data/parasite_task/time-lapse/20211028_Pos31_35.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_031/Position_031_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_031/Position_031_final_native_C3_mkikume_red.tif
+ - Position_032: lif=/data/parasite_task/time-lapse/20211028_Pos31_35.lif, series0=1, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_032/Position_032_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_032/Position_032_final_native_C3_mkikume_red.tif
+ - Position_033: lif=/data/parasite_task/time-lapse/20211028_Pos31_35.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_033/Position_033_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_033/Position_033_final_native_C3_mkikume_red.tif
+ - Position_034: lif=/data/parasite_task/time-lapse/20211028_Pos31_35.lif, series0=3, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_034/Position_034_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_034/Position_034_final_native_C3_mkikume_red.tif
+ - Position_036: lif=/data/parasite_task/time-lapse/20211028_Pos36_40.lif, series0=0, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_036/Position_036_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_036/Position_036_final_native_C3_mkikume_red.tif
+ - Position_037: lif=/data/parasite_task/time-lapse/20211028_Pos36_40.lif, series0=1, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_037/Position_037_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_037/Position_037_final_native_C3_mkikume_red.tif
+ - Position_038: lif=/data/parasite_task/time-lapse/20211028_Pos36_40.lif, series0=2, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_038/Position_038_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_038/Position_038_final_native_C3_mkikume_red.tif
+ - Position_039: lif=/data/parasite_task/time-lapse/20211028_Pos36_40.lif, series0=3, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_039/Position_039_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_039/Position_039_final_native_C3_mkikume_red.tif
+ - Position_040: lif=/data/parasite_task/time-lapse/20211028_Pos36_40.lif, series0=4, final_t0=262, C2=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_040/Position_040_final_native_C2_mkikume_green.tif, C3=/app/data/projects/leishmania_tunel_position40/processed_images/all_positions_native/Position_040/Position_040_final_native_C3_mkikume_red.tif
+
+Outputs:
+ - /app/data/projects/leishmania_tunel_position40/measurements/all_positions_proliferation/All_Positions_Parasite_Measurements.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/all_positions_proliferation/All_Positions_Host_Background_Measurements.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/all_positions_proliferation/All_Positions_Excluded_ROIs.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/all_positions_proliferation/First_Runtime_Failure.txt
+ - /app/data/projects/leishmania_tunel_position40/measurements/all_positions_proliferation/All_Positions_Measurement_QC_Report.txt
+
+SUCCESS: All-position Phase 4b measurement-only completed; no Mann-Whitney test and no plotting performed.

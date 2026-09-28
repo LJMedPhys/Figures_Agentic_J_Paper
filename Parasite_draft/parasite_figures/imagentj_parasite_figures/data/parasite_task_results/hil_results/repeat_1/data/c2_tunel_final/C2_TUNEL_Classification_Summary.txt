@@ -1,0 +1,11 @@
+C2 TUNEL classification summary (Position040):
+Total nuclei analyzed: 6
+Largest adjacent gap in sorted corrected_tunel_signal: 9.423590
+Data-driven threshold (midpoint of largest gap): 16.340242
+TUNEL+ count: 1
+TUNEL- count: 5
+IQR outlier count (k=1.5): 1
+
+Interpretation note: This classification is data-driven and relative to this six-cell dataset.
+It is NOT validated against an independent external positive/negative control threshold.
+Formal inferential p-value reporting is intentionally omitted here; descriptive summaries are provided.

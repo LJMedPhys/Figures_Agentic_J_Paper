@@ -1,0 +1,18 @@
+All-position proliferation IO/ROI inventory report
+LIF directory: /data/parasite_task/time-lapse
+ROI directory: /data/parasite_task/3. Data Analysis ROIs/Macrophages
+Positions expected: 40; manifest rows: 40
+Usable positions: 25; unusable positions: 15
+Global parasite area stats px: median=124.0000, q1=96.0000, q3=164.0000, iqr=68.0000, tukey_upper=266.0000
+Likely clump candidates: 69 / 807
+Representative overlays written: 8 (target up to 8)
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos1_5_position_1.png
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos6_10_position_6.png
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos11_15_position_11.png
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos16_20_position_16.png
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos21_25_position_21.png
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos26_30_position_27.png
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos31_35_position_33.png
+Overlay: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_overlay_20211028_Pos36_40_position_36.png
+Contact sheet: /app/data/projects/leishmania_tunel_position40/processed_images/all_positions_proliferation_likely_clump_contact_sheet.png
+No fluorescence measurement, no PI calculation, no inferential statistics, no final plotting performed.

@@ -1,0 +1,7 @@
+roi_name,raw_nuclear_mean,average_background_mean,corrected_mean,formula
+Cell 1,197.43790849673204,190.7668699186992,6.671038578032835,CorrectedMean = RawNuclearMean - AverageBackgroundMean
+Cell 2,198.86274509803923,190.7668699186992,8.095875179340027,CorrectedMean = RawNuclearMean - AverageBackgroundMean
+Cell 3,211.81890660592256,190.7668699186992,21.052036687223364,CorrectedMean = RawNuclearMean - AverageBackgroundMean
+Cell 4,196.0633608815427,190.7668699186992,5.296490962843507,CorrectedMean = RawNuclearMean - AverageBackgroundMean
+Cell 5,199.6473829201102,190.7668699186992,8.880513001411003,CorrectedMean = RawNuclearMean - AverageBackgroundMean
+Cell 6,202.3953168044077,190.7668699186992,11.628446885708513,CorrectedMean = RawNuclearMean - AverageBackgroundMean

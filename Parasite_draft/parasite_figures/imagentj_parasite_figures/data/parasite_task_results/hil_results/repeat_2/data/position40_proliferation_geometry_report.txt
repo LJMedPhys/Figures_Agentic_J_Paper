@@ -1,0 +1,24 @@
+Position40 proliferation geometry validation report
+LIF file: /data/parasite_task/time-lapse/20211028_Pos36_40.lif
+Streaming read only: series=4 (0-based), z=0, t=262, green C2, red C3
+Image size (series 4): 2048x2048, C=3, Z=1, T=263
+LastFrame_Overview bounds: x=537, y=849, w=608, h=608
+Control geometry comparison reference: set_1
+Overall control max centroid shift (set_2..set_4 vs set_1): 0.0000 px
+Overall control min IoU (set_2..set_4 vs set_1): 1.000000
+TUNEL ROI uniqueness check: 8 ROIs loaded, 28 pairwise comparisons, max IoU=0.092105, near-duplicate pairs (IoU>=0.95)=0
+ROIs outside LastFrame_Overview by set (highlighted with OUT_ labels):
+  set_1: 0 / 36
+  set_2: 0 / 36
+  set_3: 0 / 36
+  set_4: 3 / 36
+Set_4 expected partial overview inclusion remains visible in preview (historically 33/36 inside).
+No intensity measurement, no background correction, no PI calculation, no statistics, no plotting performed.
+Outputs:
+  /app/data/projects/leishmania_tunel_position40/data/position40_proliferation_control_geometry_vs_set1.csv
+  /app/data/projects/leishmania_tunel_position40/data/position40_proliferation_tunel_uniqueness_comparison.csv
+  /app/data/projects/leishmania_tunel_position40/data/position40_proliferation_geometry_report.txt
+  /app/data/projects/leishmania_tunel_position40/processed_images/position40_proliferation_preview_set1_lastframe.png
+  /app/data/projects/leishmania_tunel_position40/processed_images/position40_proliferation_preview_set2_lastframe.png
+  /app/data/projects/leishmania_tunel_position40/processed_images/position40_proliferation_preview_set3_lastframe.png
+  /app/data/projects/leishmania_tunel_position40/processed_images/position40_proliferation_preview_set4_lastframe.png

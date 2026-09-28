@@ -1,0 +1,13 @@
+All-positions proliferation index statistical analysis (Stage 1, no plotting)
+Input: /app/data/projects/leishmania_tunel_position40/measurements/all_positions_proliferation/All_Positions_Parasite_Measurements.csv
+Total parasite rows retained: 607
+Valid parasite rows for primary analysis: 583
+Invalid rows audited (excluded from comparison): 24
+Primary comparison: two-sided Mann-Whitney U (asymptotic, tie-corrected) on valid parasite-level indices.
+Primary U=32705.0, p=0.007806591737971867, n(TUNEL+)=123, n(TUNEL-)=460, rank-biserial/Cliff=0.15606221279604093
+Primary interpretation: Exploratory two-sided Mann-Whitney suggests a group difference (p=0.00780659); effect direction: positive_TUNEL_plus_higher.
+Primary test is explicitly EXPLORATORY because parasites are nested within macrophages/positions.
+Sensitivity analysis: one median proliferation index per host cluster (global_position + host_cell_id).
+Sensitivity U=32439.0, p=0.003416610642057105, n(TUNEL+)=123, n(TUNEL-)=450, rank-biserial/Cliff=0.172140921409214
+Sensitivity interpretation: Sensitivity host-median Mann-Whitney suggests a group difference (p=0.00341661); effect direction: positive_TUNEL_plus_higher.
+Outliers were quantified via IQR (1.5x rule) and reported; no outlier removal was applied.

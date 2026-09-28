@@ -1,0 +1,25 @@
+Position40 proliferation-index analysis (last frame, unique parasites only for inference)
+Input raw ROI rows: 144
+Set-level PI table: position40_proliferation_index_all_subsets.csv (36 rows)
+Unique parasite PI table: position40_proliferation_index_unique_parasites.csv (15 rows)
+Shared controls C1..C7 are represented by mean PI across valid four technical repeats; TUNEL+ rows are singletons.
+
+Group summaries (unique parasites, valid PI only):
+  TUNEL+: n=8, mean=8.58666, sd=0.835269, median=8.60825, iqr=1.12274, min=7.22412, max=9.64886
+  TUNEL-: n=7, mean=6.06421, sd=1.55909, median=6.26895, iqr=2.3542, min=3.94775, max=7.65445
+IQR outliers: total=0, TUNEL+=0, TUNEL-=0
+
+Inferential tests (exploratory):
+  PRIMARY (all valid representative parasites, including flagged controls):
+    Mann-Whitney U (two-sided exact): U=54.0, p=0.0012432012432012432, rank-biserial=-0.9285714285714286
+    Permutation test (two-sided mean difference): p=0.0009324009324009324, mean_diff(TUNEL+ - TUNEL-)=2.522449330056947, method=exact_enumeration, n=6435
+
+  SENSITIVITY (exclude only instability-flagged representative controls): excluded_n=1, excluded_ids=['C5']
+    TUNEL+: n=8, mean=8.58666, sd=0.835269, median=8.60825, iqr=1.12274, min=7.22412, max=9.64886
+    TUNEL-: n=6, mean=6.4109, sd=1.38105, median=6.73195, iqr=1.35467, min=3.94775, max=7.65445
+    IQR outliers: total=1, TUNEL+=0, TUNEL-=1
+    Mann-Whitney U (two-sided exact): U=46.0, p=0.002664002664002664, rank-biserial=-0.9166666666666667
+    Permutation test (two-sided mean difference): p=0.001665001665001665, mean_diff(TUNEL+ - TUNEL-)=2.175765006408108, method=exact_enumeration, n=3003
+
+Exploratory parasite-level inference: TUNEL+ parasites are nested within four host cells (2 per cell), and host-cell identity for shared TUNEL- controls is incomplete.
+Sensitivity analysis excludes only representative controls flagged for excessive technical-repeat instability (CV threshold=0.1).

@@ -1,0 +1,11 @@
+Position40 proliferation raw measurement QC report
+Source LIF: /data/parasite_task/time-lapse/20211028_Pos36_40.lif
+Series/Z/T (0-based): 4/0/262
+Channels (1-based): green C2, red C3
+ROIs measured: 144 (expected 144)
+Per set expected composition: 2 TUNEL+ parasites, 7 controls C1..C7, 27 backgrounds
+Pairing source: /app/data/projects/leishmania_tunel_position40/data/position40_proliferation_io_set_pairings.csv
+Background assignment rule check: exactly 3 unique backgrounds per parasite with no reuse = PASSED
+Control repeat equality check across subsets (IoU=1 audit expectation):
+  PASSED: No numeric discrepancies for C1..C7 across set_1..set_4.
+No background correction, ratio, proliferation index, statistics, or plotting performed in this step.

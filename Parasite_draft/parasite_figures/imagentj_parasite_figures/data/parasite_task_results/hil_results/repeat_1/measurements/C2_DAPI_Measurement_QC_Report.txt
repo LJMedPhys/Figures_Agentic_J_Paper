@@ -1,0 +1,25 @@
+Phase 4c C2 DAPI Measurement QC Report
+=============================
+Input C2 DAPI image: /app/data/projects/leishmania_tunel_position40/processed_images/io_check/position40_series_native_channel_C2.tif
+Input provenance: Native TIFF exported from Leica LIF /data/parasite_task/20210728_TUNEL_staining.lif, Position040 series index 39 (0-based), channel C2 (DAPI), 16-bit, 2048x2048.
+Input dimensions/bit depth verified: 2048x2048, 16-bit
+Measurement mode: native original pixels from duplicated 16-bit image; no conversion, no rescaling, no contrast-dependent measurement, no flattening.
+Overview ROI decoded at runtime from: /data/parasite_task/one_frame/TUNEL_Overview.roi
+Actual overview bounds: x=565.0, y=952.0, w=608.0, h=608.0
+ROI directory: /data/parasite_task/one_frame/nuclei_tunel_roi
+Role rules: NUCLEUS => name Cell 1..Cell 6 + oval/ellipse geometry; BACKGROUND => coordinate-like name + rectangular geometry.
+Counts verified: nuclei=6, background=8, total=14
+Translation rule: full_x = local_x + overview_x ; full_y = local_y + overview_y
+Corrected table formula: CorrectedMean = RawNuclearMean - AverageBackgroundMean
+Background summary stats computed across 8 background ROI means: arithmetic average (unweighted), sample SD (n-1), median, min, max, n.
+Calibration: pixelWidth=0.32231032037645846 micron, pixelHeight=0.32231032037645846 micron
+
+Output files:
+ - /app/data/projects/leishmania_tunel_position40/measurements/C2_DAPI_ROI_Measurements.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/C2_DAPI_Nuclear_Raw_Measurements.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/C2_DAPI_Background_Raw_Measurements.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/C2_DAPI_Background_Summary.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/C2_DAPI_Nuclear_Corrected.csv
+ - /app/data/projects/leishmania_tunel_position40/measurements/C2_DAPI_Measurement_QC_Report.txt
+
+SUCCESS: Measurement-only outputs generated. No classification, hypothesis testing, or plotting performed in this phase.

@@ -1,0 +1,19 @@
+All-position proliferation RAW measurement QC report
+Input LIF root: /data/parasite_task/time-lapse
+Input ROI root: /data/parasite_task/3. Data Analysis ROIs/Macrophages
+Manifest: /app/data/projects/leishmania_tunel_position40/data/all_positions_proliferation_manifest.csv
+Audit summary: /app/data/projects/leishmania_tunel_position40/data/all_positions_proliferation_position_audit_summary.csv
+Pairing: /app/data/projects/leishmania_tunel_position40/data/all_positions_proliferation_pairing.csv
+Morphology: /app/data/projects/leishmania_tunel_position40/data/all_positions_proliferation_parasite_morphology.csv
+Required channels: green C2, red C3
+Usable positions in audit: 25
+Measured positions (after filters): 25
+Included single parasites (expected filtered): 551
+Measured single parasites: 551
+Measured unique backgrounds: 1404
+Likely clump exclusions: 69 (approved target 69)
+Unusable positions excluded: 15
+Runtime position exceptions during measurement: 0
+Unsafe-bounds detections: 0
+Saturation-flag detections: 0
+No background correction, proliferation index, statistics, or plotting performed.

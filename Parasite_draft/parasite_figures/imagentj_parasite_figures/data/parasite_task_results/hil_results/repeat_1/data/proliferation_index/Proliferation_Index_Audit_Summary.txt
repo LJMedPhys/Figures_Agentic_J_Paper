@@ -1,0 +1,19 @@
+Proliferation index Stage-1 audit summary
+=======================================
+Input file: /app/data/projects/leishmania_tunel_position40/measurements/proliferation_index/Proliferation_Parasite_Corrected_Summary.csv
+Total set-level rows read: 36
+Formula checks (row-by-row):
+  corrected_green = parasite_green_raw_mean - avg_background_green_unweighted [verified with rtol=1e-09, atol=1e-06]
+  corrected_red   = parasite_red_raw_mean - avg_background_red_unweighted   [verified with rtol=1e-09, atol=1e-06]
+  proliferation_index = 10 - corrected_red/corrected_green                  [verified with rtol=1e-09, atol=1e-06]
+Denominator/finite checks:
+  All recomputed corrected_green > 0 and all corrected/proliferation values finite.
+Group mapping:
+  TUNEL_NEG_CONTROL_REPEATED -> TUNEL-
+  TUNEL_POS_UNIQUE -> TUNEL+
+Repeated control audit:
+  CONTROL_C1..CONTROL_C7 each confirmed at exactly 4 technical rows with invariant parasite raw signals.
+Unique biological table rows: 15 (TUNEL+=8, TUNEL-=7)
+IQR outliers (unique proliferation index, all groups): 2 (bounds [3.889639608900472, 11.46913919272824]); no removals applied.
+Inference policy:
+  No inferential p-value claimed due to nested design and non-independent repeated controls; descriptive summaries only.
