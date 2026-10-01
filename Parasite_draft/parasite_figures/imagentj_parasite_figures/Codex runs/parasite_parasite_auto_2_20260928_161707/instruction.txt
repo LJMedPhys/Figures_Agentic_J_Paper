@@ -1,0 +1,26 @@
+I work on Leishmania major infection of macrophages (data/parasite_task). Our hypothesis is that parasites that proliferate fast inside a macrophage drive the death of their host cell, and that this is how they get passed on to a new phagocyte. Parasites that proliferate slowly should be able to stay in a surviving host for a long time.
+
+I infected murine peritoneal macrophages with LmSWITCH parasites, which express the photoconvertible protein mKikume as a proliferation reporter. Right before the time-lapse I photoconverted the parasites with the 405 nm diode, so the existing mKikume switched from green to red. Parasites that have divided since then dilute the red and gain new green, so the ratio of the two reports proliferation. I imaged 40 positions on a gridded glass-bottom dish (20x objective) every 10 minutes for about 44 hours (263 frames: brightfield, mKikume green, mKikume red), under data/parasite_task/time-lapse/. Directly after the last frame I fixed the dish, stained it with TUNEL (CF640R) and DAPI, and re-imaged the same 40 grid positions; those are in data/parasite_task/20210728_TUNEL_staining.lif. One pixel is ~0.32 µm.
+
+TASK — proliferation index of single parasites, position 40, last frame
+
+Work inside the region given by data/parasite_task/one_frame/LastFrame_Overview.ROI, which marks the region of interest in the last time-lapse frame of position 40. That ROI is the ONLY ROI you are given: there are no ROIs for parasites, none for host cells and none for background. Find all of them yourself.
+
+In that region, in the LAST frame of the position 40 movie, detect the individual parasites. Use only parasites you can clearly resolve as single parasites — exclude clumps, and say how many you excluded and on what basis. Determine yourself which channel is the red and which is the green mKikume channel.
+
+For each parasite, estimate the local background yourself from image regions close to that parasite, separately for red and green, and report how you chose them. Then:
+
+    corrected red   = parasite red   - averaged red background
+    corrected green = parasite green - averaged green background
+    proliferation index = 10 - (corrected red / corrected green)
+
+Each parasite also has to be assigned to a TUNEL+ or a TUNEL- host cell. The stained image comes from the same field of view but the dish was taken off the stage in between, so it is SHIFTED AND SLIGHTLY ROTATED relative to the movie. You therefore have to register the stained image of position 40 to the last movie frame before you can transfer anything between them — that alignment is part of the task, not something you are given. Segment the host macrophages, use the TUNEL channel (green in the .lif; blue is DAPI) to classify each host as TUNEL+ or TUNEL-, and assign each parasite to the host it lies inside. Report the registration you found and how well it fits, and flag any parasite you could not confidently assign rather than guessing.
+
+DELIVERABLES
+- output/parasite_index.csv — one row per parasite, with columns: parasite_id, centroid_x, centroid_y, raw_red, raw_green, background_red, background_green, corrected_red, corrected_green, proliferation_index, host_cell_id, group (TUNEL+ or TUNEL-).
+- output/parasite_mask.tif — the parasite segmentation for the last frame, every pixel of a parasite carrying that parasite_id and background 0. The number of distinct IDs must equal the number of rows in the CSV.
+- output/host_mask.tif — the host macrophage segmentation, same convention, IDs matching host_cell_id.
+- output/parasite_scatter.png — a scatter dot plot, proliferation index on the y axis, TUNEL+ and TUNEL- on the x axis, one point per parasite, horizontal bar at the median of each group.
+- output/report.md — parasite detection and the clump exclusions, background estimation, which channel you judged to be red and why, the registration and its residual error, and any parasite or host you could not resolve.
+
+Do this fully automatically: scripts only, no manual ROI drawing, no clicking in the ImageJ or napari UI, no steps that need me to intervene. Choose the strongest method available to you.

@@ -1,0 +1,3 @@
+Reading API key from stdin...
+Successfully logged in
+WARNING: failed to clean up stale arg0 temp dirs: Directory not empty (os error 39)

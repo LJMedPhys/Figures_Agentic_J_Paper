@@ -1,0 +1,21 @@
+I work on Leishmania major infection of macrophages (data/parasite_task). Our hypothesis is that parasites that proliferate fast inside a macrophage drive the death of their host cell, and that this is how they get passed on to a new phagocyte (cell-to-cell transfer). Parasites that proliferate slowly should be able to stay in a surviving host for a long time.
+
+I infected murine peritoneal macrophages with LmSWITCH parasites, which express the photoconvertible protein mKikume as a proliferation reporter. Right before the time-lapse I photoconverted the parasites with the 405 nm diode on our Leica DMi8, so the existing mKikume switched from green to red. I imaged 40 positions on a gridded glass-bottom dish on the wide-field microscope (20x objective) every 10 minutes for about 44 hours (263 frames: brightfield, mKikume green, mKikume red). Directly after the last frame I fixed the dish, did a TUNEL staining (CF640R) together with DAPI, put the dish back on the microscope and imaged the same 40 grid positions in brightfield, TUNEL and DAPI. The stainings for all positions are in data/parasite_task/20210728_TUNEL_staining.lif. One pixel is ~0.32 µm.
+
+TASK — TUNEL signal in nuclei, position 40
+
+Work inside the region given by data/parasite_task/one_frame/TUNEL_Overview.ROI, which marks the region of interest in the stained image of position 40. That ROI is the ONLY ROI you are given: there are no ROIs for nuclei and none for background, and you must find both yourself.
+
+Determine which channel of the .lif is TUNEL and which is DAPI — green is TUNEL, blue is DAPI. Segment every nucleus in the region from the DAPI channel, and measure each nucleus's TUNEL intensity. Estimate the local background yourself from the image, next to the nuclei you measured, and state in your report how you chose those background regions. The corrected nuclear TUNEL signal is the nucleus intensity minus the averaged background.
+
+From those corrected intensities, decide for each nucleus whether its cell is TUNEL+ or TUNEL-, and say plainly how you set that cut — the threshold is your judgement to make and to justify, not something you are given.
+
+Check before measuring that the ROI and the source image have the same dimensions and that the ROI lands where it should; say so in the report if they do not and explain what you did about it.
+
+DELIVERABLES
+- output/tunel_nuclei.csv — one row per nucleus, with columns: nucleus_id, centroid_x, centroid_y, area_px, raw_tunel_intensity, background_intensity, corrected_tunel_intensity, group (TUNEL+ or TUNEL-).
+- output/tunel_nuclei_mask.tif — the nuclei segmentation, every pixel of a nucleus carrying that nucleus_id and background 0. The number of distinct IDs in this mask must equal the number of rows in the CSV.
+- output/tunel_scatter.png — a scatter dot plot of the two groups, corrected nuclear TUNEL intensity on the y axis, TUNEL+ and TUNEL- on the x axis, one point per nucleus, with a horizontal bar at the median of each group.
+- output/report.md — how you segmented, how you estimated background, how you set the TUNEL+/TUNEL- cut, and anything you could not resolve.
+
+Do this fully automatically: scripts only, no manual ROI drawing, no clicking in the ImageJ or napari UI, no steps that need me to intervene. Choose the strongest method available to you.

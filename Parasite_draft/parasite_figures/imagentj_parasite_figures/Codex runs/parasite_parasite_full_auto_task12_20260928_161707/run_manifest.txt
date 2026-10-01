@@ -1,0 +1,9 @@
+started    2026-09-28 16:17:07 CEST
+prompt     /mnt/eternus/users/Yu/project/bioimage_agent/Imagent_J/data/tasks/parasite_task/prompts/parasite_full_auto_task12.txt
+model      gpt-5.6-sol / effort high / reasoning summary detailed
+image      codex-bench:gpu-local sha256:57ee8cee8f2fb1ced2a51e20f8de5fb9b1a746ef5d65186a3015e675d73c1f58
+codex      CODEX_BENCH_VERSION=0.155.1
+gpu        nvidia.com/gpu=7   cpus 32   memory 48g   timeout 21600s
+container  codex_parasite_full_auto_task12_20260928_161707
+finished   2026-09-28 16:35:14 CEST  rc=0
+{"type":"turn.completed","usage":{"input_tokens":4536865,"cached_input_tokens":4400936,"cache_write_input_tokens":135764,"output_tokens":36314,"reasoning_output_tokens":12156}}

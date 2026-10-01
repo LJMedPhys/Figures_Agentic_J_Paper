@@ -1,0 +1,5 @@
+Reading API key from stdin...
+Successfully logged in
+WARNING: failed to clean up stale arg0 temp dirs: Directory not empty (os error 39)
+2026-09-28T14:43:04.652672Z ERROR codex_core::tools::router: error=apply_patch verification failed: Failed to find expected lines in /work/analyze_tunel.py:
+An ImageJ `.roi` stores its bounding coordinates, not the dimensions of its source image, so literal equality between ROI size and image size is not expected: this ROI deliberately specifies a smaller analysis region. Its complete bounding box is valid within the 2048 × 2048 source, and the extracted region in both channels is {right-left} × {bottom-top} pixels. No resize, registration, or coordinate correction was needed. Pixel size from the LIF metadata is {metadata['pixel_size_um']:.4f} µm/pixel.

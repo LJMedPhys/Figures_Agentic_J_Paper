@@ -1,0 +1,4 @@
+Reading API key from stdin...
+Successfully logged in
+WARNING: failed to clean up stale arg0 temp dirs: Directory not empty (os error 39)
+2026-09-28T14:26:30.526169Z ERROR codex_core::tools::router: error=unable to locate image at `/tmp/host_overlay.png`: No such file or directory (os error 2)

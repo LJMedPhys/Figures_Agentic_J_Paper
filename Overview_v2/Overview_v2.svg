@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="180.0mm" height="123.0mm" viewBox="0 0 180.0 123.0" font-family="Arial, 'Liberation Sans', Helvetica, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1a1a1a"/></marker><marker id="ah-fail" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c8531b"/></marker></defs>
+<rect width="180.0" height="123.0" fill="#ffffff"/>
+<rect x="2.00" y="38.00" width="28.00" height="36.00" rx="1.6" fill="#eef1f4" stroke="#55606b" stroke-width="0.25"/>
+<text x="16.00" y="43.50" font-size="2.822" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1a1a1a">User</text>
+<g fill="none" stroke="#55606b" stroke-width="0.35"><circle cx="16" cy="48.8" r="1.8"/><path d="M 12.6 54.6 Q 12.6 51.2 16 51.2 Q 19.4 51.2 19.4 54.6"/></g>
+<text x="16.00" y="60.50" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1a1a1a">task and images,</text>
+<text x="16.00" y="63.15" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1a1a1a">in plain language</text>
+<text x="16.00" y="67.50" font-size="2.117" font-weight="normal" font-style="italic" text-anchor="middle" fill="#6b7580">no coding needed</text>
+<text x="3.00" y="81.00" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Human in the loop</text>
+<text x="3.00" y="85.00" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">• approves the pipeline</text>
+<text x="3.00" y="87.80" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">• approves plugin installs</text>
+<text x="3.00" y="90.60" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">• rates the results</text>
+<text x="3.00" y="93.40" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">• annotates tiles for</text>
+<text x="5.20" y="96.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">micro-sam fine-tuning</text>
+<rect x="33.00" y="4.00" width="144.00" height="106.00" rx="2.5" fill="none" stroke="#6b7580" stroke-width="0.3" stroke-dasharray="1.4 0.9"/>
+<text x="35.50" y="8.60" font-size="2.117" font-weight="normal" font-style="italic" text-anchor="start" fill="#6b7580">Docker container  ·  sandboxed  ·  reproducible  ·  optional GPU</text>
+<rect x="36.00" y="26.00" width="29.00" height="56.00" rx="1.6" fill="#dde8f3" stroke="#3e6a94" stroke-width="0.25"/>
+<text x="50.50" y="31.00" font-size="2.470" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1a1a1a">Virtual desktop</text>
+<text x="50.50" y="34.60" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6b7580">in the browser (noVNC)</text>
+<rect x="38.50" y="38.00" width="24.00" height="11.50" rx="1.1" fill="#ffffff" stroke="#3e6a94" stroke-width="0.2"/>
+<text x="50.50" y="42.90" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1a1a1a">Chat panel</text>
+<text x="50.50" y="46.50" font-size="1.940" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6b7580">talk to the agent</text>
+<rect x="38.50" y="52.30" width="24.00" height="11.50" rx="1.1" fill="#ffffff" stroke="#3e6a94" stroke-width="0.2"/>
+<text x="50.50" y="57.20" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1a1a1a">Fiji</text>
+<text x="50.50" y="60.80" font-size="1.940" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6b7580">agent's scripts run live</text>
+<rect x="38.50" y="66.60" width="24.00" height="11.50" rx="1.1" fill="#ffffff" stroke="#3e6a94" stroke-width="0.2"/>
+<text x="50.50" y="71.50" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1a1a1a">napari</text>
+<text x="50.50" y="75.10" font-size="1.940" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6b7580">viewer + plugins</text>
+<rect x="70.00" y="12.00" width="46.00" height="70.00" rx="1.6" fill="#e8e2f3" stroke="#5d4a91" stroke-width="0.25"/>
+<text x="93.00" y="18.00" font-size="2.822" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1a1a1a">Supervisor</text>
+<text x="93.00" y="22.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1a1a1a">plans · delegates · integrates</text>
+<text x="73.00" y="27.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#6b7580">Mode</text>
+<rect x="73.00" y="28.50" width="12.30" height="5.60" rx="2.8" fill="#ffffff" stroke="#5d4a91" stroke-width="0.2"/>
+<text x="79.15" y="32.30" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1a1a1a">Quick</text>
+<rect x="86.80" y="28.50" width="12.30" height="5.60" rx="2.8" fill="#ffffff" stroke="#5d4a91" stroke-width="0.2"/>
+<text x="92.95" y="32.30" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1a1a1a">Advanced</text>
+<rect x="100.60" y="28.50" width="12.30" height="5.60" rx="2.8" fill="#ffffff" stroke="#5d4a91" stroke-width="0.2"/>
+<text x="106.75" y="32.30" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1a1a1a">Education</text>
+<rect x="73.00" y="37.50" width="40.00" height="17.00" rx="1.1" fill="#f7f5fb" stroke="#5d4a91" stroke-width="0.2"/>
+<text x="75.00" y="42.00" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">State ledger</text>
+<text x="75.00" y="45.60" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">persistent project state:</text>
+<text x="75.00" y="48.35" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">metadata · channels ·</text>
+<text x="75.00" y="51.10" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">append-only step log</text>
+<rect x="73.00" y="58.00" width="40.00" height="21.00" rx="1.1" fill="#f7f5fb" stroke="#5d4a91" stroke-width="0.2"/>
+<text x="75.00" y="62.50" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Tools</text>
+<text x="75.00" y="66.10" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">file &amp; metadata inspection</text>
+<text x="75.00" y="68.85" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">UI inspection · screenshots</text>
+<text x="75.00" y="71.60" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">script execution · env check</text>
+<text x="75.00" y="74.35" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">napari MCP · web search</text>
+<rect x="124.00" y="12.00" width="51.00" height="70.00" rx="1.6" fill="#fdf1dc" stroke="#b8741a" stroke-width="0.25"/>
+<text x="149.50" y="18.00" font-size="2.822" font-weight="bold" font-style="normal" text-anchor="middle" fill="#1a1a1a">Closed-loop analysis</text>
+<text x="149.50" y="22.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="middle" fill="#1a1a1a">subagents; nothing counts until verified</text>
+<rect x="127.00" y="25.00" width="38.00" height="11.50" rx="1.2" fill="#ffffff" stroke="#b8741a" stroke-width="0.22"/>
+<circle cx="130.60" cy="30.75" r="2.3" fill="#b8741a"/>
+<text x="130.60" y="31.60" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">1</text>
+<text x="134.20" y="28.90" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Discover</text>
+<text x="134.20" y="32.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">Plugin manager picks a</text>
+<text x="134.20" y="34.95" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">Fiji, Python or napari tool</text>
+<rect x="127.00" y="39.00" width="38.00" height="11.50" rx="1.2" fill="#ffffff" stroke="#b8741a" stroke-width="0.22"/>
+<circle cx="130.60" cy="44.75" r="2.3" fill="#b8741a"/>
+<text x="130.60" y="45.60" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">2</text>
+<text x="134.20" y="42.90" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Write code</text>
+<text x="134.20" y="46.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">Fiji coder: macro / Groovy</text>
+<text x="134.20" y="48.95" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">Python analyst: stats, plots</text>
+<rect x="127.00" y="53.00" width="38.00" height="11.50" rx="1.2" fill="#ffffff" stroke="#b8741a" stroke-width="0.22"/>
+<circle cx="130.60" cy="58.75" r="2.3" fill="#b8741a"/>
+<text x="130.60" y="59.60" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">3</text>
+<text x="134.20" y="56.90" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Execute</text>
+<text x="134.20" y="60.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">in live Fiji or a conda env;</text>
+<text x="134.20" y="62.95" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">Watchdog stops stuck runs</text>
+<rect x="127.00" y="67.00" width="38.00" height="11.50" rx="1.2" fill="#f7d9a6" stroke="#b8741a" stroke-width="0.22"/>
+<circle cx="130.60" cy="72.75" r="2.3" fill="#b8741a"/>
+<text x="130.60" y="73.60" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="middle" fill="#ffffff">4</text>
+<text x="134.20" y="70.90" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Verify</text>
+<text x="134.20" y="74.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">Vision judge: masks, plots</text>
+<text x="134.20" y="76.95" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">QA gate: community standards</text>
+<path d="M 146.00 36.50 L 146.00 38.60" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M 146.00 50.50 L 146.00 52.60" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M 146.00 64.50 L 146.00 66.60" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M 165.00 72.75 L 170.00 72.75 L 170.00 44.75 L 165.40 44.75" fill="none" stroke="#c8531b" stroke-width="0.35" marker-end="url(#ah-fail)" stroke-linejoin="round"/>
+<text x="172.60" y="58.75" font-size="2.117" font-weight="bold" font-style="normal" text-anchor="middle" fill="#c8531b" transform="rotate(-90 172.60 58.75)">fail → debugger fixes</text>
+<path d="M 30.00 56.00 L 35.60 56.00" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" marker-start="url(#ah)" stroke-linejoin="round"/>
+<path d="M 65.00 43.80 L 69.60 43.80" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" marker-start="url(#ah)" stroke-linejoin="round"/>
+<path d="M 116.00 30.80 L 126.60 30.80" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="120.00" y="29.40" font-size="1.940" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6b7580">tasks</text>
+<path d="M 127.00 72.80 L 116.40 72.80" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="120.50" y="71.40" font-size="1.940" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6b7580">results</text>
+<text x="120.50" y="76.40" font-size="1.940" font-weight="normal" font-style="normal" text-anchor="middle" fill="#6b7580">(typed)</text>
+<rect x="36.00" y="89.00" width="54.00" height="18.00" rx="1.6" fill="#e0eeeb" stroke="#3b7f74" stroke-width="0.25"/>
+<text x="38.50" y="94.00" font-size="2.470" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Knowledge base</text>
+<text x="38.50" y="98.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">documentation (retrieval) · concept library</text>
+<text x="38.50" y="101.00" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">bioimage-analysis teaching material</text>
+<text x="38.50" y="103.80" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">used for planning and Education mode</text>
+<rect x="94.00" y="89.00" width="38.00" height="18.00" rx="1.6" fill="#e0eeeb" stroke="#3b7f74" stroke-width="0.25"/>
+<text x="96.50" y="94.00" font-size="2.470" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Skills</text>
+<text x="96.50" y="98.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">Fiji · Python · napari plugins</text>
+<text x="96.50" y="101.00" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">plotting · statistics</text>
+<text x="96.50" y="103.80" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">publication standards</text>
+<rect x="136.00" y="89.00" width="39.00" height="18.00" rx="1.6" fill="#e0eeeb" stroke="#3b7f74" stroke-width="0.25"/>
+<text x="138.50" y="94.00" font-size="2.470" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">Recipe &amp; mistake memory</text>
+<text x="138.50" y="98.20" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">curated by the Librarian</text>
+<text x="138.50" y="101.00" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">after verified runs;</text>
+<text x="138.50" y="103.80" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">recalled before coding</text>
+<path d="M 63.00 89.00 L 63.00 85.00 L 80.00 85.00 L 80.00 82.40" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M 106.00 89.00 L 106.00 82.40" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M 128.50 89.00 L 128.50 82.40" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<path d="M 144.00 82.00 L 144.00 88.60" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="145.20" y="86.30" font-size="1.940" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">pass</text>
+<path d="M 163.00 89.00 L 163.00 82.40" fill="none" stroke="#1a1a1a" stroke-width="0.3" marker-end="url(#ah)" stroke-linejoin="round"/>
+<text x="164.20" y="86.30" font-size="1.940" font-weight="normal" font-style="normal" text-anchor="start" fill="#6b7580">recall</text>
+<rect x="33.00" y="113.00" width="144.00" height="7.50" rx="1.6" fill="#f1f1f1" stroke="#7a7a7a" stroke-width="0.25"/>
+<text x="36.00" y="117.90" font-size="2.293" font-weight="bold" font-style="normal" text-anchor="start" fill="#1a1a1a">LLM backend</text>
+<text x="56.00" y="117.90" font-size="2.117" font-weight="normal" font-style="normal" text-anchor="start" fill="#1a1a1a">one model per role, set in config (OpenRouter or OpenAI): supervisor · coders · analyst · vision judge · helpers</text>
+<path d="M 105.00 113.00 L 105.00 110.40" fill="none" stroke="#6b7580" stroke-width="0.3" marker-end="url(#ah)" stroke-dasharray="0.8 0.6" stroke-linejoin="round"/>
+</svg>
