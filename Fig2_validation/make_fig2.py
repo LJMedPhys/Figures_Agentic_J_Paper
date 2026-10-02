@@ -18,6 +18,7 @@ v4: the two experiments in (a) each get an outlined frame with a shaded header b
 v5: (b) row names (donor / batch) removed and the grid starts under the panel heading; the overlay legends
     of (b) and (e) start at the first image column and stay within the grid width.
 v6: "published Fig. 4C" (meaningless to readers) replaced by what it shows: proliferation index (a, g).
+v7: (a) each verdict column (mark + text) is centred under its heading, from the measured widest entry.
 
 Code and numbers are taken from ../CD177_draft/make_figure.py (v7) and ../Parasite_draft/make_figure.py;
 those drafts are not modified. CD177 time/verdict values are the ones hard-coded in the CD177 draft;
@@ -157,14 +158,21 @@ for x0_, x1_, t in GRP:                       # one outlined frame + shaded head
                                fc='#e6e6e6', ec='none', zorder=1))
     a.add_patch(Rectangle((x0_, 2.0), x1_ - x0_, 1.25, fc='#e6e6e6', ec='none', zorder=1))   # square off the band's bottom
     a.text((x0_ + x1_) / 2, 1.75, t, ha='center', va='center', fontsize=FL, fontweight='bold', zorder=4)
-SUB = [(XCHIP + 2.4, 'Analysis'), (XCDT, 'Time'), (XCDV + 17, 'Scientific verdict'), (XPAT, 'Time\nT1 / T2'),
-       (XPT1 + 15, 'Task 1  TUNEL calls\n(6 nuclei)'), (XPT2 + 19, 'Task 2  proliferation index\n(15 parasites)')]
+HC_CD, HC_T1, HC_T2 = XCDV + 17, XPT1 + 15, XPT2 + 19      # heading centres of the three verdict columns
+SUB = [(XCHIP + 2.4, 'Analysis'), (XCDT, 'Time'), (HC_CD, 'Scientific verdict'), (XPAT, 'Time\nT1 / T2'),
+       (HC_T1, 'Task 1  TUNEL calls\n(6 nuclei)'), (HC_T2, 'Task 2  proliferation index\n(15 parasites)')]
 for x, t in SUB: a.text(x, 6.3, t, ha='center', va='center', fontsize=FS, fontweight='bold', linespacing=1.0)
 def verdict(x, y, key, ok, txt):
     if ok != 'ref':
         a.text(x + 1, y, '✓' if ok == 'ok' else '✗', ha='center', va='center', fontsize=7, fontweight='bold',
                color=COL[key] if ok == 'ok' else BAD, fontfamily='DejaVu Sans')
     a.text(x + 3, y, txt, va='center', fontsize=FS, color=COL['published'] if ok == 'ref' else 'k')
+_rend = fig.canvas.get_renderer()
+def _w(txt):                                    # rendered width of an entry in mm
+    t = a.text(0, 0, txt, fontsize=FS); w = t.get_window_extent(_rend).width / fig.dpi * 25.4; t.remove(); return w
+def block_x(centre, entries):                   # left x so that (mark + gap + widest text) is centred on the heading
+    return centre - (3 + max(_w(t) for _, t in entries.values())) / 2
+X_CD, X_T1, X_T2 = block_x(HC_CD, CD_VER), block_x(HC_T1, PA_T1), block_x(HC_T2, PA_T2)
 for r, (name, key, kinds) in enumerate(ROWS):
     y = y0 + r * rp; yc = y + rh / 2
     if r % 2 == 1:                           # stripes break at the gaps, so the two experiments read as separate blocks
@@ -174,9 +182,9 @@ for r, (name, key, kinds) in enumerate(ROWS):
     cw = 4.8 / len(kinds)                       # analysis chip: who did the work (split for human + automatic)
     for j, k in enumerate(kinds): a.add_patch(Rectangle((XCHIP + j * cw, yc - 1.6), cw, 3.2, fc=FILL[k], ec='k', lw=0.3))
     a.text(XCDT, yc, CD_TIME[key], ha='center', va='center', fontsize=FS, color='#555555' if key == 'published' else 'k')
-    verdict(XCDV, yc, key, *CD_VER[key])
+    verdict(X_CD, yc, key, *CD_VER[key])
     a.text(XPAT, yc, PA_TIME[key], ha='center', va='center', fontsize=FS, color='#555555' if key == 'published' else 'k')
-    verdict(XPT1, yc, key, *PA_T1[key]); verdict(XPT2, yc, key, *PA_T2[key])
+    verdict(X_T1, yc, key, *PA_T1[key]); verdict(X_T2, yc, key, *PA_T2[key])
 xl = XCHIP; rend = fig.canvas.get_renderer(); yl = y0 + 5 * rp + 2.7
 for k, t in [('manual', 'Manual (analyst)'), ('hf', 'Human feedback (user)'), ('auto', 'Automatic (Agentic-J)'), ('other', 'Automatic (other agent)')]:
     a.add_patch(Rectangle((xl, yl - 1.1), 2.4, 2.2, fc=FILL[k], ec='k', lw=0.3)); tx = a.text(xl + 3.1, yl, t, va='center', fontsize=FS)
@@ -379,6 +387,7 @@ for i, r in enumerate(DM):
 
 for ext in ['pdf', 'svg', 'png']: fig.savefig(f'/work/Fig2_validation.{ext}', dpi=450 if ext == 'png' else None)
 # what was plotted, so a rebuild can be checked against the drafts
+print('verdict block x (mm): CD177', round(X_CD, 1), ' T1', round(X_T1, 1), ' T2', round(X_T2, 1))
 print('task1 calls agree', agree, ' r', {m: round(v, 3) for m, v in r1.items()})
 for m, v in S2.items(): print('task2', f'{m:10}', {k: v[k] for k in ('found', 'extra', 'grp')})
 print('task2 p', {k: (None if p is None else float(f'{p:.3g}')) for k, p in zip(K2, p2)})
