@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="510.23622pt" height="121.889764pt" viewBox="0 0 510.23622 121.889764" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-02T07:44:59.313108</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 121.889764 
+L 510.23622 121.889764 
+L 510.23622 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 36.850394 17.007874 
+L 129.826772 17.007874 
+L 129.826772 33.448819 
+L 36.850394 33.448819 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #f7c873; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 131.527559 17.007874 
+L 224.503937 17.007874 
+L 224.503937 33.448819 
+L 131.527559 33.448819 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #f7c873; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 226.204724 17.007874 
+L 319.181102 17.007874 
+L 319.181102 33.448819 
+L 226.204724 33.448819 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #f7c873; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 320.88189 17.007874 
+L 413.858268 17.007874 
+L 413.858268 33.448819 
+L 320.88189 33.448819 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #f7c873; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 415.559055 17.007874 
+L 508.535433 17.007874 
+L 508.535433 33.448819 
+L 415.559055 33.448819 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #f7c873; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 36.850394 34.866142 
+L 129.826772 34.866142 
+L 129.826772 51.307087 
+L 36.850394 51.307087 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #d9d9d9; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 131.527559 34.866142 
+L 224.503937 34.866142 
+L 224.503937 51.307087 
+L 131.527559 51.307087 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #d9d9d9; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 226.204724 34.866142 
+L 319.181102 34.866142 
+L 319.181102 51.307087 
+L 226.204724 51.307087 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #d9d9d9; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 320.88189 34.866142 
+L 413.858268 34.866142 
+L 413.858268 51.307087 
+L 320.88189 51.307087 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #d9d9d9; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 415.559055 34.866142 
+L 508.535433 34.866142 
+L 508.535433 51.307087 
+L 415.559055 51.307087 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #d9d9d9; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 36.850394 52.724409 
+L 129.826772 52.724409 
+L 129.826772 69.165354 
+L 36.850394 69.165354 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 131.527559 52.724409 
+L 224.503937 52.724409 
+L 224.503937 69.165354 
+L 131.527559 69.165354 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 226.204724 52.724409 
+L 319.181102 52.724409 
+L 319.181102 69.165354 
+L 226.204724 69.165354 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 320.88189 52.724409 
+L 413.858268 52.724409 
+L 413.858268 69.165354 
+L 320.88189 69.165354 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 415.559055 52.724409 
+L 508.535433 52.724409 
+L 508.535433 69.165354 
+L 415.559055 69.165354 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 36.850394 70.582677 
+L 129.826772 70.582677 
+L 129.826772 87.023622 
+L 36.850394 87.023622 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 131.527559 70.582677 
+L 224.503937 70.582677 
+L 224.503937 87.023622 
+L 131.527559 87.023622 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 226.204724 70.582677 
+L 319.181102 70.582677 
+L 319.181102 87.023622 
+L 226.204724 87.023622 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 320.88189 70.582677 
+L 413.858268 70.582677 
+L 413.858268 87.023622 
+L 320.88189 87.023622 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 415.559055 70.582677 
+L 508.535433 70.582677 
+L 508.535433 87.023622 
+L 415.559055 87.023622 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 36.850394 88.440945 
+L 129.826772 88.440945 
+L 129.826772 104.88189 
+L 36.850394 104.88189 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #8ecdf2; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 131.527559 88.440945 
+L 224.503937 88.440945 
+L 224.503937 104.88189 
+L 131.527559 104.88189 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #8ecdf2; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 226.204724 88.440945 
+L 319.181102 88.440945 
+L 319.181102 104.88189 
+L 226.204724 104.88189 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 320.88189 88.440945 
+L 413.858268 88.440945 
+L 413.858268 104.88189 
+L 320.88189 104.88189 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 415.559055 88.440945 
+L 508.535433 88.440945 
+L 508.535433 104.88189 
+L 415.559055 104.88189 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.35; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 36.850394 110.267717 
+L 43.653543 110.267717 
+L 43.653543 116.503937 
+L 36.850394 116.503937 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #f7c873; stroke: #000000; stroke-width: 0.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 93.021732 110.267717 
+L 99.824882 110.267717 
+L 99.824882 116.503937 
+L 93.021732 116.503937 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #8ecdf2; stroke: #000000; stroke-width: 0.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 164.313071 110.267717 
+L 171.11622 110.267717 
+L 171.11622 116.503937 
+L 164.313071 116.503937 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #a6dba0; stroke: #000000; stroke-width: 0.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 232.004409 110.267717 
+L 238.807559 110.267717 
+L 238.807559 116.503937 
+L 232.004409 116.503937 
+z
+" clip-path="url(#pa71df1cf65)" style="fill: #d9d9d9; stroke: #000000; stroke-width: 0.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(78.753817 8.22832)">Cell</text>
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(67.087411 12.415624)">segmentation</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(168.291139 8.22832)">Nucleus</text>
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(161.764576 12.415624)">segmentation</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(266.442913 7.695116)">QC &amp;</text>
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(253.247601 12.415624)">post-processing</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="367.370079" y="10.482714" transform="rotate(-0 367.370079 10.482714)">Features</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="462.047244" y="10.574511" transform="rotate(-0 462.047244 10.574511)">Statistics</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #7b3294" x="0.850394" y="27.015456" transform="rotate(-0 0.850394 27.015456)">Published</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="83.338583" y="26.521315" transform="rotate(-0 83.338583 26.521315)">Cellpose (default)</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="178.015748" y="26.521315" transform="rotate(-0 178.015748 26.521315)">ilastik pixel classifier</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="272.692913" y="26.521315" transform="rotate(-0 272.692913 26.521315)">dilation, crop, size filter</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="367.370079" y="26.521315" transform="rotate(-0 367.370079 26.521315)">25 hand-picked</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="462.047244" y="26.521315" transform="rotate(-0 462.047244 26.521315)">cell-level Mann–Whitney</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #636363" x="0.850394" y="44.873724" transform="rotate(-0 0.850394 44.873724)">Codex CLI</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="83.338583" y="44.379583" transform="rotate(-0 83.338583 44.379583)">Cellpose cyto3 (half resolution)</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="178.015748" y="44.873724" transform="rotate(-0 178.015748 44.873724)">erosion/threshold within cell</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="272.692913" y="44.379583" transform="rotate(-0 272.692913 44.379583)">shape QC</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="367.370079" y="44.870989" transform="rotate(-0 367.370079 44.870989)">30 features</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="462.047244" y="44.578411" transform="rotate(-0 462.047244 44.578411)">donor-level Wilcoxon, FDR</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #a6611a" transform="translate(0.850394 59.891659)">Exploratory</text>
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #a6611a" transform="translate(0.850394 64.573105)">Agentic-J</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="83.338583" y="62.237851" transform="rotate(-0 83.338583 62.237851)">Cellpose cyto3</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="178.015748" y="62.731991" transform="rotate(-0 178.015748 62.731991)">Otsu threshold within cell</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="272.692913" y="62.237851" transform="rotate(-0 272.692913 62.237851)">border, size, solidity filter</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="367.370079" y="62.729257" transform="rotate(-0 367.370079 62.729257)">25 features</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="462.047244" y="62.436679" transform="rotate(-0 462.047244 62.436679)">donor-level Wilcoxon, FDR</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #1a9641" transform="translate(0.850394 78.244068)">Conventional</text>
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #1a9641" transform="translate(0.850394 82.431372)">Agentic-J</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="83.338583" y="80.096118" transform="rotate(-0 83.338583 80.096118)">Cellpose cyto3 on optical density</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="178.015748" y="80.590259" transform="rotate(-0 178.015748 80.590259)">threshold within cell</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="272.692913" y="80.096118" transform="rotate(-0 272.692913 80.096118)">size/shape QC</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="367.370079" y="80.587525" transform="rotate(-0 367.370079 80.587525)">32 features</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="462.047244" y="80.096118" transform="rotate(-0 462.047244 80.096118)">donor-level permutation, FDR</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #0571b0" transform="translate(0.850394 93.756144)">Conventional</text>
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #0571b0" transform="translate(0.850394 97.943449)">Agentic-J</text>
+    <text style="font-weight: 700; font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; fill: #0571b0" transform="translate(0.850394 103.14091)">+ human</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="83.338583" y="97.954386" transform="rotate(-0 83.338583 97.954386)">Cellpose-SAM (user-specified)</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(151.062232 96.102335)">micro-sam fine-tuned on</text>
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(152.071998 100.794718)">11 hand-annotated tiles</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="272.692913" y="97.954386" transform="rotate(-0 272.692913 97.954386)">lobe-to-cell assignment</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="367.370079" y="98.445792" transform="rotate(-0 367.370079 98.445792)">11 features</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="462.047244" y="97.954386" transform="rotate(-0 462.047244 97.954386)">image-level Mann–Whitney, FDR</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start" x="45.637795" y="114.679772" transform="rotate(-0 45.637795 114.679772)">Manual (analyst)</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start" x="101.809134" y="114.679772" transform="rotate(-0 101.809134 114.679772)">Human feedback (user)</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start" x="173.100472" y="114.679772" transform="rotate(-0 173.100472 114.679772)">Automatic (Agentic-J)</text>
+   </g>
+   <g id="text_39">
+    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start" x="240.791811" y="114.679772" transform="rotate(-0 240.791811 114.679772)">Automatic (other agent)</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa71df1cf65">
+   <rect x="0" y="0" width="510.23622" height="121.889764"/>
+  </clipPath>
+ </defs>
+</svg>

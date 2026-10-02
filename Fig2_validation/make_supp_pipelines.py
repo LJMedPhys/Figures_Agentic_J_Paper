@@ -5,7 +5,10 @@
 
 Step texts are copied verbatim from the drafts. v2: everything already shown in Fig. 2 (time to result,
 verdicts, task 1 / task 2 outcomes) is cut, so these are pure method tables and need no run data; the five
-step columns use the full width. Style as Fig. 2: Nature sizes (min 5 pt), 180 mm wide."""
+step columns use the full width. Style as Fig. 2: Nature sizes (min 5 pt), 180 mm wide.
+v3: the parasite figure gets panel b, the count-comparison table of the parasite draft (its panel c:
+agreement with the published analysis). Its numbers come from the parasite data block of make_fig2.py,
+executed as is, so they always match Fig. 2. Mounts: see run_supp.sh."""
 import os, re, textwrap
 import matplotlib as mpl
 mpl.use('Agg'); import matplotlib.pyplot as plt
@@ -89,7 +92,7 @@ for ext in ['pdf', 'svg', 'png']: fig.savefig(f'{OUT}/Supp_CD177_pipelines.{ext}
 plt.close(fig)
 
 # =============================== Parasite ===============================
-H = 44; fig, ax_mm = new_fig(H)
+H = 82; fig, ax_mm = new_fig(H)
 a = ax_mm(0, 0, W, H); a.axis('off'); a.set_xlim(0, W); a.set_ylim(H, 0)
 steps = ['Registration\n(live → fixed)', 'Host / nucleus\nsegmentation', 'TUNEL call', 'Parasite\nlocalisation', 'Measurement\n& statistics']
 rows = [('Published', 'published', [('by hand', 'manual'), ('hand-drawn\nROIs', 'manual'), ('by inspection', 'manual'), ('15 ROIs + 3\nbackgrounds\neach, by hand', 'manual'), ('ROI Manager →\nExcel;\nMann–Whitney', 'manual')]),
@@ -105,5 +108,49 @@ for r, (name, key, cl) in enumerate(rows):
     a.text(0.3, y + rh / 2, name, va='center', fontsize=FS, fontweight='bold', color=COL[key], linespacing=1.0)
     cells(a, x0, cw, gap, y, rh, cl)
 legend_row(fig, a, x0, 40.6, [('manual', 'Manual'), ('hf', 'Human feedback'), ('auto', 'Automatic (Agentic-J)'), ('other', 'Automatic (other agent)')])
+fig.text(0, 1, 'a', fontsize=8, fontweight='bold', va='top')
+
+# ---- b: agreement with the published analysis (count comparison; panel c of the parasite draft) ----
+src = open('/work/make_fig2.py', encoding='utf-8').read()          # parasite numbers: run make_fig2's data block as is
+block = src[src.index("P = '/p'; sys.path"):src.index('FS, FL = 5, 6')] + \
+        src[src.index('# ======================= parasite data'):src.index('# ======================= a  scorecard')]
+ns = {}
+exec('import os, sys, csv, statistics as st\nimport numpy as np\nimport tifffile as tf\nfrom scipy.stats import mannwhitneyu\n' + block, ns)
+agree, S2, TOL = ns['agree'], ns['S2'], ns['TOL']
+YB = 46
+fig.text(0, 1 - YB / H, 'b', fontsize=8, fontweight='bold', va='top')
+fig.text(6 / W, 1 - (YB + 0.6) / H, 'Agreement with the published analysis (counts)', fontsize=FL, va='top')
+SCM = [('codex', 'codex', 'Codex CLI'), ('fast', 'fast', 'Exploratory\nAgentic-J'), ('automated', 'automated', 'Conventional\nAgentic-J'),
+       ('hil run 1', 'hil', 'Conventional\nAgentic-J\n+ human')]
+def t1val(m): return agree['hil' if m.startswith('hil') else m]
+def within(m): return sum(e <= TOL for e in S2[m]['err'])
+SROWS = [('Task 1', 'TUNEL calls agree', lambda m: (t1val(m), 6)),
+         ('Task 2', 'Lab parasites found', lambda m: (S2[m]['found'], 15)),
+         ('', 'Host group correct', lambda m: (S2[m]['grp'], S2[m]['found'])),
+         ('', f'Index within {TOL} of lab', lambda m: (within(m), len(S2[m]['err']))),
+         ('', 'False detections', lambda m: S2[m]['extra'])]
+sc = ax_mm(0, YB + 4.0, 110, 30); sc.axis('off'); sc.set_xlim(0, 110); sc.set_ylim(30, 0)
+LX, CX0, CW, CG, RY0, RH, RG = 0.3, 38, 16.5, 0.8, 7.2, 3.6, 0.6
+for j, (m, cm, lab_) in enumerate(SCM):
+    sc.text(CX0 + j * (CW + CG) + CW / 2, 3.3, lab_, ha='center', va='center', fontsize=FS, color=COL[cm], linespacing=0.95, fontweight='bold')
+y = RY0
+for i, (grp, lab_, fn) in enumerate(SROWS):
+    if grp == 'Task 2': y += 1.2
+    if grp: sc.text(LX, y + RH / 2, grp, va='center', fontsize=FS, fontweight='bold')
+    sc.text(LX + 8.5, y + RH / 2, lab_, va='center', fontsize=FS, color='#555555' if lab_ == 'False detections' else 'k')
+    for j, (m, cm, _) in enumerate(SCM):
+        x = CX0 + j * (CW + CG); v = fn(m)
+        if lab_ == 'False detections':                      # lower is better: plain count, no colour scale
+            sc.add_patch(Rectangle((x, y), CW, RH, fc='#f2f2f2', ec='none'))
+            sc.text(x + CW / 2, y + RH / 2, str(v), ha='center', va='center', fontsize=FS, color='#333333'); continue
+        k, n = v
+        if n == 0:
+            sc.add_patch(Rectangle((x, y), CW, RH, fc='w', ec='#bbbbbb', lw=0.3, ls='--'))
+            sc.text(x + CW / 2, y + RH / 2, '–', ha='center', va='center', fontsize=FS, color='#888888'); continue
+        fr = k / n; sc.add_patch(Rectangle((x, y), CW, RH, fc=COL[cm], alpha=0.12 + 0.88 * fr, ec='none'))
+        sc.text(x + CW / 2, y + RH / 2, f'{k} / {n}', ha='center', va='center', fontsize=FS, color='w' if fr > 0.55 else 'k',
+                fontweight='bold' if fr > 0.55 else 'normal')
+    y += RH + RG
 for ext in ['pdf', 'svg', 'png']: fig.savefig(f'{OUT}/Supp_Parasite_pipelines.{ext}', dpi=450 if ext == 'png' else None)
+print('parasite b: calls agree', agree, '| task2', {m: (v['found'], v['grp'], v['extra']) for m, v in S2.items()})
 print('wrote supplementary/Supp_CD177_pipelines + Supp_Parasite_pipelines')
