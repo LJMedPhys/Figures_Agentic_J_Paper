@@ -19,6 +19,7 @@ v5: (b) row names (donor / batch) removed and the grid starts under the panel he
     of (b) and (e) start at the first image column and stay within the grid width.
 v6: "published Fig. 4C" (meaningless to readers) replaced by what it shows: proliferation index (a, g).
 v7: (a) each verdict column (mark + text) is centred under its heading, from the measured widest entry.
+v8: p-values set as base (6 pt) + raised exponent (5 pt) instead of mathtext (exponent 3.5 pt); legend CD177− / CD177+.
 
 Code and numbers are taken from ../CD177_draft/make_figure.py (v7) and ../Parasite_draft/make_figure.py;
 those drafts are not modified. CD177 time/verdict values are the ones hard-coded in the CD177 draft;
@@ -254,15 +255,24 @@ def std(df, cond, c, n, r): return pd.DataFrame({'cond': np.where(df[cond].astyp
 DATA = {'published': ref, 'automated': std(A, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction_of_cell'),
         'fast': std(F, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction'), 'hil': std(Hh, 'CD177_status', 'cell_area_um2', 'nucleus_union_area_um2', 'nuclear_to_cell_area_ratio'),
         'codex': std(Cx, 'condition', 'cell_area', 'nucleus_area', 'nucleus_cell_area_ratio')}
-def fmt_p(p):
-    if p >= 0.01: return f'p = {p:.2f}'
-    m_, e_ = f'{p:.1e}'.split('e'); return f'p = {m_}×10$^{{{int(e_)}}}$'
+def fmt_p(p):                                  # -> (base, exponent); exponent drawn as its own 5 pt text, raised
+    if p >= 0.01: return (f'p = {p:.2f}', None)
+    m_, e_ = f'{p:.1e}'.split('e'); return (f'p = {m_}×10', f'{int(e_)}'.replace('-', '−'))
+_rend_p = fig.canvas.get_renderer()
+def put_p(ax, parts, color):
+    """p-value at the axes' top right: base 6 pt, exponent 5 pt raised (mathtext would print it at 3.5 pt)."""
+    base, ex = parts
+    if ex is None:
+        ax.text(1.0, 1.0, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color); return
+    e = ax.text(1.0, 1.0, ex, transform=ax.transAxes, ha='right', va='top', fontsize=5, color=color)
+    w = e.get_window_extent(_rend_p).width / ax.get_window_extent(_rend_p).width
+    ax.text(1.0 - w, 0.84, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color)
 MWU = {}
 for m in ['automated', 'fast', 'hil', 'codex']:
     for k in ['cell', 'nuc', 'nc']:
         v = DATA[m]; a_ = v[v.cond == 'pos'][k].dropna(); b_ = v[v.cond == 'neg'][k].dropna()
         MWU[(m, k)] = mannwhitneyu(a_, b_, alternative='two-sided').pvalue
-PUBP = ('p = 3.5×10$^{-52}$', 'p = 0.2', 'p = 2.4×10$^{-11}$')      # the paper's own values (as in the CD177 draft)
+PUBP = (('p = 3.5×10', '−52'), ('p = 0.2', None), ('p = 2.4×10', '−11'))      # the paper's own values (as in the CD177 draft)
 FEAT = [('cell', 'Cell area (µm²)', (0, 450)), ('nuc', 'Nucleus area (µm²)', (0, 160)), ('nc', 'Nucleus / cell area', (0, 1))]
 RM = ['published', 'codex', 'fast', 'automated', 'hil']
 RL = {'published': 'Published', 'automated': 'Conventional\nAgentic-J', 'fast': 'Exploratory\nAgentic-J', 'hil': 'Conventional\nAgentic-J\n+ human', 'codex': 'Codex'}
@@ -272,14 +282,14 @@ for ri, m in enumerate(RM):
         h = ax_mm(XL + 15 + fj * 24.4, ye + 5.5 + ri * 6.0, 22.4, 5.0); v = DATA[m]; bins = np.linspace(*lim, 46)
         for cnd, colr in [('neg', NEG), ('pos', POS)]:
             h.hist(v[v.cond == cnd][k].dropna().clip(*lim), bins=bins, density=True, color=colr, alpha=0.55, lw=0)
-        h.set_ylim(0, h.get_ylim()[1] * 1.5)
+        h.set_ylim(0, h.get_ylim()[1] * 2.0)   # headroom: p-value label clear of the bars
         h.set_xlim(lim); h.set_xticks({'cell': [0, 200, 400], 'nuc': [0, 50, 100], 'nc': [0, 0.5, 1]}[k]); h.set_yticks([]); h.spines['left'].set_visible(False)
         txt, tc = (PUBP[fj], COL['published']) if m == 'published' else (fmt_p(MWU[(m, k)]), '#333333')
-        h.text(1.0, 1.0, txt, transform=h.transAxes, ha='right', va='top', fontsize=FS, color=tc)
+        put_p(h, txt, tc)
         if ri < len(RM) - 1: h.set_xticklabels([])
         else: h.set_xlabel(t)
         if fj == 0: h.text(-0.05, 0.4, RL[m], transform=h.transAxes, ha='right', va='center', fontsize=FS, fontweight='bold', color=COL[m], linespacing=0.95)
-fig.legend(handles=[Patch(fc=NEG, alpha=0.55, label='CD177$^-$'), Patch(fc=POS, alpha=0.55, label='CD177$^+$')], frameon=False, fontsize=FS, ncol=2,
+fig.legend(handles=[Patch(fc=NEG, alpha=0.55, label='CD177−'), Patch(fc=POS, alpha=0.55, label='CD177+')], frameon=False, fontsize=FS, ncol=2,
            loc='upper right', bbox_to_anchor=((XL + 88) / W, 1 - (ye + 0.3) / H), handlelength=1.0, columnspacing=0.8, borderaxespad=0)
 
 # ======================= e  parasite task-1 gallery (field, cell 3, cell 6), same columns as b =======================

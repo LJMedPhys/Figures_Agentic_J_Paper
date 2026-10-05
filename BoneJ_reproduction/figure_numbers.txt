@@ -1,0 +1,6 @@
+BV/TV: CCC 0.9998; mean|d| 0.29%; max|d| 0.90%; slope published 0.191±0.136 (p=0.011), Agentic-J 0.190±0.136 (p=0.011)
+Tb.Th: CCC 0.9999; mean|d| 0.15%; max|d| 0.38%; slope published 0.312±0.050 (p=1.9e-07), Agentic-J 0.312±0.048 (p=1.4e-07)
+Tb.Sp: CCC 0.8745; mean|d| 6.66%; max|d| 9.68%; slope published 0.123±0.101 (p=0.022), Agentic-J 0.126±0.109 (p=0.028)
+Conn.D: CCC 0.9999; mean|d| 0.28%; max|d| 0.82%; slope published -0.654±0.250 (p=0.00022), Agentic-J -0.655±0.249 (p=0.00022)
+Tb.Sp masking off kalinga: 0.2509 vs published 0.251 (-0.04%)
+Tb.Sp masking off mindorensis: 0.3511 vs published 0.351 (+0.02%)
