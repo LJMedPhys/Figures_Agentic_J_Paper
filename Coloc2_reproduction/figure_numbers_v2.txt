@@ -1,0 +1,4 @@
+Published: iso +0.018±0.206 (median +0.055), hyp 0.508±0.181 (median 0.500), delta +0.490 (95% CI +0.312 to +0.677), P = 0.00016
+Agentic-J: iso -0.033±0.177 (median +0.025), hyp 0.465±0.135 (median 0.480), delta +0.498 (95% CI +0.353 to +0.654), P = 8.1e-05
+Rank-matched mean |difference|: 0.063
+Example fields: isotonic field 6 (R = -0.04), NaCl field 1 (R = +0.46); pixel size 0.0645 um

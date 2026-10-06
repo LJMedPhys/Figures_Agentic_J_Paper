@@ -1,0 +1,18 @@
+image,condition,pearson_r,manders_m1_suhw,manders_m2_gammah2av,threshold_red_suhw,threshold_green_gammah2av,threshold_method,nuclear_pixels
+"S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(1).tif","isotonic",0.036787,0.357822,0.724103,20.000000,8.000000,"Costes_regression_decorrelation",106576.000000
+"S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(2).tif","isotonic",0.279143,0.751444,0.999182,1.000000,3.000000,"Costes_lowest_r_fallback",93185.000000
+"S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(3).tif","isotonic",0.227922,0.626190,0.994899,6.000000,5.000000,"Costes_regression_decorrelation",97466.000000
+"S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(4).tif","isotonic",0.220991,0.438680,0.792374,15.000000,9.000000,"Costes_regression_decorrelation",84146.000000
+"S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(5).tif","isotonic",0.352332,0.740866,0.986724,2.000000,5.000000,"Costes_regression_decorrelation",78265.000000
+"S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(6).tif","isotonic",0.265398,0.722840,0.976030,1.000000,5.000000,"Costes_lowest_r_fallback",122009.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150612(7).tif","hypertonic_250mM_NaCl",0.510863,0.848754,0.997979,19.000000,29.000000,"Costes_regression_decorrelation",24536.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(1).tif","hypertonic_250mM_NaCl",0.567953,0.768674,0.956852,14.000000,8.000000,"Costes_regression_decorrelation",42450.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(10).tif","hypertonic_250mM_NaCl",0.581045,0.824562,0.987420,13.000000,7.000000,"Costes_regression_decorrelation",13364.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(2).tif","hypertonic_250mM_NaCl",0.675027,0.957977,0.998725,4.000000,4.000000,"Costes_regression_decorrelation",61057.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(3).tif","hypertonic_250mM_NaCl",0.634088,0.920087,0.968656,1.000000,5.000000,"Costes_lowest_r_fallback",62664.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(4).tif","hypertonic_250mM_NaCl",0.640746,0.663518,0.775623,19.000000,7.000000,"Costes_regression_decorrelation",45383.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(5).tif","hypertonic_250mM_NaCl",0.628787,0.797362,0.987298,10.000000,6.000000,"Costes_regression_decorrelation",52172.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(6).tif","hypertonic_250mM_NaCl",0.330000,0.563182,0.938340,12.000000,7.000000,"Costes_regression_decorrelation",33334.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(7).tif","hypertonic_250mM_NaCl",0.714310,0.690971,0.893686,18.000000,7.000000,"Costes_regression_decorrelation",22454.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(8).tif","hypertonic_250mM_NaCl",0.597302,0.750890,0.938711,16.000000,9.000000,"Costes_regression_decorrelation",20895.000000
+"250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(9).tif","hypertonic_250mM_NaCl",0.457491,0.484154,0.311363,43.000000,14.000000,"Costes_regression_decorrelation",16907.000000

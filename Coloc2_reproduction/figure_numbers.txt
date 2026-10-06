@@ -1,0 +1,8 @@
+Published (Coloc 2) [above threshold]: iso +0.018±0.206, hyp 0.508±0.181, Δ +0.490 (95% CI +0.312 to +0.677), P = 0.00016
+Interactive, prompt v2 (Coloc 2) [above threshold]: iso -0.033±0.177, hyp 0.465±0.135, Δ +0.498 (95% CI +0.353 to +0.654), P = 8.1e-05
+Interactive, prompt v1 (Coloc 2) [above threshold]: iso -0.023±0.164, hyp 0.408±0.168, Δ +0.432 (95% CI +0.283 to +0.589), P = 0.0004
+Interactive, prompt v2 (Coloc 2) [no threshold]: iso +0.282±0.129, hyp 0.606±0.095, Δ +0.325 (95% CI +0.220 to +0.438), P = 0.00016
+Interactive, prompt v1 (Coloc 2) [no threshold]: iso +0.332±0.111, hyp 0.585±0.109, Δ +0.254 (95% CI +0.155 to +0.358), P = 0.00065
+Auto-pilot (cp_measure) [no threshold]: iso +0.343±0.068, hyp 0.580±0.115, Δ +0.237 (95% CI +0.154 to +0.317), P = 0.00081
+Fast mode (custom Groovy) [no threshold]: iso +0.230±0.106, hyp 0.576±0.109, Δ +0.346 (95% CI +0.251 to +0.449), P = 0.00016
+Panel b rank-matched mean |difference| (prompt v2 vs published): 0.063

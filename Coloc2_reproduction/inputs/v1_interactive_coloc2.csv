@@ -1,0 +1,18 @@
+image_id,condition,file,pearson_no_threshold,pearson_above_threshold,tM1,tM2,costes_p,nuclear_px
+img001,isotonic,S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(1).tif,0.26,-0.19,0.329,0.256,1.0,143553
+img002,isotonic,S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(2).tif,0.4,0.09,0.489,0.679,1.0,138175
+img003,isotonic,S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(3).tif,0.36,0.12,0.573,0.73,1.0,136460
+img004,isotonic,S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(4).tif,0.14,-0.27,0.018,0.353,1.0,118096
+img005,isotonic,S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(5).tif,0.42,0.05,0.414,0.479,1.0,93236
+img006,isotonic,S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(6).tif,0.41,0.06,0.541,0.67,1.0,157874
+img007,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150612(7).tif,0.57,0.36,0.703,0.792,1.0,26991
+img008,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(1).tif,0.57,0.39,0.66,0.677,1.0,51109
+img009,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(2).tif,0.73,0.68,0.871,0.903,1.0,70470
+img010,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(3).tif,0.58,0.31,0.59,0.566,1.0,72945
+img011,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(4).tif,0.59,0.43,0.586,0.546,1.0,57714
+img012,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(5).tif,0.68,0.42,0.546,0.605,1.0,62816
+img013,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(6).tif,0.35,0.05,0.458,0.429,1.0,37755
+img014,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(7).tif,0.71,0.65,0.623,0.791,1.0,25215
+img015,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(8).tif,0.63,0.46,0.656,0.627,1.0,22747
+img016,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(9).tif,0.46,0.33,0.427,0.215,1.0,17746
+img017,hypertonic_250mM_NaCl,250mM Nacl S2 FITC-rH2av(mouse) Texas red- Su(Hw)(Rb) -DAPI 20150630(10).tif,0.57,0.41,0.564,0.644,1.0,14652
