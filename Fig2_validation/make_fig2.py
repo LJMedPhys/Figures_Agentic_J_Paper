@@ -20,6 +20,11 @@ v5: (b) row names (donor / batch) removed and the grid starts under the panel he
 v6: "published Fig. 4C" (meaningless to readers) replaced by what it shows: proliferation index (a, g).
 v7: (a) each verdict column (mark + text) is centred under its heading, from the measured widest entry.
 v8: p-values set as base (6 pt) + raised exponent (5 pt) instead of mathtext (exponent 3.5 pt); legend CD177− / CD177+.
+v9 (2026-10-07): Conventional Agentic-J + human parasite results from repeat 3 (/hil3, leishmania_tunel_position40) instead of
+    repeat 1 (a, e, f, g); time 35 / 45 min (estimated from the run's
+    ledger; the token log is empty). (g) no significance stars, (a) task 2 as Δ median instead of p / within-0.1;
+    no p-value on the published row (the paper reports none; Δ median of the published data is computed here). Where the CD177 inputs are not available
+    (gallery tiles, run outputs, hil4 mask agreement), the CD177 column b-d is reused as rendered in archive/v8.
 
 Code and numbers are taken from ../CD177_draft/make_figure.py (v7) and ../Parasite_draft/make_figure.py;
 those drafts are not modified. CD177 time/verdict values are the ones hard-coded in the CD177 draft;
@@ -68,9 +73,10 @@ PUB = 'published (Fig. 4C)'
 nuclei, _ = gt.load_task1(f'{ROOT}/oneframe_results/ExampleData_TunelMeasurement.xlsx')
 rois, _, _ = gt.load_task1_coords(f'{P}/data/one_frame', nuclei)
 lab = {n['roi']: n for n in nuclei}; rois = sorted(rois, key=lambda r: r['roi'])
+HIL3 = '/hil3/data'                         # Conventional Agentic-J + human, repeat 3 (user-confirmed C2 TUNEL labels)
 hil1 = {}
-with open(f'{ROOT}/hil_results/repeat_1/data/c2_tunel_final/C2_TUNEL_Classified_Nuclei.csv') as fh:
-    for r in csv.DictReader(fh): hil1[int(r['roi_name'].split()[-1])] = (float(r['corrected_tunel_signal']), r['group'])
+with open(f'{HIL3}/phase4b_position40_c2_tunel_final_labels.csv') as fh:
+    for r in csv.DictReader(fh): hil1[int(r['file_roi_name'].split()[-1].split('.')[0])] = (float(r['corrected_mean_raw_minus_background_mean']), r['final_tunel_status'])
 RUN1 = {'automated': f'{ROOT}/auto-mode/task_1', 'fast': f'{FAST}/task_1', 'codex': CXC}
 R1 = {m: load_run(f'{d}/tunel_nuclei.csv') for m, d in RUN1.items()}
 M1 = {m: tf.imread(f'{d}/tunel_nuclei_mask.tif') for m, d in RUN1.items()}
@@ -87,18 +93,20 @@ tun = stretch(tf.imread(f'{rawd}/position40_TUNEL_raw16bit_ch2.tif')[oy:oy + oh,
 
 LAB2 = '/parin/task2_lab'
 g2 = gt.load_task2_coords(LAB2); w2, _ = gt.load_task2(LAB2)
-def hil_t2(path, setc, grpc, valc):
+GMAP3 = {'TUNEL_POS': 'TUNEL+', 'TUNEL_NEG': 'TUNEL-'}
+def hil_t2(path, setc, grpc, valc, gmap={}):
     with open(path) as fh: rows = list(csv.DictReader(fh))
     used, out = set(), []
     for r in rows:
-        s_, g, v = r[setc], r[grpc].strip(), float(r[valc])
+        s_, g, v = r[setc], r[grpc].strip(), float(r[valc]); g = gmap.get(g, g)
         cand = [i for i, w in enumerate(w2) if w['group'] == g and i not in used and any(x in s_ for x in w['subsets'])] or \
                [i for i, w in enumerate(w2) if w['group'] == g and i not in used]
         i = min(cand, key=lambda i: abs(w2[i]['index'] - v)); used.add(i); out.append((w2[i]['index'], v, g, r))
     return out
 HP = f'{ROOT}/hil_results'
 H2 = {'run 1': hil_t2(f'{HP}/repeat_1/data/proliferation_index/Proliferation_Index_Unique_Parasites.csv', 'source_sets', 'display_group', 'proliferation_index_value'),
-      'run 2': hil_t2(f'{HP}/repeat_2/data/proliferation/position40_proliferation_index_unique_parasites.csv', 'set_id', 'group', 'proliferation_index')}
+      'run 2': hil_t2(f'{HP}/repeat_2/data/proliferation/position40_proliferation_index_unique_parasites.csv', 'set_id', 'group', 'proliferation_index'),
+      'run 3': hil_t2(f'{HIL3}/phase4d_position40_parasite_proliferation_unique15.csv', 'physical_parasite_id', 'tunel_group', 'proliferation_index', GMAP3)}
 for g in g2:
     best = min(H2['run 2'], key=lambda t: (float(t[3]['parasite_fullfield_x']) + float(t[3]['parasite_fullfield_w']) / 2 - g['x']) ** 2 +
                                           (float(t[3]['parasite_fullfield_y']) + float(t[3]['parasite_fullfield_h']) / 2 - g['y']) ** 2)
@@ -112,12 +120,20 @@ for m, d in RUN2.items():
 t2, _ = dp.collect(ROOT, f'{P}/data/published/jci.insight.169020.sdval.xlsx')
 t2 = {k: t2[k] for k in (PUB, 'Agent + human (run 1)', 'Advanced', 'Fast')}
 t2['Codex'] = dp.group_values([dict(index=o['value'], group=o['group']) for o in A2['codex']['objs']])
-t2 = {k: t2[k] for k in (PUB, 'Codex', 'Fast', 'Advanced', 'Agent + human (run 1)')}
+t2['Agent + human (run 3)'] = dp.group_values([dict(index=v, group=g) for _, v, g, _ in H2['run 3']])
+t2 = {k: t2[k] for k in (PUB, 'Codex', 'Fast', 'Advanced', 'Agent + human (run 3)')}
 K2 = list(t2); MK = ['published', 'codex', 'fast', 'automated', 'hil']
 def mwu(g):
     a, b = g.get('TUNEL+'), g.get('TUNEL-')
     return mannwhitneyu(a, b, alternative='two-sided').pvalue if a and b and len(a) > 1 and len(b) > 1 else None
 p2 = [mwu(t2[k]) for k in K2]
+def dmed(g, B=4000):
+    a_, b_ = np.asarray(g.get('TUNEL+', [])), np.asarray(g.get('TUNEL-', []))
+    if len(a_) < 2 or len(b_) < 2: return None
+    r = np.random.default_rng(1); bs = [np.median(r.choice(a_, len(a_))) - np.median(r.choice(b_, len(b_))) for _ in range(B)]
+    return np.median(a_) - np.median(b_), *np.percentile(bs, [2.5, 97.5])
+DM = [dmed(t2[k]) for k in K2]
+dfmt = lambda k: f'Δ median {DM[K2.index(k)][0]:.2f}'   # task 2: descriptive only, no test on agent output
 S2 = {}
 for k, v in H2.items(): S2['hil ' + k] = dict(found=15, extra=0, grp=15, err=[abs(a_ - b_) for a_, b_, _, _ in v])
 for m in A2: S2[m] = dict(found=len(A2[m]['kept']), extra=len(A2[m]['extra']), grp=sum(gg == rg for _, _, gg, rg in A2[m]['pairs']),
@@ -134,19 +150,19 @@ CD_VER = {'published': ('ref', 'no meaningful difference'), 'codex': ('ok', '0/3
           'fast': ('x', '5/25 significant (3/3 runs)'), 'automated': ('ok', '0/32 significant (3/3 runs)'),
           'hil': ('ok', '0/11 features significant')}
 # parasite: recomputed above, same wording as the parasite draft (shortened to fit)
-PA_TIME = {'published': 'not recorded', 'codex': '18 min (both)', 'fast': '22 / 69 min', 'automated': '55 / 85 min', 'hil': '32 min / n.r.'}
+PA_TIME = {'published': 'not recorded', 'codex': '18 min (both)', 'fast': '22 / 69 min', 'automated': '55 / 85 min', 'hil': '35 / 45 min'}
 def pfmt(p): return f'p = {p:.2g}'
-w2n = sum(e <= TOL for e in S2['hil run 1']['err']); sc_ = S2['codex']; pc = p2[K2.index('Codex')]
+w2n = sum(e <= TOL for e in S2['hil run 3']['err']); sc_ = S2['codex']; pc = p2[K2.index('Codex')]
 PA_T1 = {'published': ('ref', '2/6 nuclei TUNEL+'),
          'codex': ('ok', f'{agree["codex"]}/6 calls, r = {r1["codex"]:.2f}'),
          'fast': ('ok', f'{agree["fast"]}/6 calls, r = {r1["fast"]:.2f}, 1 split'),
          'automated': ('ok', f'{agree["automated"]}/6 calls, r = {r1["automated"]:.2f}'),
          'hil': ('ok', f'{agree["hil"]}/6 calls, r = {r1["hil"]:.2f}')}
-PA_T2 = {'published': ('ref', f'8 TUNEL+ vs 7 TUNEL−, {pfmt(p2[K2.index(PUB)])}'),
-         'codex': ('ok' if sc_['grp'] == sc_['found'] else 'x', f'{sc_["found"]}/15 found, hosts right' + (f'; {pfmt(pc)}' if pc else '')),
+PA_T2 = {'published': ('ref', '8 TUNEL+ vs 7 TUNEL−, higher in TUNEL+'),
+         'codex': ('ok' if sc_['grp'] == sc_['found'] else 'x', f'{sc_["found"]}/15 found, hosts right; {dfmt("Codex")}'),
          'fast': ('x', f'{S2["fast"]["found"]}/15 found (+{S2["fast"]["extra"]}), no host'),
          'automated': ('x', f'{S2["automated"]["found"]}/15 found (+{S2["automated"]["extra"]}), no TUNEL+'),
-         'hil': ('ok', f'15/15; {w2n}/15 within {TOL}; {pfmt(p2[K2.index("Agent + human (run 1)")])}')}
+         'hil': ('ok', f'15/15; {dfmt("Agent + human (run 3)")} (published data {dfmt(PUB)[9:]})')}
 
 XCHIP, XCDT, XCDV, XPAT, XPT1, XPT2 = 27.5, 43.5, 52.0, 99.0, 107.5, 141.0
 GRP = [(36.0, 87.5, 'CD177 neutrophil morphology'), (90.5, 179.6, 'Leishmania infection: TUNEL and proliferation')]
@@ -198,99 +214,110 @@ a.text(xl + 3, yl, 'not reproduced', va='center', fontsize=FS)
 
 # ======================= b  CD177 gallery (all 4 rows of the CD177 draft) =======================
 XL, XR = 0.0, 92.0                          # left column = CD177, right column = Leishmania (as in the scorecard)
-yb = 47; letter(XL, yb, 'b'); head(XL + 6, yb + 0.6, 'CD177: segmentations of four example cells')
 clab = ['raw', 'Published', 'Codex', 'Exploratory\nAgentic-J', 'Conventional\nAgentic-J', 'Conventional\nAgentic-J\n+ human']
 ccol = ['k', COL['published'], COL['codex'], COL['fast'], COL['automated'], COL['hil']]
-pk = pd.read_csv(f'{CD}/inputs/gallery_picks_main.csv')
-def rowlab(stem, ses): d = stem.replace('-', '_').split('_'); return f"{d[0]} {d[1]}\n{ses}"
 GX, GXR, tw, tg, rpit = XL + 6.0, XR + 9.5, 12.4, 0.4, 12.9   # b has no row names, e keeps Field / Cell labels
 GRID_W = 6 * (tw + tg) - tg                  # image-grid width; the overlay legends live inside it
-for ri in range(4):
-    p_ = pk.iloc[ri]
-    for ci in range(6):
-        t = plt.imread(f'{CD}/inputs/gallery_tiles_main/r{ri}_c{ci}.png')
-        ax = ax_mm(GX + ci * (tw + tg), yb + 10.5 + ri * rpit, tw, tw); ax.imshow(t, interpolation='none'); ax.set_xticks([]); ax.set_yticks([])
-        for s in ax.spines.values(): s.set_visible(True); s.set_linewidth(0.3)
-        if ri == 0: ax.set_title(clab[ci], fontsize=FS, color=ccol[ci], pad=1.5, linespacing=0.95)
-lx = ax_mm(GX, yb + 10.5 + 4 * rpit + 0.6, GRID_W, 2.6); lx.axis('off'); lx.set_xlim(0, GRID_W); lx.set_ylim(0, 1)
-for x, c, ls, t in [(0, '#f2c200', '-', 'cell'), (10, '#27c7f0', '-', 'nucleus'), (23.5, '#FF8C00', '--', 'segmented, not measured'),
-                    (51.5, '#FF1744', ':', 'published cell missed')]:
-    lx.plot([x, x + 3.5], [0.5, 0.5], color=c, ls=ls, lw=1); lx.text(x + 4.5, 0.5, t, va='center', fontsize=FS)
+yb = 47
+# CD177 inputs (gallery tiles, run outputs, hil4 mask agreement) only exist on the eternus machine; without them
+# the CD177 column (b, c, d) is reused as rendered in archive/v8 (same layout, same data)
+CD_LIVE = os.path.isdir('/auto_cells') and os.path.isdir(f'{CD}/inputs/gallery_tiles_main') and \
+          'hil4' in set(pd.read_csv(f'{CD}/inputs/mask_agreement_per_cell.csv').method)
+if CD_LIVE:
+    letter(XL, yb, 'b'); head(XL + 6, yb + 0.6, 'CD177: segmentations of four example cells')
+    pk = pd.read_csv(f'{CD}/inputs/gallery_picks_main.csv')
+    def rowlab(stem, ses): d = stem.replace('-', '_').split('_'); return f"{d[0]} {d[1]}\n{ses}"
+    for ri in range(4):
+        p_ = pk.iloc[ri]
+        for ci in range(6):
+            t = plt.imread(f'{CD}/inputs/gallery_tiles_main/r{ri}_c{ci}.png')
+            ax = ax_mm(GX + ci * (tw + tg), yb + 10.5 + ri * rpit, tw, tw); ax.imshow(t, interpolation='none'); ax.set_xticks([]); ax.set_yticks([])
+            for s in ax.spines.values(): s.set_visible(True); s.set_linewidth(0.3)
+            if ri == 0: ax.set_title(clab[ci], fontsize=FS, color=ccol[ci], pad=1.5, linespacing=0.95)
+    lx = ax_mm(GX, yb + 10.5 + 4 * rpit + 0.6, GRID_W, 2.6); lx.axis('off'); lx.set_xlim(0, GRID_W); lx.set_ylim(0, 1)
+    for x, c, ls, t in [(0, '#f2c200', '-', 'cell'), (10, '#27c7f0', '-', 'nucleus'), (23.5, '#FF8C00', '--', 'segmented, not measured'),
+                        (51.5, '#FF1744', ':', 'published cell missed')]:
+        lx.plot([x, x + 3.5], [0.5, 0.5], color=c, ls=ls, lw=1); lx.text(x + 4.5, 0.5, t, va='center', fontsize=FS)
 
-# ======================= c  CD177 agreement with the published masks =======================
-yc = yb + 10.5 + 4 * rpit + 5.5; letter(XL, yc, 'c')
-ag = pd.read_csv(f'{CD}/inputs/mask_agreement_per_cell.csv')
-ag = ag[~ag.method.isin(['hil', 'hil3'])].replace({'method': {'hil4': 'hil'}})
-ag['matched'] = (ag.cell_iou >= 0.5) & (ag.measured.astype(str) == 'True')
-head(XL + 6, yc + 0.6, f'CD177: agreement with the published masks ({int((ag.method == "hil").sum())} cells)')
-M = ['codex', 'fast', 'automated', 'hil']
-mets = [('matched', 'Cells found & measured\n(IoU ≥ 0.5)'), ('cell_iou', 'Cell overlap\n(IoU)'), ('nuc_dice', 'Nucleus overlap\n(Dice)')]
-for j, (k, t) in enumerate(mets):
-    d = ax_mm(XL + 7 + j * 27.0, yc + 9.5, 23.0, 13.5)
-    if k == 'matched':
-        for mi, m in enumerate(M): d.bar(mi, ag[ag.method == m].matched.mean(), 0.62, color=COL[m], lw=0)
-        d.set_ylim(0, 1.0); d.set_yticks([0, 0.5, 1.0])
-    else:
-        data = [ag[(ag.method == m) & ag.matched][k].dropna().values for m in M]
-        bp = d.boxplot(data, positions=range(4), widths=0.55, whis=(5, 95), showfliers=False, patch_artist=True,
-                       medianprops=dict(color='k', lw=0.8), whiskerprops=dict(lw=0.6), capprops=dict(lw=0.6), boxprops=dict(lw=0.5))
-        for b, m in zip(bp['boxes'], M): b.set_facecolor(COL[m]); b.set_alpha(0.75)
-        d.set_ylim(0.4, 1.0); d.set_yticks([0.4, 0.6, 0.8, 1.0])
-    d.set_xlim(-0.6, 3.6); d.set_title(t, fontsize=FS, pad=2, linespacing=0.95); d.set_xticks([])
-    d.grid(axis='y', lw=0.25, color='#dddddd'); d.set_axisbelow(True)
-    if j == 2: d.set_yticklabels([])
-fig.legend(handles=[Patch(fc=COL[m], label=SH[m]) for m in M], frameon=False, fontsize=FS, ncol=2, loc='upper left',
-           bbox_to_anchor=((XL + 6) / W, 1 - (yc + 25.0) / H), handlelength=1.0, handletextpad=0.4, columnspacing=1.0, borderaxespad=0)
+    # ======================= c  CD177 agreement with the published masks =======================
+    yc = yb + 10.5 + 4 * rpit + 5.5; letter(XL, yc, 'c')
+    ag = pd.read_csv(f'{CD}/inputs/mask_agreement_per_cell.csv')
+    ag = ag[~ag.method.isin(['hil', 'hil3'])].replace({'method': {'hil4': 'hil'}})
+    ag['matched'] = (ag.cell_iou >= 0.5) & (ag.measured.astype(str) == 'True')
+    head(XL + 6, yc + 0.6, f'CD177: agreement with the published masks ({int((ag.method == "hil").sum())} cells)')
+    M = ['codex', 'fast', 'automated', 'hil']
+    mets = [('matched', 'Cells found & measured\n(IoU ≥ 0.5)'), ('cell_iou', 'Cell overlap\n(IoU)'), ('nuc_dice', 'Nucleus overlap\n(Dice)')]
+    for j, (k, t) in enumerate(mets):
+        d = ax_mm(XL + 7 + j * 27.0, yc + 9.5, 23.0, 13.5)
+        if k == 'matched':
+            for mi, m in enumerate(M): d.bar(mi, ag[ag.method == m].matched.mean(), 0.62, color=COL[m], lw=0)
+            d.set_ylim(0, 1.0); d.set_yticks([0, 0.5, 1.0])
+        else:
+            data = [ag[(ag.method == m) & ag.matched][k].dropna().values for m in M]
+            bp = d.boxplot(data, positions=range(4), widths=0.55, whis=(5, 95), showfliers=False, patch_artist=True,
+                           medianprops=dict(color='k', lw=0.8), whiskerprops=dict(lw=0.6), capprops=dict(lw=0.6), boxprops=dict(lw=0.5))
+            for b, m in zip(bp['boxes'], M): b.set_facecolor(COL[m]); b.set_alpha(0.75)
+            d.set_ylim(0.4, 1.0); d.set_yticks([0.4, 0.6, 0.8, 1.0])
+        d.set_xlim(-0.6, 3.6); d.set_title(t, fontsize=FS, pad=2, linespacing=0.95); d.set_xticks([])
+        d.grid(axis='y', lw=0.25, color='#dddddd'); d.set_axisbelow(True)
+        if j == 2: d.set_yticklabels([])
+    fig.legend(handles=[Patch(fc=COL[m], label=SH[m]) for m in M], frameon=False, fontsize=FS, ncol=2, loc='upper left',
+               bbox_to_anchor=((XL + 6) / W, 1 - (yc + 25.0) / H), handlelength=1.0, handletextpad=0.4, columnspacing=1.0, borderaxespad=0)
 
-# ======================= d  CD177 per-cell distributions vs published (verbatim from the CD177 draft, panel d) =======================
-ye = yc + 33; letter(XL, ye, 'd'); head(XL + 6, ye + 0.6, 'CD177: per-cell distributions vs published data')
-PX2 = 0.2515 ** 2
-pcs = pd.read_csv(f'{CD}/inputs/published_cells_from_crops.csv'); pcs = pcs[~pcs.is60x]
-ref = pd.DataFrame({'cond': pcs.cond, 'cell': pcs.cell_px * PX2, 'nuc': pcs.nuc_px * PX2, 'nc': pcs.nc})
-A = pd.read_csv('/auto_cells/cd177_cell_features.csv'); A = A[A.size_analysis_eligible.astype(str) == 'True']
-F = pd.read_csv('/fast_cells/cell_features.csv'); F = F[~F.image.astype(str).str.contains('60x')]
-Cx = pd.read_csv('/codex_cells/cd177_cell_features.csv'); Cx = Cx[~Cx.magnification.astype(str).str.contains('60')]
-Hh = pd.read_csv('/hil_cells/Cell_Morphology_Measurements_V2.csv'); Hh = Hh[Hh.included_primary.astype(str) == 'True']
-def std(df, cond, c, n, r): return pd.DataFrame({'cond': np.where(df[cond].astype(str).str.lower().str.contains('pos'), 'pos', 'neg'), 'cell': df[c], 'nuc': df[n], 'nc': df[r]})
-DATA = {'published': ref, 'automated': std(A, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction_of_cell'),
-        'fast': std(F, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction'), 'hil': std(Hh, 'CD177_status', 'cell_area_um2', 'nucleus_union_area_um2', 'nuclear_to_cell_area_ratio'),
-        'codex': std(Cx, 'condition', 'cell_area', 'nucleus_area', 'nucleus_cell_area_ratio')}
-def fmt_p(p):                                  # -> (base, exponent); exponent drawn as its own 5 pt text, raised
-    if p >= 0.01: return (f'p = {p:.2f}', None)
-    m_, e_ = f'{p:.1e}'.split('e'); return (f'p = {m_}×10', f'{int(e_)}'.replace('-', '−'))
-_rend_p = fig.canvas.get_renderer()
-def put_p(ax, parts, color):
-    """p-value at the axes' top right: base 6 pt, exponent 5 pt raised (mathtext would print it at 3.5 pt)."""
-    base, ex = parts
-    if ex is None:
-        ax.text(1.0, 1.0, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color); return
-    e = ax.text(1.0, 1.0, ex, transform=ax.transAxes, ha='right', va='top', fontsize=5, color=color)
-    w = e.get_window_extent(_rend_p).width / ax.get_window_extent(_rend_p).width
-    ax.text(1.0 - w, 0.84, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color)
-MWU = {}
-for m in ['automated', 'fast', 'hil', 'codex']:
-    for k in ['cell', 'nuc', 'nc']:
-        v = DATA[m]; a_ = v[v.cond == 'pos'][k].dropna(); b_ = v[v.cond == 'neg'][k].dropna()
-        MWU[(m, k)] = mannwhitneyu(a_, b_, alternative='two-sided').pvalue
-PUBP = (('p = 3.5×10', '−52'), ('p = 0.2', None), ('p = 2.4×10', '−11'))      # the paper's own values (as in the CD177 draft)
-FEAT = [('cell', 'Cell area (µm²)', (0, 450)), ('nuc', 'Nucleus area (µm²)', (0, 160)), ('nc', 'Nucleus / cell area', (0, 1))]
-RM = ['published', 'codex', 'fast', 'automated', 'hil']
-RL = {'published': 'Published', 'automated': 'Conventional\nAgentic-J', 'fast': 'Exploratory\nAgentic-J', 'hil': 'Conventional\nAgentic-J\n+ human', 'codex': 'Codex'}
-NEG, POS = '#f08080', '#7b68ee'
-for ri, m in enumerate(RM):
-    for fj, (k, t, lim) in enumerate(FEAT):
-        h = ax_mm(XL + 15 + fj * 24.4, ye + 5.5 + ri * 6.0, 22.4, 5.0); v = DATA[m]; bins = np.linspace(*lim, 46)
-        for cnd, colr in [('neg', NEG), ('pos', POS)]:
-            h.hist(v[v.cond == cnd][k].dropna().clip(*lim), bins=bins, density=True, color=colr, alpha=0.55, lw=0)
-        h.set_ylim(0, h.get_ylim()[1] * 2.0)   # headroom: p-value label clear of the bars
-        h.set_xlim(lim); h.set_xticks({'cell': [0, 200, 400], 'nuc': [0, 50, 100], 'nc': [0, 0.5, 1]}[k]); h.set_yticks([]); h.spines['left'].set_visible(False)
-        txt, tc = (PUBP[fj], COL['published']) if m == 'published' else (fmt_p(MWU[(m, k)]), '#333333')
-        put_p(h, txt, tc)
-        if ri < len(RM) - 1: h.set_xticklabels([])
-        else: h.set_xlabel(t)
-        if fj == 0: h.text(-0.05, 0.4, RL[m], transform=h.transAxes, ha='right', va='center', fontsize=FS, fontweight='bold', color=COL[m], linespacing=0.95)
-fig.legend(handles=[Patch(fc=NEG, alpha=0.55, label='CD177−'), Patch(fc=POS, alpha=0.55, label='CD177+')], frameon=False, fontsize=FS, ncol=2,
-           loc='upper right', bbox_to_anchor=((XL + 88) / W, 1 - (ye + 0.3) / H), handlelength=1.0, columnspacing=0.8, borderaxespad=0)
+    # ======================= d  CD177 per-cell distributions vs published (verbatim from the CD177 draft, panel d) =======================
+    ye = yc + 33; letter(XL, ye, 'd'); head(XL + 6, ye + 0.6, 'CD177: per-cell distributions vs published data')
+    PX2 = 0.2515 ** 2
+    pcs = pd.read_csv(f'{CD}/inputs/published_cells_from_crops.csv'); pcs = pcs[~pcs.is60x]
+    ref = pd.DataFrame({'cond': pcs.cond, 'cell': pcs.cell_px * PX2, 'nuc': pcs.nuc_px * PX2, 'nc': pcs.nc})
+    A = pd.read_csv('/auto_cells/cd177_cell_features.csv'); A = A[A.size_analysis_eligible.astype(str) == 'True']
+    F = pd.read_csv('/fast_cells/cell_features.csv'); F = F[~F.image.astype(str).str.contains('60x')]
+    Cx = pd.read_csv('/codex_cells/cd177_cell_features.csv'); Cx = Cx[~Cx.magnification.astype(str).str.contains('60')]
+    Hh = pd.read_csv('/hil_cells/Cell_Morphology_Measurements_V2.csv'); Hh = Hh[Hh.included_primary.astype(str) == 'True']
+    def std(df, cond, c, n, r): return pd.DataFrame({'cond': np.where(df[cond].astype(str).str.lower().str.contains('pos'), 'pos', 'neg'), 'cell': df[c], 'nuc': df[n], 'nc': df[r]})
+    DATA = {'published': ref, 'automated': std(A, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction_of_cell'),
+            'fast': std(F, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction'), 'hil': std(Hh, 'CD177_status', 'cell_area_um2', 'nucleus_union_area_um2', 'nuclear_to_cell_area_ratio'),
+            'codex': std(Cx, 'condition', 'cell_area', 'nucleus_area', 'nucleus_cell_area_ratio')}
+    def fmt_p(p):                                  # -> (base, exponent); exponent drawn as its own 5 pt text, raised
+        if p >= 0.01: return (f'p = {p:.2f}', None)
+        m_, e_ = f'{p:.1e}'.split('e'); return (f'p = {m_}×10', f'{int(e_)}'.replace('-', '−'))
+    _rend_p = fig.canvas.get_renderer()
+    def put_p(ax, parts, color):
+        """p-value at the axes' top right: base 6 pt, exponent 5 pt raised (mathtext would print it at 3.5 pt)."""
+        base, ex = parts
+        if ex is None:
+            ax.text(1.0, 1.0, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color); return
+        e = ax.text(1.0, 1.0, ex, transform=ax.transAxes, ha='right', va='top', fontsize=5, color=color)
+        w = e.get_window_extent(_rend_p).width / ax.get_window_extent(_rend_p).width
+        ax.text(1.0 - w, 0.84, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color)
+    MWU = {}
+    for m in ['automated', 'fast', 'hil', 'codex']:
+        for k in ['cell', 'nuc', 'nc']:
+            v = DATA[m]; a_ = v[v.cond == 'pos'][k].dropna(); b_ = v[v.cond == 'neg'][k].dropna()
+            MWU[(m, k)] = mannwhitneyu(a_, b_, alternative='two-sided').pvalue
+    PUBP = (('p = 3.5×10', '−52'), ('p = 0.2', None), ('p = 2.4×10', '−11'))      # the paper's own values (as in the CD177 draft)
+    FEAT = [('cell', 'Cell area (µm²)', (0, 450)), ('nuc', 'Nucleus area (µm²)', (0, 160)), ('nc', 'Nucleus / cell area', (0, 1))]
+    RM = ['published', 'codex', 'fast', 'automated', 'hil']
+    RL = {'published': 'Published', 'automated': 'Conventional\nAgentic-J', 'fast': 'Exploratory\nAgentic-J', 'hil': 'Conventional\nAgentic-J\n+ human', 'codex': 'Codex'}
+    NEG, POS = '#f08080', '#7b68ee'
+    for ri, m in enumerate(RM):
+        for fj, (k, t, lim) in enumerate(FEAT):
+            h = ax_mm(XL + 15 + fj * 24.4, ye + 5.5 + ri * 6.0, 22.4, 5.0); v = DATA[m]; bins = np.linspace(*lim, 46)
+            for cnd, colr in [('neg', NEG), ('pos', POS)]:
+                h.hist(v[v.cond == cnd][k].dropna().clip(*lim), bins=bins, density=True, color=colr, alpha=0.55, lw=0)
+            h.set_ylim(0, h.get_ylim()[1] * 2.0)   # headroom: p-value label clear of the bars
+            h.set_xlim(lim); h.set_xticks({'cell': [0, 200, 400], 'nuc': [0, 50, 100], 'nc': [0, 0.5, 1]}[k]); h.set_yticks([]); h.spines['left'].set_visible(False)
+            txt, tc = (PUBP[fj], COL['published']) if m == 'published' else (fmt_p(MWU[(m, k)]), '#333333')
+            put_p(h, txt, tc)
+            if ri < len(RM) - 1: h.set_xticklabels([])
+            else: h.set_xlabel(t)
+            if fj == 0: h.text(-0.05, 0.4, RL[m], transform=h.transAxes, ha='right', va='center', fontsize=FS, fontweight='bold', color=COL[m], linespacing=0.95)
+    fig.legend(handles=[Patch(fc=NEG, alpha=0.55, label='CD177−'), Patch(fc=POS, alpha=0.55, label='CD177+')], frameon=False, fontsize=FS, ncol=2,
+               loc='upper right', bbox_to_anchor=((XL + 88) / W, 1 - (ye + 0.3) / H), handlelength=1.0, columnspacing=0.8, borderaxespad=0)
+
+else:
+    _im = plt.imread('/work/archive/v8_2026-10-02/Fig2_validation.png'); _s = _im.shape[1] / W
+    _cd = ax_mm(XL, yb - 0.5, XR - XL, H - yb + 0.5); _cd.axis('off')
+    _cd.imshow(_im[int((yb - 0.5) * _s):, :int(XR * _s)], interpolation='none', aspect='auto')
 
 # ======================= e  parasite task-1 gallery (field, cell 3, cell 6), same columns as b =======================
 yd = yb; letter(XR, yd, 'e'); head(XR + 6, yd + 0.6, 'Leishmania task 1: six nuclei, called by each pipeline')
@@ -358,7 +385,6 @@ s.legend(h_, l_, frameon=False, fontsize=FS, loc='lower left', bbox_to_anchor=(-
 # ======================= g  parasite task 2 = published Fig. 4C (+ delta median, from the parasite draft) =======================
 yg = yf + 34; letter(XR, yg, 'g'); head(XR + 6, yg + 0.6, 'Leishmania task 2: proliferation index by host TUNEL status')
 SRC = ['Published', 'Codex', 'Exploratory', 'Conventional', 'Conventional\n+ human']
-def stars(p): return '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else 'ns'
 rng = np.random.default_rng(0)
 EH = 28.5; d = ax_mm(XR + 11, yg + 9.0, 77, EH); lim = (0, 10.6)   # legend sits above, plot fills the column
 for i, k in enumerate(K2):
@@ -371,7 +397,6 @@ for i, k in enumerate(K2):
         d.scatter(i + dx + rng.uniform(-0.05, 0.05, len(v)), np.clip(v, *lim), s=6, color=c, lw=0, alpha=0.85, zorder=2)
         d.plot([i + dx - 0.14, i + dx + 0.14], [st.median(v)] * 2, color='k', lw=0.8, zorder=4, solid_capstyle='butt')
         if n_out: d.text(i + dx, 0.15, f'↓{n_out}', ha='center', va='bottom', fontsize=LBL, color=c)
-    if p2[i] is not None: d.text(i, lim[1], stars(p2[i]), ha='center', va='top', fontsize=FS)
 d.set_xticks(range(len(K2))); d.set_xticklabels(SRC, fontsize=FS, rotation=40, ha='right', rotation_mode='anchor', linespacing=0.95)
 for tl, m in zip(d.get_xticklabels(), MK): tl.set_color(COL[m])
 d.tick_params(axis='x', length=0); d.set_ylim(*lim); d.set_yticks([0, 5, 10]); d.set_xlim(-0.5, len(K2) - 0.5)
@@ -379,12 +404,6 @@ d.grid(axis='y', lw=0.25, color='#dddddd'); d.set_axisbelow(True); d.set_ylabel(
 d.legend(handles=[Line2D([], [], marker='o', lw=0, ms=2.5, color=TP, label='TUNEL+ host'), Line2D([], [], marker='o', lw=0, ms=2.5, color=TN, label='TUNEL− host'),
                   Line2D([], [], marker='o', lw=0, ms=2.5, color=UN, label='no host'), Line2D([], [], color='k', lw=0.8, label='median')],
          frameon=False, fontsize=FS, loc='lower left', bbox_to_anchor=(-0.02, 1.03), ncol=4, handlelength=0.9, handletextpad=0.3, borderaxespad=0, columnspacing=1.2)
-def dmed(g, B=4000):
-    a_, b_ = np.asarray(g.get('TUNEL+', [])), np.asarray(g.get('TUNEL-', []))
-    if len(a_) < 2 or len(b_) < 2: return None
-    r = np.random.default_rng(1); bs = [np.median(r.choice(a_, len(a_))) - np.median(r.choice(b_, len(b_))) for _ in range(B)]
-    return np.median(a_) - np.median(b_), *np.percentile(bs, [2.5, 97.5])
-DM = [dmed(t2[k]) for k in K2]
 import matplotlib.transforms as mtr
 ty = mtr.blended_transform_factory(d.transData, fig.transFigure); yrow = 1 - (yg + 9.0 + EH + 11.6) / H; yci = 1 - (yg + 9.0 + EH + 13.8) / H
 d.text(-0.5, yrow, 'Δ median  ', ha='right', va='center', fontsize=FS, fontweight='bold', transform=ty)
@@ -396,6 +415,10 @@ for i, r in enumerate(DM):
     if r is not None: d.text(i, yci, f'[{r[1]:.1f}, {r[2]:.1f}]', ha='center', va='center', fontsize=FS, color='#555555', transform=ty)
 
 for ext in ['pdf', 'svg', 'png']: fig.savefig(f'/work/Fig2_validation.{ext}', dpi=450 if ext == 'png' else None)
+if not CD_LIVE:                              # PNG: put the archived CD177 pixels back exactly (imshow resamples by a fraction of a pixel)
+    _new = plt.imread('/work/Fig2_validation.png'); assert _new.shape[:2] == _im.shape[:2]
+    _r0, _c1 = int((yb - 0.5) * _s), int(XR * _s)
+    _new[_r0:, :_c1] = _im[_r0:, :_c1, :_new.shape[2]]; plt.imsave('/work/Fig2_validation.png', _new, dpi=450)
 # what was plotted, so a rebuild can be checked against the drafts
 print('verdict block x (mm): CD177', round(X_CD, 1), ' T1', round(X_T1, 1), ' T2', round(X_T2, 1))
 print('task1 calls agree', agree, ' r', {m: round(v, 3) for m, v in r1.items()})
