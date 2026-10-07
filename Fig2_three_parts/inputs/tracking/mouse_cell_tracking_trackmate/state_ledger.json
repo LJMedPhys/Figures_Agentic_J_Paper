@@ -1,0 +1,494 @@
+{
+  "project_root": "/app/data/projects/mouse_cell_tracking_trackmate",
+  "scientific_goal": "Batch-detect bright cell spots and track them over time with TrackMate (Threshold detector + LAP tracker) to report number of tracks and total cells/spots.",
+  "operating_mode": "script",
+  "completed_steps": [
+    {
+      "phase": "4c",
+      "step": "velocity_unit_conversion",
+      "status": "completed",
+      "details": "Converted TrackMate track speeds from pixel/frame to um/min using 0.645 um/px and 5 min/frame; wrote augmented tracks CSV and summary stats.",
+      "timestamp": "2026-05-20T11:50:44Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage0_add_velocity_units.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/Tracks_with_velocity_um_per_min.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/logs/Velocity_Summary.txt"
+      ],
+      "parameters": {
+        "pixel_size_um": 0.645,
+        "frame_interval_min": 5,
+        "speed_factor_um_per_min_per_px_per_frame": 0.129
+      }
+    },
+    {
+      "phase": "4c",
+      "step": "statistics_step_velocities",
+      "status": "completed",
+      "details": "Computed consecutive-frame step velocities from TrackMate spots; 1953 steps across 29 tracks; converted to um/min (0.645 um/px, 5 min/frame) and saved to Statistics_Results.csv.",
+      "timestamp": "2026-05-20T11:58:26Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage1_spots_step_velocity_stats.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/Statistics_Results.csv"
+      ],
+      "parameters": {
+        "pixel_size_um": 0.645,
+        "frame_interval_min": 5,
+        "n_tracks": 29,
+        "n_steps": 1953,
+        "overall_mean_velocity_um_per_min": 1.9985359599868486
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_step_velocity_jitter_failed",
+      "status": "failed",
+      "details": "Python plotting script failed reading Statistics_Results.csv: tokenizing error (inconsistent columns; expected 7 fields, saw 9). Need robust parsing to isolate step-velocity rows.",
+      "timestamp": "2026-05-20T11:59:14Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_step_velocity_jitter.py"
+    },
+    {
+      "phase": "4d",
+      "step": "plot_step_velocity_jitter",
+      "status": "completed",
+      "details": "Generated jitter plot of per-step velocity (µm/min) as blue points with black horizontal line at overall mean; saved PNG+SVG.",
+      "timestamp": "2026-05-20T12:01:59Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_step_velocity_jitter.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/step_velocity_jitter.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/step_velocity_jitter.svg",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/step_velocity_mean_used.csv"
+      ],
+      "parameters": {
+        "y_column": "STEP_VELOCITY_UM_PER_MIN",
+        "mean_velocity_um_per_min": 1.99854,
+        "point_color": "blue",
+        "mean_line_color": "black"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_jitter",
+      "status": "completed",
+      "details": "Generated jitter plot where each blue dot is mean velocity per frame-to-frame interval (t→t+1); black horizontal line shows overall mean velocity across all steps; saved PNG+SVG and per-interval means CSV.",
+      "timestamp": "2026-05-20T12:29:22Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_jitter.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_jitter.svg",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocities.csv"
+      ],
+      "parameters": {
+        "y": "mean STEP_VELOCITY_UM_PER_MIN per interval",
+        "overall_mean_line_um_per_min": 1.99854,
+        "dot_color": "blue"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_compact_jitter",
+      "status": "completed",
+      "details": "Generated compact single-axis jitter plot of per-interval mean velocities (blue), removed x-axis labels/ticks and removed gridlines; black horizontal line shows overall mean across all steps; saved PNG+SVG.",
+      "timestamp": "2026-05-20T12:32:37Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_compact_jitter.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_compact_jitter.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_compact_jitter.svg"
+      ],
+      "parameters": {
+        "dot_color": "blue",
+        "mean_line_color": "black",
+        "x_axis": "single jitter column, no ticks/labels",
+        "grid": "off",
+        "overall_mean_velocity_um_per_min": 1.998536
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_compact_jitter_y0_tick1",
+      "status": "completed",
+      "details": "Updated compact jitter plot styling: only left/bottom axis spines, no gridlines, y-axis starts at 0 with 1.0 tick spacing; blue points; black mean line; saved PNG+SVG.",
+      "timestamp": "2026-05-20T12:35:04Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_compact_jitter_y0_tick1.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_compact_jitter_y0_tick1.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_compact_jitter_y0_tick1.svg"
+      ],
+      "parameters": {
+        "y_start": 0,
+        "y_tick_step": 1,
+        "spines": "left+bottom only",
+        "grid": "off",
+        "dot_color": "blue",
+        "mean_line_color": "black"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_aligned_meansegment",
+      "status": "completed",
+      "details": "Generated aligned (no-jitter) interval-mean velocity plot: all blue points on one central axis; black overall-mean line drawn as short segment spanning point column; y starts at 0 with 1.0 ticks; no grid; left+bottom spines; saved PNG+SVG.",
+      "timestamp": "2026-05-20T12:38:42Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_aligned_meansegment.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_aligned_meansegment.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_aligned_meansegment.svg"
+      ],
+      "parameters": {
+        "points": "aligned (no jitter)",
+        "mean_line": "short segment over point column",
+        "overall_mean_velocity_um_per_min": 1.998536,
+        "y_start": 0,
+        "y_tick_step": 1,
+        "grid": "off",
+        "spines": "left+bottom only"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_compact_jitter_meansegment_y0_tick1",
+      "status": "completed",
+      "details": "Regenerated compact strip plot with horizontal jitter (blue points) plus short black overall-mean segment; y starts at 0 with 1.0 tick spacing; no grid; left+bottom spines; no x ticks/labels; saved PNG+SVG.",
+      "timestamp": "2026-05-20T12:40:51Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_compact_jitter_meansegment_y0_tick1.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_compact_jitter_meansegment_y0_tick1.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_compact_jitter_meansegment_y0_tick1.svg"
+      ],
+      "parameters": {
+        "points": "jittered strip",
+        "mean_line": "short segment over point column",
+        "y_start": 0,
+        "y_tick_step": 1,
+        "grid": "off",
+        "spines": "left+bottom only",
+        "dot_color": "blue",
+        "mean_line_color": "black"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_beeswarm_meansegment_y0_tick1",
+      "status": "completed",
+      "details": "Generated single-category beeswarm (swarm) plot of per-interval mean velocities (blue points) with short black overall-mean segment; y starts at 0 with 1.0 tick spacing; no grid; left+bottom spines; no x ticks/labels; saved PNG+SVG.",
+      "timestamp": "2026-05-20T12:45:10Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_beeswarm_meansegment_y0_tick1.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_beeswarm_meansegment_y0_tick1.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_step_velocity_beeswarm_meansegment_y0_tick1.svg"
+      ],
+      "parameters": {
+        "plot_type": "beeswarm/swarmplot",
+        "n_intervals": 100,
+        "overall_mean_velocity_um_per_min": 1.998536,
+        "y_start": 0,
+        "y_tick_step": 1,
+        "dot_color": "blue",
+        "mean_line_color": "black",
+        "mean_line_style": "short segment spanning swarm width",
+        "grid": "off",
+        "spines": "left+bottom only"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_swarm_by_interval_failed",
+      "status": "failed",
+      "details": "Plotting script crashed: Matplotlib tick_params got invalid keyword 'ha'.",
+      "timestamp": "2026-05-21T13:18:27Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_swarm_by_interval.py"
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_swarm_by_interval",
+      "status": "completed",
+      "details": "Generated swarmplot (blue dots) of per-interval mean velocity (µm/min) by interval_label with black overall-mean line; saved PNG+SVG.",
+      "timestamp": "2026-05-21T13:19:13Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_swarm_by_interval.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_swarm_by_interval.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_swarm_by_interval.svg"
+      ],
+      "parameters": {
+        "pixel_size_um_per_px": 0.645,
+        "time_min_per_frame": 5,
+        "y_column": "mean_velocity_um_per_min",
+        "plot_type": "seaborn.swarmplot",
+        "dot_color": "blue",
+        "mean_line_color": "black"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_swarm_compact_y0_tick1_meansegment",
+      "status": "completed",
+      "details": "Generated compact single-category swarm plot of per-interval mean velocities (blue dots) with y-axis from 0 and 1.0 tick spacing; removed x-axis labels/ticks; added short black overall-mean segment over dot column; saved PNG+SVG.",
+      "timestamp": "2026-05-21T13:28:31Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_swarm_compact_y0_tick1_meansegment.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_swarm_compact_y0_tick1_meansegment.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_swarm_compact_y0_tick1_meansegment.svg"
+      ],
+      "parameters": {
+        "input_csv": "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocities.csv",
+        "y_column": "mean_velocity_um_per_min",
+        "y_axis_start": 0,
+        "y_tick_spacing": 1.0,
+        "x_axis_labels": "removed",
+        "dot_color": "blue",
+        "mean_line": "short_segment_black"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_beeswarm_narrow_y0_tick1_meansegment",
+      "status": "completed",
+      "details": "Generated narrow single-category beeswarm (swarmplot) of per-interval mean velocities (blue dots) with y-axis from 0 and 1.0 tick spacing; removed x-axis labels/ticks; added short black overall-mean segment over dot column; saved PNG+SVG.",
+      "timestamp": "2026-05-21T13:31:18Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_narrow_y0_tick1_meansegment.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_narrow_y0_tick1_meansegment.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_narrow_y0_tick1_meansegment.svg"
+      ],
+      "parameters": {
+        "input_csv": "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocities.csv",
+        "plot": "seaborn.swarmplot (beeswarm)",
+        "figure_width_in": "narrow",
+        "y_axis_start": 0,
+        "y_tick_spacing": 1.0,
+        "x_axis_labels": "removed",
+        "dot_color": "blue",
+        "mean_line": "short_segment_black"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_beeswarm_padded_y0_tick1_meansegment",
+      "status": "completed",
+      "details": "Generated slightly wider/padded single-category beeswarm (swarmplot) of per-interval mean velocities (blue dots) with y-axis from 0 and 1.0 tick spacing; removed x-axis labels/ticks; added short black overall-mean segment; increased left/right padding to avoid crowding axes; saved PNG+SVG.",
+      "timestamp": "2026-05-21T13:33:43Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_y0_tick1_meansegment.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_y0_tick1_meansegment.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_y0_tick1_meansegment.svg"
+      ],
+      "parameters": {
+        "input_csv": "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocities.csv",
+        "plot": "seaborn.swarmplot (beeswarm)",
+        "y_axis_start": 0,
+        "y_tick_spacing": 1.0,
+        "x_axis_labels": "removed",
+        "dot_color": "blue",
+        "mean_line": "short_segment_black",
+        "padding": "~50px left/right"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment",
+      "status": "completed",
+      "details": "Regenerated padded single-category beeswarm plot with y-axis label font size = 28; retained y-axis from 0 with 1.0 tick spacing, no x ticks/labels, blue points, short black overall-mean segment; saved PNG+SVG.",
+      "timestamp": "2026-05-21T13:59:52Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment.svg"
+      ],
+      "parameters": {
+        "ylabel_fontsize": 28
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_beeswarm_padded_ylabel28_yticks_big_dots_ylim3_size530x600",
+      "status": "completed",
+      "details": "Generated padded single-category beeswarm plot with ylabel fontsize 28, larger y tick labels, outward left y tick marks, y-range 0–3 with ticks at 0/1/2/3, larger dots; exported PNG at exactly 530×600 px and SVG; black mean segment over dot column.",
+      "timestamp": "2026-05-21T14:03:48Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_yticks_big_dots_ylim3_size530x600.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel28_yticks_big_dots_ylim3_size530x600.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel28_yticks_big_dots_ylim3_size530x600.svg"
+      ],
+      "parameters": {
+        "image_size_px": [
+          530,
+          600
+        ],
+        "ylabel_fontsize": 28,
+        "y_tick_label_fontsize": "increased",
+        "y_ticks": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "y_lim": [
+          0,
+          3
+        ],
+        "y_tick_direction": "out",
+        "y_tick_side": "left_only",
+        "dot_size": "increased",
+        "x_ticks": "removed",
+        "mean_line": "short_segment_black"
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_beeswarm_padded_ylabel28_ytickfs16_dotsize5_ylim3_size530x600",
+      "status": "completed",
+      "details": "Regenerated padded single-category beeswarm plot with y-axis label present (fontsize 28), y tick label fontsize 16, dot size 5, y-lim 0–3 with ticks 0/1/2/3, outward left tick marks; saved PNG+SVG at 530×600 px; short black mean segment.",
+      "timestamp": "2026-05-21T14:07:10Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_ytickfs16_dotsize5_ylim3_size530x600.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel28_ytickfs16_dotsize5_ylim3_size530x600.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel28_ytickfs16_dotsize5_ylim3_size530x600.svg"
+      ],
+      "parameters": {
+        "image_size_px": [
+          530,
+          600
+        ],
+        "dot_size": 5,
+        "ylabel_fontsize": 28,
+        "y_tick_label_fontsize": 16,
+        "y_lim": [
+          0,
+          3
+        ],
+        "y_ticks": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "phase": "4d",
+      "step": "plot_interval_mean_velocity_beeswarm_padded_ylabel22_ytickfs18_ylim3_meansegment",
+      "status": "completed",
+      "details": "Recreated padded beeswarm plot to match prior style, but set y-axis 0–3 (ticks 0/1/2/3), enabled left y tick marks, increased y tick-number fontsize to 18, reduced y-axis label fontsize to 22; saved PNG+SVG.",
+      "timestamp": "2026-05-21T14:15:04Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel22_ytickfs18_ylim3_meansegment.py",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel22_ytickfs18_ylim3_meansegment.png",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/interval_mean_velocity_beeswarm_padded_ylabel22_ytickfs18_ylim3_meansegment.svg"
+      ],
+      "parameters": {
+        "y_lim": [
+          0,
+          3
+        ],
+        "y_ticks": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "y_tick_label_fontsize": 18,
+        "y_label_fontsize": 22,
+        "y_tick_marks": "left_outward",
+        "reference_style": "interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment.png"
+      }
+    },
+    {
+      "phase": "4b",
+      "step": "trackmate_verification_failed",
+      "status": "failed",
+      "details": "TrackMate verification ran (412 spots; 14 tracks) but TrackTableView CSV export failed due to missing constructor; needs alternate export approach.",
+      "timestamp": "2026-05-22T09:29:42Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4d_trackmate_single_movie_verification.groovy"
+    },
+    {
+      "phase": "4b",
+      "step": "trackmate_verification",
+      "status": "awaiting_approval",
+      "details": "Verification on first 50 frames: total detections (cells altogether, definition B)=412; tracks=14. Preprocess background=123 spots=255; threshold detector=150; LAP tracker linking=60 gap=100 frame_gap=4 alt_cost=1.05; no split/merge.",
+      "timestamp": "2026-05-22T09:31:23Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4d_trackmate_single_movie_verification.groovy",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Summary.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Spots.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Tracks.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/Verification_TrackMate_Overlay_QC.png"
+      ],
+      "parameters": {
+        "threshold": 150,
+        "bg_intensity": 123,
+        "spot_intensity": 255,
+        "linking_max_distance_px": 60,
+        "gap_closing_max_distance_px": 100,
+        "max_frame_gap": 4,
+        "alternative_linking_cost_factor": 1.05,
+        "allow_gap_closing": true,
+        "allow_track_splitting": false,
+        "allow_track_merging": false
+      }
+    },
+    {
+      "phase": "4b",
+      "step": "user_approved_trackmate_verification_dimspots",
+      "status": "completed",
+      "details": "User approved dim-spot sensitive verification settings (rollingBall r=40, gaussian sigma=1.5, normalize, preThreshold=80; final bg=123 spot=255; TrackMate threshold=150; LAP tracker params as specified).",
+      "timestamp": "2026-05-22T09:35:32Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4b_trackmate_single_movie_verification_dimspots.groovy"
+    },
+    {
+      "phase": "4b",
+      "step": "trackmate_full_movie_dimspots",
+      "status": "completed",
+      "details": "Full movie TrackMate completed with dim-spot sensitive preprocessing; exported summary+spots+tracks+edges and QC overlay.",
+      "timestamp": "2026-05-22T09:37:56Z",
+      "script_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4b_trackmate_full_movie_batch_dimspots.groovy",
+      "output_paths": [
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Summary_FullMovie_dimspots.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Spots_FullMovie_dimspots.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Tracks_FullMovie_dimspots.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Edges_FullMovie_dimspots.csv",
+        "/app/data/projects/mouse_cell_tracking_trackmate/figures/TrackMate_FullMovie_dimspots_Overlay_QC.png"
+      ],
+      "parameters": {
+        "n_frames": 101,
+        "threshold": 150,
+        "bg_intensity": 123,
+        "spot_intensity": 255,
+        "rolling_ball_radius_px": 40,
+        "gaussian_sigma": 1.5,
+        "enhance_contrast_normalize": true,
+        "preThreshold": 80,
+        "linking_max_distance_px": 60,
+        "gap_closing_max_distance_px": 100,
+        "max_frame_gap": 4,
+        "alternative_linking_cost_factor": 1.05,
+        "allow_gap_closing": true,
+        "allow_track_splitting": false,
+        "allow_track_merging": false
+      }
+    }
+  ],
+  "current_phase": "4b",
+  "image_metadata": {
+    "example_image": "/data/mouse_cell_tracking/man_track1275.tif",
+    "bit_depth": 16,
+    "background_mode": "dark",
+    "example_file": "/data/mouse_cell_tracking/man_track1275.tif",
+    "width_px": 1070,
+    "height_px": 1036,
+    "pages_reported": 1,
+    "normalization_range": [
+      0.0,
+      127.0
+    ]
+  },
+  "relevant_skills": [
+    "/app/skills/trackmate_documentation"
+  ],
+  "recommended_plugin": "TrackMate",
+  "rag_references": [
+    {
+      "query": "ImageJ create virtual stack from image sequence folder sort by filename",
+      "step": "load_movie_stack",
+      "finding": "Use File ▸ Import ▸ Image Sequence with 'Sort names numerically' to load frames in correct time order; optionally use Virtual Stack for large sequences."
+    }
+  ]
+}

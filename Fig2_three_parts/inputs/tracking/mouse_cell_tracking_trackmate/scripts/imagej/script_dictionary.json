@@ -1,0 +1,50 @@
+{
+    "stage4d_io_check.groovy": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4d_io_check.groovy",
+        "language": "Groovy",
+        "description": "Checks I/O access for all .tif/.tiff files in /data/mouse_cell_tracking/. Counts files, attempts to open/close each image in batch mode, records any open failures, and captures first/last file names plus their dimensions and bit depth. Writes summary log to /app/data/projects/mouse_cell_tracking_trackmate/logs/IO_Check.txt. Key steps: directory/file existence checks, sorted file list, per-file open test with try/catch, first/last metadata extraction, final SUCCESS/FAIL status print. TrackMate plugin not invoked because task is strict open/close I/O validation only.",
+        "version": 1,
+        "last_modified": "2026-05-22T09:26:45.952691",
+        "history": []
+    },
+    "stage4d_trackmate_single_movie_verification.groovy": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4d_trackmate_single_movie_verification.groovy",
+        "language": "Groovy",
+        "description": "Replaced incompatible TrackTableView constructor-based CSV export with TrackMate CSVExporter.exportSpots plus a direct track-level CSV from TrackModel.trackIDs/trackSpots, preserving TrackMate detection/tracking settings and outputs while avoiding constructor MissingMethod on this Fiji version.",
+        "version": 2,
+        "last_modified": "2026-05-22T09:30:38.658517",
+        "history": [
+            {
+                "archived_at": "20260522_093038",
+                "archived_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/archive/20260522_093038_stage4d_trackmate_single_movie_verification.groovy",
+                "description": "Single-movie verification Groovy script using TrackMate (recommended plugin) on /data/mouse_cell_tracking/: loads first up to 50 TIFF frames sorted by numeric filename as time, preprocesses each frame from 16-bit to 8-bit by fixed threshold 150 then binary+invert to produce spots=255 on background=123, builds 2D+T stack, runs ThresholdDetector(INTENSITY_THRESHOLD=150, SIMPLIFY_CONTOURS=true) + Sparse LAP tracker with LINKING_MAX_DISTANCE=60 px, GAP_CLOSING_MAX_DISTANCE=100 px, MAX_FRAME_GAP=4, ALTERNATIVE_LINKING_COST_FACTOR=1.05, ALLOW_GAP_CLOSING=true, ALLOW_TRACK_SPLITTING=false, ALLOW_TRACK_MERGING=false. Outputs: /app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Summary.csv (track_count,total_detections and parameters), /app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Spots.csv and Verification_TrackMate_Tracks.csv (when TrackTableView export succeeds), optional QC overlay PNG /app/data/projects/mouse_cell_tracking_trackmate/figures/Verification_TrackMate_Overlay_QC.png. Includes missing-input guards and final success/failure console logging.",
+                "version": 1,
+                "failure_reason": "v1 failed with MissingMethodException: could not find matching constructor for TrackTableView(Model, SelectionModel, DisplaySettings) during CSV export block."
+            }
+        ]
+    },
+    "stage4b_trackmate_full_movie_batch.groovy": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4b_trackmate_full_movie_batch.groovy",
+        "language": "Groovy",
+        "description": "Batch TrackMate full-movie Groovy pipeline using TrackMate Threshold detector (INTENSITY_THRESHOLD=150) and LAP tracker (LINKING_MAX_DISTANCE=60 px, GAP_CLOSING_MAX_DISTANCE=100 px, MAX_FRAME_GAP=4, ALTERNATIVE_LINKING_COST_FACTOR=1.05, ALLOW_GAP_CLOSING=true, ALLOW_TRACK_SPLITTING=false, ALLOW_TRACK_MERGING=false). Loads all TIFF frames from /data/mouse_cell_tracking/ in numeric filename order into one time stack, preprocesses each frame (16-bit to 8-bit, binary threshold at 150, invert, remap intensities to background=123 and spots=255), runs TrackMate, and exports /app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Summary_FullMovie.csv (track_count + total_detections + params), TrackMate_Spots_FullMovie.csv (spot_id, track_id, frame, x, y, quality), TrackMate_Tracks_FullMovie.csv (track_id, n_spots), and optional TrackMate_Edges_FullMovie.csv (source,target,track_id). Includes robust per-frame try/catch, global try/catch/finally, timestamped log file in /app/data/projects/mouse_cell_tracking_trackmate/logs/, closes images, and disables batch mode at end. Avoids TrackTableView constructor path that previously failed.",
+        "version": 1,
+        "last_modified": "2026-05-22T09:32:29.376491",
+        "history": []
+    },
+    "stage4b_trackmate_single_movie_verification_dimspots.groovy": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4b_trackmate_single_movie_verification_dimspots.groovy",
+        "language": "Groovy",
+        "description": "TrackMate verification script (first 50 frames) with dim-spot-sensitive preprocessing before binary-mask generation: optional rolling-ball subtraction (enable_rolling_ball=true, radius=40 px), optional Gaussian blur (enable_gaussian_blur=true, sigma=1.5), optional Enhance Contrast normalize (true), then liberal pre-threshold preThreshold=80 on 8-bit preprocessed frame to build mask; final image intensities are forced to background=123 and spots=255, then TrackMate Threshold detector runs fixed at 150. Keeps LAP tracker settings unchanged (linking=60 px, gap=100 px, frame_gap=4, alt_cost=1.05, no split/merge). Exports /app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Summary.csv, /app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Spots.csv, /app/data/projects/mouse_cell_tracking_trackmate/data/Verification_TrackMate_Tracks.csv, and /app/data/projects/mouse_cell_tracking_trackmate/figures/Verification_TrackMate_Overlay_QC.png; logs preprocessing parameters plus resulting spot and track counts.",
+        "version": 1,
+        "last_modified": "2026-05-22T09:34:28.427701",
+        "history": []
+    },
+    "stage4b_trackmate_full_movie_batch_dimspots.groovy": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/imagej/stage4b_trackmate_full_movie_batch_dimspots.groovy",
+        "language": "Groovy",
+        "description": "Full-movie TrackMate batch pipeline (TrackMate plugin) for /data/mouse_cell_tracking/: numerically sorts all TIFF frames, preprocesses each frame with Subtract Background rolling=40 px, Gaussian Blur sigma=1.5, 8-bit + Enhance Contrast normalize, binary remap using preThreshold=80 to background=123 and spots=255, then runs Threshold detector (INTENSITY_THRESHOLD=150) + LAP tracker (linking=60 px, gap closing=100 px, max frame gap=4, alt cost factor=1.05, allow gap closing=true, split=false, merge=false). Exports /app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Summary_FullMovie_dimspots.csv (n_frames,total_detections,n_tracks+key parameters), TrackMate_Spots_FullMovie_dimspots.csv (CSVExporter), TrackMate_Tracks_FullMovie_dimspots.csv (per-track counts/features), TrackMate_Edges_FullMovie_dimspots.csv (source/target spot/frame/xy/weight). Saves QC overlay PNG for middle frame at /app/data/projects/mouse_cell_tracking_trackmate/figures/TrackMate_FullMovie_dimspots_Overlay_QC.png. Uses setBatchMode(true), robust try/catch, timestamped log file under /app/data/projects/mouse_cell_tracking_trackmate/logs/, and always closes images + disables batch mode in finally. Script is saved only and not auto-executed.",
+        "version": 1,
+        "last_modified": "2026-05-22T09:36:56.533193",
+        "history": []
+    }
+}

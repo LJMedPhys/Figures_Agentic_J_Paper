@@ -1,0 +1,11 @@
+[2026-05-22 09:37:33] INFO: Frames detected from folder: 101
+[2026-05-22 09:37:33] INFO: Frames loaded into stack: 101
+[2026-05-22 09:37:33] INFO: Frames in tracking image: 101
+[2026-05-22 09:37:39] SUCCESS: TrackMate full-movie dimspots batch completed.
+[2026-05-22 09:37:39] SUCCESS: total_detections=1974, n_tracks=32, n_frames=101
+[2026-05-22 09:37:39] SUCCESS: Summary=/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Summary_FullMovie_dimspots.csv
+[2026-05-22 09:37:39] SUCCESS: Spots=/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Spots_FullMovie_dimspots.csv
+[2026-05-22 09:37:39] SUCCESS: Tracks=/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Tracks_FullMovie_dimspots.csv
+[2026-05-22 09:37:39] SUCCESS: Edges=/app/data/projects/mouse_cell_tracking_trackmate/data/TrackMate_Edges_FullMovie_dimspots.csv
+[2026-05-22 09:37:39] SUCCESS: QC PNG=/app/data/projects/mouse_cell_tracking_trackmate/figures/TrackMate_FullMovie_dimspots_Overlay_QC.png
+[2026-05-22 09:37:40] INFO: Batch mode disabled. Script finished.

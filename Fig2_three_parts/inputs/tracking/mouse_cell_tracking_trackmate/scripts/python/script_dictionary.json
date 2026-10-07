@@ -1,0 +1,169 @@
+{
+    "stage0_add_velocity_units.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage0_add_velocity_units.py",
+        "language": "Python",
+        "description": "TrackMate tracks CSV cleanup + unit conversion: skip non-numeric header/unit rows by coercing numeric cols then dropna on TRACK_MEAN_SPEED & TRACK_DISPLACEMENT; compute speed_factor=0.645/5 um/min per (px/frame); add *_um_per_min columns for TRACK_*_SPEED and MEAN_STRAIGHT_LINE_SPEED; convert TRACK_DISPLACEMENT/TOTAL_DISTANCE_TRAVELED/MAX_DISTANCE_TRAVELED to *_um; save /data/Tracks_with_velocity_um_per_min.csv and /logs/Velocity_Summary.txt (min/median/mean of TRACK_MEAN_SPEED_um_per_min).",
+        "version": 1,
+        "last_modified": "2026-05-20T11:50:31.602433",
+        "history": []
+    },
+    "stage1_spots_step_velocity_stats.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage1_spots_step_velocity_stats.py",
+        "language": "Python",
+        "description": "Stage1 prep/stats: read TrackMate spots CSV (skips 3 header/unit rows by numeric coercion), compute consecutive-frame (\u0394frame=1) step displacements per TRACK_ID using POSITION_X/Y; convert px\u2192\u00b5m (0.645 \u00b5m/px) and velocity (\u00b5m/min, 5 min/frame). Outputs long-format steps + overall mean velocity column, plus descriptive stats (N, mean, median, SD, min, max) and IQR outlier report (k=1.5, count only; no removal) appended as blocks in /data/Statistics_Results.csv; prints mean and IQR bounds.",
+        "version": 1,
+        "last_modified": "2026-05-20T11:58:10.289108",
+        "history": []
+    },
+    "stage2_plot_step_velocity_jitter.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_step_velocity_jitter.py",
+        "language": "Python",
+        "description": "Stage2 plotting-only: robustly read STEP_VELOCITY_UM_PER_MIN from data/Statistics_Results.csv (fallback python engine + on_bad_lines=skip), compute overall mean, save mean to figures/step_velocity_mean_used.csv, and generate single-category jitter/strip plot with blue points (#0173B2) + black mean line; outputs figures/step_velocity_jitter.png (300 DPI) and .svg.",
+        "version": 3,
+        "last_modified": "2026-05-20T12:01:46.550007",
+        "history": [
+            {
+                "archived_at": "20260520_115935",
+                "archived_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/archive/20260520_115935_stage2_plot_step_velocity_jitter.py",
+                "description": "Stage2 plotting-only: reads data/Statistics_Results.csv (handles single-string-column export by splitting on commas), extracts velocity_um_per_min, computes overall mean, makes single-category jitter/strip plot (blue #0173B2 dots, jitter=0.25, size=3.5, alpha=0.75) with black horizontal mean line (lw=2). Saves figures/StepVelocity_Jitter_AllSteps.png (300 DPI) and .svg.",
+                "version": 1,
+                "failure_reason": "Updated by user/agent"
+            },
+            {
+                "archived_at": "20260520_120146",
+                "archived_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/archive/20260520_120146_stage2_plot_step_velocity_jitter.py",
+                "description": "Stage2 plotting fix: robustly read mixed-content Statistics_Results.csv (python engine, on_bad_lines='skip'; if single-column parse then split by comma; keep rows where velocity_um_per_min is numeric). Generate publication strip/jitter plot with single category 'All steps' (blue #0173B2 dots) and black horizontal mean line; save figures/step_velocity_jitter.png (300 DPI) and .svg. No statistical tests.",
+                "version": 2,
+                "failure_reason": "Updated by user/agent"
+            }
+        ]
+    },
+    "stage1_spots_step_velocity_stats_clean.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage1_spots_step_velocity_stats_clean.py",
+        "language": "Python",
+        "description": "Stage1 stats-only: parse TrackMate spots export w/ 3 header rows (coerce numeric + drop NaNs), compute consecutive-frame (\u0394frame=1) step distances and velocities using pixel_size_um=0.645, dt=5 min; report IQR outliers (threshold=1.5, no removal); write clean rectangular /data/Statistics_Results.csv (TRACK_ID, FRAME, FRAME_NEXT, STEP_DISTANCE_PX, STEP_VELOCITY_UM_PER_MIN) and separate one-row /data/Statistics_Summary.csv (N steps/tracks, mean/median/SD, IQR bounds/outlier count).",
+        "version": 1,
+        "last_modified": "2026-05-20T12:01:08.894715",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocities.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities.py",
+        "language": "Python",
+        "description": "Stage2 plotting-only: robustly read data/Statistics_Results.csv (fallback engine='python', on_bad_lines='skip'); aggregate mean STEP_VELOCITY_UM_PER_MIN per FRAME\u2192FRAME_NEXT interval; save figures/interval_mean_velocities.csv; plot strip/jitter (one blue dot per interval, x=start frame labeled t\u2192t+1, y=mean step velocity \u00b5m/min) with black horizontal line at overall mean across all steps; report IQR outlier count (threshold=1.5, no removal); save figures/interval_mean_step_velocity_jitter.png (300 DPI) + .svg.",
+        "version": 1,
+        "last_modified": "2026-05-20T12:29:04.991829",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocities_compact_jitter.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_compact_jitter.py",
+        "language": "Python",
+        "description": "Stage2 plotting-only: compact single-category jitter plot of per-interval mean velocities from figures/interval_mean_velocities.csv (fallback compute from data/Statistics_Results.csv with on_bad_lines=skip). Blue (#0173B2) points with deterministic jitter; no x ticks/label; no grid; y label 'Velocity (\u00b5m/min)'; black mean line = overall mean across ALL steps from Statistics_Results.csv. Reports IQR outlier count (threshold=1.5) for step velocities (no removal). Saves figures/interval_mean_step_velocity_compact_jitter.png (300 DPI) + .svg.",
+        "version": 1,
+        "last_modified": "2026-05-20T12:32:19.721689",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocities_compact_jitter_y0_tick1.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_compact_jitter_y0_tick1.py",
+        "language": "Python",
+        "description": "Stage2 plotting-only: read figures/interval_mean_velocities.csv (mean_velocity_um_per_min), plot compact single-axis jitter (blue #0173B2) around central x with black mean line; y-axis starts at 0, major ticks every 1.0 via MultipleLocator; no x ticks/labels; no gridlines; only left/bottom spines; save 300DPI PNG+SVG to figures/interval_mean_step_velocity_compact_jitter_y0_tick1.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-20T12:34:48.140624",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocities_aligned_meansegment.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_aligned_meansegment.py",
+        "language": "Python",
+        "description": "Stage2 plotting-only: read figures/interval_mean_velocities.csv; plot aligned (no jitter) vertical blue points at single x; compute overall mean from data/Statistics_Results.csv STEP_VELOCITY_UM_PER_MIN if parseable (engine=python,on_bad_lines=skip) else mean of interval means; draw short black mean segment (\u00b10.12 x) not full width; y starts 0 with 1.0 ticks; no grid; only left/bottom spines; no x ticks/labels; report IQR outliers (threshold=1.5) without removal; save figures/interval_mean_step_velocity_aligned_meansegment.png (300dpi) + .svg.",
+        "version": 1,
+        "last_modified": "2026-05-20T12:38:26.346878",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocities_compact_jitter_meansegment_y0_tick1.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_compact_jitter_meansegment_y0_tick1.py",
+        "language": "Python",
+        "description": "Stage2 plotting-only: reads figures/interval_mean_velocities.csv (mean_velocity_um_per_min) and makes compact single-axis strip/jitter plot (blue #0173B2) with short black overall-mean segment; overall mean from data/Statistics_Results.csv STEP_VELOCITY_UM_PER_MIN (robust read on_bad_lines=skip) else mean of interval means; y-axis starts at 0 with 1.0 major ticks; no grid; left+bottom spines only; no x ticks/labels; reports IQR outlier count (threshold=1.5) without removal; saves 300DPI PNG+SVG to figures/interval_mean_step_velocity_compact_jitter_meansegment_y0_tick1.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-20T12:40:37.790119",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocities_beeswarm_meansegment_y0_tick1.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocities_beeswarm_meansegment_y0_tick1.py",
+        "language": "Python",
+        "description": "Stage2 plotting-only beeswarm (sns.swarmplot) of per-interval mean velocities from figures/interval_mean_velocities.csv; blue points (#0173B2), no x ticks/labels, left+bottom spines only, no grid, y>=0 with 1.0 major ticks; adds short black overall-mean segment spanning swarm width (mean from data/Statistics_Results.csv STEP_VELOCITY_UM_PER_MIN if readable else interval-mean mean). Saves 300dpi PNG+SVG to figures/interval_mean_step_velocity_beeswarm_meansegment_y0_tick1.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-20T12:44:50.767619",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocity_swarm_by_interval.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_swarm_by_interval.py",
+        "language": "Python",
+        "description": "Fix Stage2 plotting crash: replace invalid ax.tick_params(..., ha='right') with tick_params(rotation=45) + set_horizontalalignment('right') on xticklabels. Reads figures/interval_mean_velocities.csv (interval_label vs mean_velocity_um_per_min), reports IQR outliers (threshold=1.5) and overall mean, plots swarm (blue #0173B2) + black mean line; saves 300dpi PNG+SVG to figures/interval_mean_velocity_swarm_by_interval.(png|svg).",
+        "version": 2,
+        "last_modified": "2026-05-21T13:18:56.196246",
+        "history": [
+            {
+                "archived_at": "20260521_131856",
+                "archived_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/archive/20260521_131856_stage2_plot_interval_mean_velocity_swarm_by_interval.py",
+                "description": "Stage2 plotting: reads figures/interval_mean_velocities.csv; swarmplot (beeswarm) of mean_velocity_um_per_min vs interval_label (ordered by FRAME if present), blue points (#0173B2) + black overall-mean horizontal line; reports IQR outlier count (threshold=1.5, no removal); saves 300DPI PNG+SVG to figures/interval_mean_velocity_swarm_by_interval.(png|svg).",
+                "version": 1,
+                "failure_reason": "Matplotlib error: tick_params keyword 'ha' not recognized; caused crash in prior version."
+            }
+        ]
+    },
+    "stage2_plot_interval_mean_velocity_swarm_compact_y0_tick1_meansegment.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_swarm_compact_y0_tick1_meansegment.py",
+        "language": "Python",
+        "description": "Stage2 plotting: reads figures/interval_mean_velocities.csv (mean_velocity_um_per_min) and makes compact single-category swarmplot (blue #0173B2) with x-axis ticks/labels removed, y-axis from 0 with 1.0 \u00b5m/min major ticks, no grid, left/bottom spines only; draws short black overall-mean segment x\u2208[-0.08,0.08]; reports IQR outlier count (threshold=1.5, not removed) and overall mean to stdout; saves 300dpi PNG+SVG to figures/interval_mean_velocity_swarm_compact_y0_tick1_meansegment.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-21T13:28:14.788091",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocity_beeswarm_narrow_y0_tick1_meansegment.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_narrow_y0_tick1_meansegment.py",
+        "language": "Python",
+        "description": "Stage2 plotting: narrow (1.45x4.2 in) single-category seaborn.swarmplot (beeswarm) of mean_velocity_um_per_min from figures/interval_mean_velocities.csv; blue points (#0173B2), no x ticks/labels, y from 0 with 1.0 major ticks, no grid, left/bottom spines only; draws short black overall-mean segment (\u00b10.12 around x=0); saves 300dpi PNG+SVG to figures/interval_mean_velocity_beeswarm_narrow_y0_tick1_meansegment.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-21T13:30:59.936414",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocity_beeswarm_padded_y0_tick1_meansegment.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_y0_tick1_meansegment.py",
+        "language": "Python",
+        "description": "Stage2 plotting: reads figures/interval_mean_velocities.csv; single-category seaborn.swarmplot of mean_velocity_um_per_min (blue #0173B2) with short black overall-mean segment; y-axis starts at 0 with 1.0 tick spacing; no x ticks/labels; left+bottom spines only; no grid; adds explicit left/right padding via xlim(-0.6,0.6) and fig.subplots_adjust(left=0.28,right=0.92); saves 300dpi PNG+SVG to figures/interval_mean_velocity_beeswarm_padded_y0_tick1_meansegment.(png|svg). Reports IQR outlier count (threshold=1.5) without removal.",
+        "version": 1,
+        "last_modified": "2026-05-21T13:33:24.733273",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment.py",
+        "language": "Python",
+        "description": "Stage2 plotting: single-category beeswarm (swarmplot) of interval mean velocities from figures/interval_mean_velocities.csv; blue points (#0173B2), y>=0 with 1.0 tick spacing, no x ticks/labels, minimal left/bottom spines, padded margins, short black overall-mean segment; IQR outlier count reported (threshold=1.5, no removal). Y-axis label fontsize set to 28. Saves PNG+SVG (300 DPI) to figures/interval_mean_velocity_beeswarm_padded_ylabel28_y0_tick1_meansegment.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-21T13:59:36.402747",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_yticks_big_dots_ylim3_size530x600.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_yticks_big_dots_ylim3_size530x600.py",
+        "language": "Python",
+        "description": "Stage2 plotting: read figures/interval_mean_velocities.csv; single-category seaborn.swarmplot of mean_velocity_um_per_min (blue #0173B2) with short black overall-mean segment; y-label fontsize=28; y-lim 0\u20133 with ticks [0,1,2,3]; y tick labels fontsize=22 with outward left tick marks (length=6,width=1.5); no x ticks/labels; left+bottom spines only; no grid; padded layout; exact PNG size 530x600 px via figsize=(530/300,600/300) at dpi=300; save figures/interval_mean_velocity_beeswarm_padded_ylabel28_yticks_big_dots_ylim3_size530x600.png and .svg.",
+        "version": 1,
+        "last_modified": "2026-05-21T14:03:28.995228",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_ytickfs16_dotsize5_ylim3_size530x600.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel28_ytickfs16_dotsize5_ylim3_size530x600.py",
+        "language": "Python",
+        "description": "Stage2 plotting: read figures/interval_mean_velocities.csv (mean_velocity_um_per_min) and regenerate single-category beeswarm (swarmplot) with blue dots size=5, ylabel 'Mean velocity (\u00b5m/min)' fontsize=28, ytick label fontsize=16, y-lim 0\u20133 with ticks [0,1,2,3], outward left ticks, no x ticks/labels, no grid, left+bottom spines only, short black overall-mean segment; padded margins; exact 530x600 px PNG (dpi=300, bbox_inches=None) + SVG saved to figures/interval_mean_velocity_beeswarm_padded_ylabel28_ytickfs16_dotsize5_ylim3_size530x600.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-21T14:06:50.774627",
+        "history": []
+    },
+    "stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel22_ytickfs18_ylim3_meansegment.py": {
+        "full_path": "/app/data/projects/mouse_cell_tracking_trackmate/scripts/python/stage2_plot_interval_mean_velocity_beeswarm_padded_ylabel22_ytickfs18_ylim3_meansegment.py",
+        "language": "Python",
+        "description": "Stage2 plotting: read figures/interval_mean_velocities.csv; single-category swarm(beeswarm) of mean_velocity_um_per_min with blue dots (size=5), no x ticks/labels, left+bottom spines only, no grid; y-lim 0\u20133 with ticks [0,1,2,3], outward left y tick marks (len=6,width=1.2) and y tick label fontsize=18; ylabel 'Mean velocity (\u00b5m/min)' fontsize=22; short black overall-mean segment x\u2208[-0.08,0.08]. Save 530\u00d7600px @300dpi PNG+SVG to figures/interval_mean_velocity_beeswarm_padded_ylabel22_ytickfs18_ylim3_meansegment.(png|svg).",
+        "version": 1,
+        "last_modified": "2026-05-21T14:14:37.609292",
+        "history": []
+    }
+}

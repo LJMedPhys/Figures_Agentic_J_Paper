@@ -1,0 +1,9 @@
+Velocity summary (TrackMate tracks)
+pixel_size_um = 0.645
+frame_interval_min = 5
+speed_factor (um/min per pixel/frame) = 0.129
+
+N tracks (with numeric mean speed) = 29
+Min of track mean speeds (um/min) = 1.28054
+Median of track mean speeds (um/min) = 1.93851
+Mean of track mean speeds (um/min) = 1.98694

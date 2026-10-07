@@ -1,0 +1,12 @@
+IO CHECK REPORT
+Input directory: /data/mouse_cell_tracking/
+
+Total TIFF files: 101
+Opened successfully: 101
+Failed to open: 0
+
+Example first file: man_track1275.tif
+First dimensions: 1070 x 1036, bit depth: 16
+Example last file: man_track1375.tif
+Last dimensions: 1070 x 1036, bit depth: 16
+STATUS: SUCCESS
