@@ -24,7 +24,9 @@ v6 (2026-10-07): Leishmania human-in-the-loop results from repeat 3 (/hil3), tim
 stars and summarised as delta median (no p-values; the paper reports none); b (orientationj) shows the OrientationJ result
 image (inputs/orientationj, grey frame trimmed).
 v7: b shows the corrected MIP orientation overlay (10 µm bar) with the task line; d CD177 columns are 'Model output' and
-'Scientific verdict' (verdict from the biologist's review of the segmentations). Without the eternus CD177 inputs, panels f-g are reused from archive/v5.
+'Scientific verdict' (verdict from the biologist's review of the segmentations).
+v10 (2026-10-08): CD177 + human = HIL6 (151 min, 0/7 features significant): gallery column, mask agreement and per-cell
+distributions from the Zenodo record (inputs/cd177_zenodo); all CD177 panels drawn live again, no archive fallback. Without the eternus CD177 inputs, panels f-g are reused from archive/v5.
 run.sh builds both variants. Mounts: as ../Fig2_validation/run.sh, plus /fv = ../Fig2_validation/inputs,
 /bonej = ../BoneJ_reproduction/inputs, /coloc = ../Coloc2_reproduction/inputs (all read-only), /work = this folder."""
 import os, sys, csv, statistics as st
@@ -58,6 +60,7 @@ SH = {'published': 'Published', 'hil': 'Conventional Agentic-J + human', 'automa
       'fast': 'Exploratory Agentic-J', 'codex': 'Codex'}
 BAD = '#c0392b'
 CD = '/cd177'
+ZC = '/work/inputs/cd177_zenodo'              # CD177 runs incl. + human = HIL6, from the Zenodo record
 
 # ======================= parasite data (verbatim logic from the parasite draft) =======================
 TP, TN, UN = '#e8575a', '#7b68ee', '#b0b0b0'
@@ -296,10 +299,10 @@ ROWS = [('Published', 'published', ['manual']), ('Codex CLI', 'codex', ['other']
         ('Exploratory\nAgentic-J', 'fast', ['auto']), ('Conventional\nAgentic-J', 'automated', ['auto']),
         ('Conventional\nAgentic-J\n+ human', 'hil', ['hf', 'auto'])]
 # CD177: values as hard-coded in the CD177 draft (v7)
-CD_TIME = {'published': 'weeks', 'codex': '13 min', 'fast': '35 min', 'automated': '67 min', 'hil': '488 min'}
+CD_TIME = {'published': 'weeks', 'codex': '13 min', 'fast': '35 min', 'automated': '67 min', 'hil': '151 min'}
 CD_VER = {'published': ('ref', '–'), 'codex': ('plain', '0/30 features significant'),
           'fast': ('plain', '5/25 significant, 3/3 runs'), 'automated': ('plain', '0/32 significant, 3/3 runs'),
-          'hil': ('plain', '0/11 tested significant\n34 features extracted')}
+          'hil': ('plain', '0/7 features significant')}
 # Scientific verdict, from the biologist's review of the segmentations (Lukas, 2026-10-06)
 _NOCONC = 'no biologically meaningful conclusion\ndue to faulty segmentation'
 CD_FB = {'published': ('ref', 'no meaningful difference'),
@@ -380,7 +383,7 @@ GX, GXR, tw, tg, rpit = XL + 6.0, XR + 9.5, 12.4, 0.4, 12.9   # b has no row nam
 GRID_W = 6 * (tw + tg) - tg                  # image-grid width; the overlay legends live inside it
 for ri in range(4):
     for ci in range(6):
-        t = plt.imread(f'/fv/gallery_tiles_main/r{ri}_c{ci}.png')   # re-rendered: black 'missed' outline (as Fig2_full)
+        t = plt.imread(f'/fv/gallery_tiles_main/r{ri}_c{ci}.png' if ci < 5 else f'{ZC}/gallery_tiles_hil6/r{ri}_c5.png')   # c0-4 re-rendered: black 'missed' outline (as Fig2_full); c5 = HIL6
         ax = ax_mm(GX + ci * (tw + tg), yb + 10.5 + ri * rpit, tw, tw); ax.imshow(t, interpolation='none'); ax.set_xticks([]); ax.set_yticks([])
         for s in ax.spines.values(): s.set_visible(True); s.set_linewidth(0.3)
         if ri == 0: ax.set_title(clab[ci], fontsize=FS, color=ccol[ci], pad=1.5, linespacing=0.95)
@@ -397,79 +400,72 @@ lx2.text(4.5, 0.5, 'Codex: small fragment segmented as a nucleus, not a real nuc
 
 # ======================= c  CD177 cells found & measured (IoU / Dice boxplots: supplementary/Supp_CD177_mask_overlap) =======================
 yc = yb + 10.5 + 4 * rpit + 8.3
-# CD177 run outputs (and the hil4 mask agreement) only exist on the eternus machine; without them panels f and g
-# are reused as rendered in archive/v5 (same layout, same data)
-CD_LIVE = os.path.isdir('/auto_cells') and 'hil4' in set(pd.read_csv(f'{CD}/inputs/mask_agreement_per_cell.csv').method)
-if CD_LIVE:
-    letter(XL, yc, 'f')
-    ag = pd.read_csv(f'{CD}/inputs/mask_agreement_per_cell.csv')
-    ag = ag[~ag.method.isin(['hil', 'hil3'])].replace({'method': {'hil4': 'hil'}})
-    ag['matched'] = (ag.cell_iou >= 0.5) & (ag.measured.astype(str) == 'True')
-    head(XL + 6, yc + 0.6, f'CD177: published cells found and measured, n = {int((ag.method == "hil").sum())}')
-    M = ['codex', 'fast', 'automated', 'hil']
-    d = ax_mm(XL + 15, yc + 6.5, 30, 15.5)
-    for mi, m in enumerate(M):
-        fr_ = ag[ag.method == m].matched.mean()
-        d.bar(mi, fr_, 0.62, color=COL[m], lw=0); d.text(mi, fr_ + 0.03, f'{fr_:.2f}', ha='center', va='bottom', fontsize=FS)
-    d.set_ylim(0, 1.12); d.set_yticks([0, 0.5, 1.0]); d.set_xlim(-0.6, 3.6); d.set_xticks([])
-    d.set_ylabel('Fraction found & measured,\nIoU ≥ 0.5', linespacing=0.95)
-    d.grid(axis='y', lw=0.25, color='#dddddd'); d.set_axisbelow(True)
-    fig.legend(handles=[Patch(fc=COL[m], label=SH[m]) for m in M], frameon=False, fontsize=FS, ncol=1, loc='center left',
-               bbox_to_anchor=((XL + 49) / W, 1 - (YOFF + yc + 14.2) / H), handlelength=1.0, handletextpad=0.4, labelspacing=0.45, borderaxespad=0)
+# CD177 data: the Zenodo record (inputs/cd177_zenodo, see its README.txt); + human = HIL6
+letter(XL, yc, 'f')
+ag = pd.read_csv(f'{ZC}/mask_agreement_per_cell.csv')
+ag = ag.replace({'method': {'hil6': 'hil'}})
+ag['matched'] = (ag.cell_iou >= 0.5) & (ag.measured.astype(str) == 'True')
+head(XL + 6, yc + 0.6, f'CD177: published cells found and measured, n = {int((ag.method == "hil").sum())}')
+M = ['codex', 'fast', 'automated', 'hil']
+d = ax_mm(XL + 15, yc + 6.5, 30, 15.5)
+for mi, m in enumerate(M):
+    fr_ = ag[ag.method == m].matched.mean()
+    d.bar(mi, fr_, 0.62, color=COL[m], lw=0); d.text(mi, fr_ + 0.03, f'{fr_:.2f}', ha='center', va='bottom', fontsize=FS)
+d.set_ylim(0, 1.12); d.set_yticks([0, 0.5, 1.0]); d.set_xlim(-0.6, 3.6); d.set_xticks([])
+d.set_ylabel('Fraction found & measured,\nIoU ≥ 0.5', linespacing=0.95)
+d.grid(axis='y', lw=0.25, color='#dddddd'); d.set_axisbelow(True)
+fig.legend(handles=[Patch(fc=COL[m], label=SH[m]) for m in M], frameon=False, fontsize=FS, ncol=1, loc='center left',
+           bbox_to_anchor=((XL + 49) / W, 1 - (YOFF + yc + 14.2) / H), handlelength=1.0, handletextpad=0.4, labelspacing=0.45, borderaxespad=0)
 
-    # ======================= d  CD177 per-cell distributions vs published (verbatim from the CD177 draft, panel d) =======================
-    ye = yc + 25.5; letter(XL, ye, 'g'); head(XL + 6, ye + 0.6, 'CD177: per-cell distributions vs published data')
-    PX2 = 0.2515 ** 2
-    pcs = pd.read_csv(f'{CD}/inputs/published_cells_from_crops.csv'); pcs = pcs[~pcs.is60x]
-    ref = pd.DataFrame({'cond': pcs.cond, 'cell': pcs.cell_px * PX2, 'nuc': pcs.nuc_px * PX2, 'nc': pcs.nc})
-    A = pd.read_csv('/auto_cells/cd177_cell_features.csv'); A = A[A.size_analysis_eligible.astype(str) == 'True']
-    F = pd.read_csv('/fast_cells/cell_features.csv'); F = F[~F.image.astype(str).str.contains('60x')]
-    Cx = pd.read_csv('/codex_cells/cd177_cell_features.csv'); Cx = Cx[~Cx.magnification.astype(str).str.contains('60')]
-    Hh = pd.read_csv('/hil_cells/Cell_Morphology_Measurements_V2.csv'); Hh = Hh[Hh.included_primary.astype(str) == 'True']
-    def std(df, cond, c, n, r): return pd.DataFrame({'cond': np.where(df[cond].astype(str).str.lower().str.contains('pos'), 'pos', 'neg'), 'cell': df[c], 'nuc': df[n], 'nc': df[r]})
-    DATA = {'published': ref, 'automated': std(A, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction_of_cell'),
-            'fast': std(F, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction'), 'hil': std(Hh, 'CD177_status', 'cell_area_um2', 'nucleus_union_area_um2', 'nuclear_to_cell_area_ratio'),
-            'codex': std(Cx, 'condition', 'cell_area', 'nucleus_area', 'nucleus_cell_area_ratio')}
-    def fmt_p(p):                                  # -> (base, exponent); exponent drawn as its own 5 pt text, raised
-        if p >= 0.01: return (f'p = {p:.2f}', None)
-        m_, e_ = f'{p:.1e}'.split('e'); return (f'p = {m_}×10', f'{int(e_)}'.replace('-', '−'))
-    _rend_p = fig.canvas.get_renderer()
-    def put_p(ax, parts, color):
-        """p-value at the axes' top right: base 6 pt, exponent 5 pt raised (mathtext would print it at 3.5 pt)."""
-        base, ex = parts
-        if ex is None:
-            ax.text(1.0, 1.0, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color); return
-        e = ax.text(1.0, 1.0, ex, transform=ax.transAxes, ha='right', va='top', fontsize=5, color=color)
-        w = e.get_window_extent(_rend_p).width / ax.get_window_extent(_rend_p).width
-        ax.text(1.0 - w, 0.84, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color)
-    MWU = {}
-    for m in ['automated', 'fast', 'hil', 'codex']:
-        for k in ['cell', 'nuc', 'nc']:
-            v = DATA[m]; a_ = v[v.cond == 'pos'][k].dropna(); b_ = v[v.cond == 'neg'][k].dropna()
-            MWU[(m, k)] = mannwhitneyu(a_, b_, alternative='two-sided').pvalue
-    PUBP = (('p = 3.5×10', '−52'), ('p = 0.2', None), ('p = 2.4×10', '−11'))      # the paper's own values (as in the CD177 draft)
-    FEAT = [('cell', 'Cell area (µm²)', (0, 450)), ('nuc', 'Nucleus area (µm²)', (0, 160)), ('nc', 'Nucleus / cell area', (0, 1))]
-    RM = ['published', 'codex', 'fast', 'automated', 'hil']
-    RL = {'published': 'Published', 'automated': 'Conventional\nAgentic-J', 'fast': 'Exploratory\nAgentic-J', 'hil': 'Conventional\nAgentic-J\n+ human', 'codex': 'Codex'}
-    NEG, POS = '#f08080', '#7b68ee'
-    for ri, m in enumerate(RM):
-        for fj, (k, t, lim) in enumerate(FEAT):
-            h = ax_mm(XL + 15 + fj * 24.4, ye + 5.5 + ri * 6.9, 22.4, 5.85); v = DATA[m]; bins = np.linspace(*lim, 46)   # v9: taller rows, c freed the height
-            for cnd, colr in [('neg', NEG), ('pos', POS)]:
-                h.hist(v[v.cond == cnd][k].dropna().clip(*lim), bins=bins, density=True, color=colr, alpha=0.55, lw=0)
-            h.set_ylim(0, h.get_ylim()[1] * 2.0)   # headroom: p-value label clear of the bars
-            h.set_xlim(lim); h.set_xticks({'cell': [0, 200, 400], 'nuc': [0, 50, 100], 'nc': [0, 0.5, 1]}[k]); h.set_yticks([]); h.spines['left'].set_visible(False)
-            txt, tc = (PUBP[fj], COL['published']) if m == 'published' else (fmt_p(MWU[(m, k)]), '#333333')
-            put_p(h, txt, tc)
-            if ri < len(RM) - 1: h.set_xticklabels([])
-            else: h.set_xlabel(t)
-            if fj == 0: h.text(-0.05, 0.4, RL[m], transform=h.transAxes, ha='right', va='center', fontsize=FS, fontweight='bold', color=COL[m], linespacing=0.95)
-    fig.legend(handles=[Patch(fc=NEG, alpha=0.55, label='CD177−'), Patch(fc=POS, alpha=0.55, label='CD177+')], frameon=False, fontsize=FS, ncol=2,
-               loc='upper right', bbox_to_anchor=((XL + 88) / W, 1 - (YOFF + ye + 0.3) / H), handlelength=1.0, columnspacing=0.8, borderaxespad=0)
-else:
-    _im = plt.imread(f'/work/archive/v5_2026-10-07/Fig2_three_parts_{VARIANT}.png'); _s = _im.shape[1] / W
-    _cd = ax_mm(XL, yc - 0.5, XR - XL, H - YOFF - yc + 0.5); _cd.axis('off')
-    _cd.imshow(_im[int((YOFF + yc - 0.5) * _s):, :int(XR * _s)], interpolation='none', aspect='auto')
+# ======================= d  CD177 per-cell distributions vs published (verbatim from the CD177 draft, panel d) =======================
+ye = yc + 25.5; letter(XL, ye, 'g'); head(XL + 6, ye + 0.6, 'CD177: per-cell distributions vs published data')
+PX2 = 0.2515 ** 2
+pcs = pd.read_csv(f'{ZC}/published_cells_from_crops.csv'); pcs = pcs[~pcs.is60x]
+ref = pd.DataFrame({'cond': pcs.cond, 'cell': pcs.cell_px * PX2, 'nuc': pcs.nuc_px * PX2, 'nc': pcs.nc})
+A = pd.read_csv(f'{ZC}/conventional_run1_cd177_cell_features.csv'); A = A[A.size_analysis_eligible.astype(str) == 'True']
+F = pd.read_csv(f'{ZC}/exploratory_run1_cell_features.csv'); F = F[~F.image.astype(str).str.contains('60x')]
+Cx = pd.read_csv(f'{ZC}/codex_cli_run1_cd177_cell_features.csv'); Cx = Cx[~Cx.magnification.astype(str).str.contains('60')]
+Hh = pd.read_csv(f'{ZC}/hil6_per_cell_morphology_primary_analysis.csv')   # HIL6 primary-analysis cells (167 standard images)
+def std(df, cond, c, n, r): return pd.DataFrame({'cond': np.where(df[cond].astype(str).str.lower().str.contains('pos'), 'pos', 'neg'), 'cell': df[c], 'nuc': df[n], 'nc': df[r]})
+DATA = {'published': ref, 'automated': std(A, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction_of_cell'),
+        'fast': std(F, 'condition', 'cell_area', 'nucleus_area', 'nuclear_fraction'), 'hil': std(Hh, 'cd177_group', 'cell_area_um2', 'nuclear_union_area_um2', 'nuclear_to_cell_area_ratio'),
+        'codex': std(Cx, 'condition', 'cell_area', 'nucleus_area', 'nucleus_cell_area_ratio')}
+def fmt_p(p):                                  # -> (base, exponent); exponent drawn as its own 5 pt text, raised
+    if p >= 0.01: return (f'p = {p:.2f}', None)
+    m_, e_ = f'{p:.1e}'.split('e'); return (f'p = {m_}×10', f'{int(e_)}'.replace('-', '−'))
+_rend_p = fig.canvas.get_renderer()
+def put_p(ax, parts, color):
+    """p-value at the axes' top right: base 6 pt, exponent 5 pt raised (mathtext would print it at 3.5 pt)."""
+    base, ex = parts
+    if ex is None:
+        ax.text(1.0, 1.0, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color); return
+    e = ax.text(1.0, 1.0, ex, transform=ax.transAxes, ha='right', va='top', fontsize=5, color=color)
+    w = e.get_window_extent(_rend_p).width / ax.get_window_extent(_rend_p).width
+    ax.text(1.0 - w, 0.84, base, transform=ax.transAxes, ha='right', va='top', fontsize=6, color=color)
+MWU = {}
+for m in ['automated', 'fast', 'hil', 'codex']:
+    for k in ['cell', 'nuc', 'nc']:
+        v = DATA[m]; a_ = v[v.cond == 'pos'][k].dropna(); b_ = v[v.cond == 'neg'][k].dropna()
+        MWU[(m, k)] = mannwhitneyu(a_, b_, alternative='two-sided').pvalue
+PUBP = (('p = 3.5×10', '−52'), ('p = 0.2', None), ('p = 2.4×10', '−11'))      # the paper's own values (as in the CD177 draft)
+FEAT = [('cell', 'Cell area (µm²)', (0, 450)), ('nuc', 'Nucleus area (µm²)', (0, 160)), ('nc', 'Nucleus / cell area', (0, 1))]
+RM = ['published', 'codex', 'fast', 'automated', 'hil']
+RL = {'published': 'Published', 'automated': 'Conventional\nAgentic-J', 'fast': 'Exploratory\nAgentic-J', 'hil': 'Conventional\nAgentic-J\n+ human', 'codex': 'Codex'}
+NEG, POS = '#f08080', '#7b68ee'
+for ri, m in enumerate(RM):
+    for fj, (k, t, lim) in enumerate(FEAT):
+        h = ax_mm(XL + 15 + fj * 24.4, ye + 5.5 + ri * 6.9, 22.4, 5.85); v = DATA[m]; bins = np.linspace(*lim, 46)   # v9: taller rows, c freed the height
+        for cnd, colr in [('neg', NEG), ('pos', POS)]:
+            h.hist(v[v.cond == cnd][k].dropna().clip(*lim), bins=bins, density=True, color=colr, alpha=0.55, lw=0)
+        h.set_ylim(0, h.get_ylim()[1] * 2.0)   # headroom: p-value label clear of the bars
+        h.set_xlim(lim); h.set_xticks({'cell': [0, 200, 400], 'nuc': [0, 50, 100], 'nc': [0, 0.5, 1]}[k]); h.set_yticks([]); h.spines['left'].set_visible(False)
+        txt, tc = (PUBP[fj], COL['published']) if m == 'published' else (fmt_p(MWU[(m, k)]), '#333333')
+        put_p(h, txt, tc)
+        if ri < len(RM) - 1: h.set_xticklabels([])
+        else: h.set_xlabel(t)
+        if fj == 0: h.text(-0.05, 0.4, RL[m], transform=h.transAxes, ha='right', va='center', fontsize=FS, fontweight='bold', color=COL[m], linespacing=0.95)
+fig.legend(handles=[Patch(fc=NEG, alpha=0.55, label='CD177−'), Patch(fc=POS, alpha=0.55, label='CD177+')], frameon=False, fontsize=FS, ncol=2,
+           loc='upper right', bbox_to_anchor=((XL + 88) / W, 1 - (YOFF + ye + 0.3) / H), handlelength=1.0, columnspacing=0.8, borderaxespad=0)
 
 # ======================= e  parasite task-1 gallery (field, cell 3, cell 6), same columns as b =======================
 yd = yb; letter(XR, yd, 'h'); head(XR + 6, yd + 0.6, 'Leishmania task 1: six nuclei, called by each pipeline')
@@ -567,10 +563,6 @@ for i, r in enumerate(DM):
     if r is not None: d.text(i, yci, f'[{r[1]:.1f}, {r[2]:.1f}]', ha='center', va='center', fontsize=FS, color='#555555', transform=ty)
 
 for ext in ['pdf', 'svg', 'png']: fig.savefig(f'/work/Fig2_three_parts_{VARIANT}.{ext}', dpi=600 if ext == 'png' else None)
-if not CD_LIVE:                              # PNG: put the archived f-g pixels back exactly (imshow resamples by a fraction of a pixel)
-    _new = plt.imread(f'/work/Fig2_three_parts_{VARIANT}.png'); assert _new.shape[:2] == _im.shape[:2]
-    _r0, _c1 = int((YOFF + yc - 0.5) * _s), int(XR * _s)
-    _new[_r0:, :_c1] = _im[_r0:, :_c1, :_new.shape[2]]; plt.imsave(f'/work/Fig2_three_parts_{VARIANT}.png', _new, dpi=600)
 # what was plotted, so a rebuild can be checked against the drafts
 print('verdict block x (mm): CD177', round(X_CD, 1), ' T1', round(X_T1, 1), ' T2', round(X_T2, 1))
 print('task1 calls agree', agree, ' r', {m: round(v, 3) for m, v in r1.items()})
